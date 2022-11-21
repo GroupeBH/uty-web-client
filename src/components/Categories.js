@@ -1,0 +1,27 @@
+export const categories=[ 
+"Mobilier",
+"Quincaillerie",
+"Mode",
+"Cosmétique",
+"Alimentaire",
+"Electronique",
+"Automobile",
+"Transport",
+"Logistique",
+"Finance",
+"Santé",
+"Education",
+"Sport",
+"Hôtellerie et restauration",
+"Tourisme",
+"Télévision",
+"Télécom",
+"Internet",
+"Services publics",
+"Voyage",
+"Communication",
+"Imprimerie",
+"Presse",
+
+
+]
