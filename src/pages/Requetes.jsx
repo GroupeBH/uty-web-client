@@ -12,14 +12,16 @@ function Requetes(){
     const [selectedImg,setSelectedImg]=useState(null)
     const [picUrl,setPicUrl]=useState(null)
     const [url,setUrl]=useState(null)
-    const [isOpen,setIsOpen]=useState(false)
+    const [description, setDescription] = useState("");
+    const [isOpen,setIsOpen]=useState(false);
+    const [cate,setCate]=useState(null)
     let navigate = useNavigate();
 
-    const [values, setValues] = useState({
-        description: '',
-        category: '',
-        url: '',
-      });
+    // const [values, setValues] = useState({
+    //     description: '',
+    //     category: '',
+    //     url: '',
+    //   });
 
     useEffect(()=>{
         if(selectedImg){
@@ -45,26 +47,40 @@ function Requetes(){
         .catch(error=>console.log(error))
     }
     
-    const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-      };
-    const handleSubmit=(e)=>{
+    // const handleChange = (event) => {
+    //     setValues({ ...values, [event.target.name]: event.target.value });
+    //   };
+    const handleSubmit= async (e)=>{
         e.preventDefault();
+        const data=await JSON.parse(localStorage.getItem('currentUser'))
+        console.log(data.username)
         uploadImage()
+        const posts = {
+            description:description,
+            image:url,
+            sender:data._id,
+            category:cate,
+        }
+        try{
+            await axios.post("http://localhost:5100/api/PreOrder/addpre",posts)
+            setDescription("");
+        }catch(error){
+            console.log(error)
+        }
         setIsOpen(true)
       
     }
     return(
         <Container>
             <div className="navbar">
-                <div className="page__title" onClick={()=>navigate("/Redirect")}> <img src={utyLogo} alt="" className="uty__logo" />  </div>
+                <div className="page__title" onClick={()=>navigate("/")}> <img src={utyLogo} alt="" className="uty__logo" />  </div>
                 <div className="count__container">
                     <button className="connect">Se deconnecter</button>
                     
                 </div>
             </div>
             <form className="request__form" onSubmit={(e)=>handleSubmit(e)}>
-                <h3>Salut Eugene, trouvons votre produit</h3>
+                <h3>Salut, trouvons votre produit</h3>
                 <div className="product__image">
                          <img src={picUrl} alt="" className="picture"/>
                     </div>
@@ -76,13 +92,14 @@ function Requetes(){
                         Ajouter une image
                     </label>
                 <span>Que voulez-vous?</span>
-                <textarea name="description" id="" 
+                <textarea  
                   cols="30" rows="10" 
                   className="request__input"
-                  onChange={(e) => handleChange(e)}></textarea>
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description}></textarea>
                 
                 <span>Sélectionnez la catégorie du produit</span>
-                <select name="category" id="" onChange={(e) => handleChange(e)}>
+                <select name="category" id="" onChange={(e) => setCate(e.target.value)}>
                     <option value="" ></option>
                     {categories.map((cat)=>(
                         <option>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -7,8 +8,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ModalConnect({setIsOpen}){
-    const navigate = useNavigate();
+function ModalProviderC({setOpen}){
+  const navigate = useNavigate();
   const [values, setValues] = useState({ username: '', password: '' });
   const toastOptions = {
     position: 'bottom-right',
@@ -39,7 +40,7 @@ function ModalConnect({setIsOpen}){
     event.preventDefault();
     if (validateForm()) {
       const { username, password } = values;
-      const { data } = await axios.post("http://localhost:5100/api/auth/login", {
+      const { data } = await axios.post("http://localhost:5100/api/provider/login", {
         username,
         password,
       });
@@ -49,8 +50,8 @@ function ModalConnect({setIsOpen}){
       }
       if (data.status === true) {
        
-        navigate('/Requetes');
-        setIsOpen(false);
+        navigate('/PreOrder');
+        setOpen(false);
       }
     }
   };
@@ -71,7 +72,7 @@ function ModalConnect({setIsOpen}){
                         <input type="password" placeholder="Password" name="password" onChange={(e) => handleChange(e)} />
                         <button type="submit">Se connecter</button>
                         <span>
-                        Do not have an account ? <Link to="/SignParticular" className='signR'>Create One.</Link>
+                        Do not have an account ? <Link to="/RegisterP" className='signR'>Create One.</Link>
                         </span>
                     </form>
                     </div>
@@ -157,4 +158,4 @@ const Container=styled.div`
     }
 `
 
-export default ModalConnect;
+export default ModalProviderC;

@@ -8,11 +8,13 @@ import {IoSearch,IoPersonCircleOutline} from "react-icons/io5"
 import ModalConnect from "./ModalConnect";
 import Logout from "../components/Logout";
 import { useState } from "react";
+import ModalProviderC from "../pages_provider/ModalProviderC";
 
 
 function HomePage(){
     let navigate = useNavigate();
     const [isOpen,setIsOpen]=useState(false)
+    const [open,setOpen]=useState(false)
 
     return(
         <Container>
@@ -57,10 +59,10 @@ function HomePage(){
             </div>
             <div className="button__container">
               <button className="ask__service" onClick={()=>{setIsOpen(true)}}>Soumettre la requete</button>
-              <button className="give__service">Répondre à une requete</button>
+              <button className="give__service" onClick={()=>{setOpen(true)}}>Répondre à une requete</button>
             </div>
             {isOpen && <ModalConnect setIsOpen={setIsOpen}/>}
-            
+            {open && <ModalProviderC setOpen={setOpen}/>}
         </Container>
     )
 }

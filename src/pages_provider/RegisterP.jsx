@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {IoArrowBackOutline} from "react-icons/io5";
 import utyLogo from "../assets/logo-uty.png"
 
-export default function Register() {
+export default function RegisterP() {
   const navigate = useNavigate();
   const toastOptions = {
     position: 'bottom-right',
@@ -59,7 +59,7 @@ export default function Register() {
     event.preventDefault();
     if (handleValidation()) {
       const { email, username,phone, password } = values;
-      const { data } = await axios.post("http://localhost:5100/api/auth/register", {
+      const { data } = await axios.post("http://localhost:5100/api/provider/register", {
         username,
         email,
         phone,
@@ -71,7 +71,7 @@ export default function Register() {
       }
       if (data.status === true) {
         localStorage.setItem('currentUser', JSON.stringify(data.user));
-        navigate('/Requetes');
+        navigate('/PreOrder');
       }
     }
   };
