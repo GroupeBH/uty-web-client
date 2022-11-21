@@ -3,7 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import { useNavigate, Link } from 'react-router-dom';
-import process from 'process';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
