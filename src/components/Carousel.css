@@ -1,17 +1,17 @@
-.carousel{
-    overflow:hidden;
+.carousel {
+  overflow: hidden;
 }
 
-.inner{
-    white-space:nowrap;
-    transition:transform 0.3s;
+.inner {
+  white-space: nowrap;
+  transition: transform 0.3s;
 }
 
-.carousel-item{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height:200px;
-    background-color: yellow;
-    color:black;
+.carousel-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: yellow;
+  color: black;
 }
