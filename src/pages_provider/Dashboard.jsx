@@ -5,7 +5,7 @@ import MenuProvider from '../components/MenuProvider'
 import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 
-function PreOrder() {
+function Dashboard() {
   const [drop, setDrop] = useState(false)
   let navigate = useNavigate()
 
@@ -85,4 +85,4 @@ const Container = styled.div`
   }
 `
 
-export default PreOrder
+export default Dashboard

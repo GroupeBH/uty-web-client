@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage'
 
 import Requetes from './pages/Requetes'
 import SignParticular from './pages/SignParticular'
-import PreOrder from './pages_provider/PreOrder'
+import Dashboard from './pages_provider/Dashboard'
 import RegisterP from './pages_provider/RegisterP'
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/SignParticular" element={<SignParticular />} />
           <Route exact path="/HomePage" element={<HomePage />} />
           <Route exact path="/Requetes" element={<Requetes />} />
-          <Route exact path="/PreOrder" element={<PreOrder />} />
+          <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route exact path="/RegisterP" element={<RegisterP />} />
         </Routes>
       </BrowserRouter>

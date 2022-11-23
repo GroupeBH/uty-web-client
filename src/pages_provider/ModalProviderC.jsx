@@ -50,7 +50,7 @@ function ModalProviderC({ setOpen }) {
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
-        navigate('/PreOrder')
+        navigate('/Dashboard')
         setOpen(false)
       }
     }

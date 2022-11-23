@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Modal from '../components/Modal'
 import axios from 'axios'
 import utyLogo from '../assets/logo-uty.png'
+import { IoMenu } from 'react-icons/io5'
 
 function Requetes() {
   const [selectedImg, setSelectedImg] = useState(null)
@@ -54,16 +55,23 @@ function Requetes() {
     e.preventDefault()
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     console.log(data.username)
+    console.log(data._id)
     uploadImage()
-    const posts = {
-      description: description,
-      image: url,
-      sender: data._id,
-      category: cate,
-    }
     try {
-      await axios.post('http://localhost:5100/api/PreOrder/addpre', posts)
+      console.log({
+        description: description,
+        image: url,
+        sender: data._id,
+        category: cate,
+      })
+      await axios.post('http://localhost:5100/api/preOrder/addpre', {
+        description: description,
+        image: url,
+        sender: data._id,
+        category: cate,
+      })
       setDescription('')
+      setCate(null)
     } catch (error) {
       console.log(error)
     }
@@ -77,10 +85,10 @@ function Requetes() {
           <img src={utyLogo} alt="" className="uty__logo" />{' '}
         </div>
         <div className="count__container">
-          <button className="connect">Se deconnecter</button>
+          <IoMenu className="menu__icon" />
         </div>
       </div>
-      <form className="request__form" onSubmit={(e) => handleSubmit(e)}>
+      <div className="request__form">
         <h3>Salut, trouvons votre produit</h3>
         <div className="product__image">
           <img src={picUrl} alt="" className="picture" />
@@ -108,8 +116,8 @@ function Requetes() {
           ))}
         </select>
 
-        <button type="submit">Soumettre la requete</button>
-      </form>
+        <button onClick={(e) => handleSubmit(e)}>Soumettre la requete</button>
+      </div>
       {isOpen && <Modal setIsOpen={setIsOpen} />}
     </Container>
   )
@@ -126,6 +134,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-left: -5vw;
+    margin-right: -5vw;
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     padding: 1vh 5vw;
     margin-bottom: 2.5vh;
@@ -151,15 +160,10 @@ const Container = styled.div`
         width: 12.5vw;
       }
     }
-    .connect {
-      font-size: 110%;
-      padding: 2vh 2.5vw;
-      border-radius: 2rem;
-      border: none;
-      background-color: white;
-      font-weight: bold;
-      background-color: #ffc000;
-      color: #020664;
+    .count__container {
+      .menu__icon {
+        font-size: 250%;
+      }
     }
   }
   .request__form {
