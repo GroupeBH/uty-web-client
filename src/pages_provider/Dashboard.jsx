@@ -1,32 +1,73 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { IoMenu, IoNotifications } from 'react-icons/io5'
+import { IoNotifications } from 'react-icons/io5'
 import MenuProvider from '../components/MenuProvider'
 import { useNavigate } from 'react-router-dom'
+
 import utyLogo from '../assets/logo-uty.png'
+import commande from '../assets/Affaires concl.png'
+import vendus from '../assets/Articles vendus.png'
+import recettes from '../assets/Chiffre daffaire.png'
+import ads from '../assets/Campagnes ads.png'
+import pubPrice from '../assets/Dépenses Pub.png'
+import map from '../assets/map.png'
 
 function Dashboard() {
-  const [drop, setDrop] = useState(false)
   let navigate = useNavigate()
 
   return (
     <Container>
       <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/')}>
-          <img src={utyLogo} alt="" className="uty__logo" />
+        <div className="page__title" onClick={() => navigate('/HomePage')}>
+          <img
+            src={utyLogo}
+            alt=""
+            className="uty__logo"
+            onClick={() => navigate('/HomePage')}
+          />
         </div>
         <IoNotifications className="notification__icon" />
-        <button
-          onClick={() => {
-            setDrop(true)
-          }}
-        >
-          <IoMenu className="menu__icon" />
-        </button>
+        <MenuProvider />
       </div>
       <h3 className="provider__accroche">Pénètre ton marché différement</h3>
-      <div className="list__post"></div>
-      {drop && <MenuProvider setDrop={setDrop} />}
+      <div className="list__post">
+        <div
+          className="commande__link"
+          onClick={() => {
+            navigate('/Order')
+          }}
+        >
+          <div
+            className="box__description"
+            onClick={() => {
+              navigate('/Order')
+            }}
+          >
+            Commandes
+          </div>
+          <img src={vendus} alt="" />
+        </div>
+        <div className="commande__link">
+          <div className="box__description">Ventes</div>
+          <img src={commande} alt="" />
+        </div>
+        <div className="commande__link">
+          <div className="box__description">Recettes</div>
+          <img src={recettes} alt="" />
+        </div>
+        <div className="commande__link">
+          <div className="box__description">Campagnes</div>
+          <img src={ads} alt="" />
+        </div>
+        <div className="commande__link">
+          <div className="box__description">Budget ads</div>
+          <img src={pubPrice} alt="" />
+        </div>
+        <div className="commande__link">
+          <div className="box__description">Traçage</div>
+          <img src={map} alt="" />
+        </div>
+      </div>
     </Container>
   )
 }
@@ -82,6 +123,39 @@ const Container = styled.div`
   h3 {
     text-align: center;
     font-size: 125%;
+  }
+  .list__post {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1vh 2vw;
+    .commande__link {
+      border-color: silver 1px;
+      height: 20vh;
+      width: 40vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #020664;
+      margin-bottom: 5vh;
+      border-radius: 1rem;
+      z-index: 0;
+      cursor: pointer;
+      img {
+        height: 15vh;
+        z-index: 0;
+        margin-left: -25vw;
+      }
+      .box__description {
+        color: white;
+        font-size: 120%;
+        font-weight: bold;
+      }
+    }
+    .commande__link:hover {
+      background-color: orange;
+      border-radius: 1rem;
+    }
   }
 `
 

@@ -1,41 +1,49 @@
-import React from 'react'
-import styled from 'styled-components'
+import * as React from 'react'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { IoMenu } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 
-function MenuProvider() {
+export default function BasicMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+  let navigate = useNavigate()
   return (
-    <Container>
-      <div className="drop__back">
-        <div className="right__menu">
-          <ul className="items__menu">
-            <li>Tableau de bord</li>
-            <li>Profil</li>
-            <li>Campagne</li>
-            <li>Faire un don</li>
-          </ul>
-        </div>
-      </div>
-    </Container>
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <IoMenu />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={() => navigate('/Compte')}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Commandes</MenuItem>
+        <MenuItem onClick={handleClose}>Historique</MenuItem>
+        <MenuItem onClick={handleClose}>Suivre une livraison</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <button>Se deconnecter</button>
+        </MenuItem>
+      </Menu>
+    </div>
   )
 }
-
-const Container = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  transform: translate(-0%, -100%);
-  position: absolute;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .right__menu {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    .items__menu {
-    }
-  }
-`
-
-export default MenuProvider

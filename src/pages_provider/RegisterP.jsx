@@ -76,7 +76,7 @@ export default function RegisterP() {
       }
       if (data.status === true) {
         localStorage.setItem('currentUser', JSON.stringify(data.user))
-        navigate('/PreOrder')
+        navigate('/Dashboard')
       }
     }
   }
