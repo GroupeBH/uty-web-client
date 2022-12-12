@@ -2,17 +2,19 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { IoClose } from 'react-icons/io5'
+import Commande from '../assets/Articles vendus.png'
+import moment from 'moment'
 
-function Proposition({ setIsClick, id, description }) {
-  console.log(id)
+function Proposition({ setIsClick, preOrder }) {
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
-        `http://localhost:5200/api/preOrder/getOne/${id}`
+        `http://localhost:5200/api/preOrder/getOne/${preOrder._id}`
       )
       console.log(response.data)
     }
     getPreOrders()
+    console.log(preOrder)
   }, [])
   return (
     <Container>
@@ -24,8 +26,26 @@ function Proposition({ setIsClick, id, description }) {
                 onClick={() => setIsClick(false)}
                 className="close__icon"
               />
+              <div className="preOrder__details">
+                {preOrder.image ? (
+                  <img src={preOrder.image} />
+                ) : (
+                  <img src={Commande} />
+                )}
+                <div className="preOrder__description">
+                  <p>{preOrder.description}</p>
+                  <span>
+                    {moment(Date.now()).format('MMM Do YY') ===
+                    moment(preOrder.createdAt).format('MMM Do YY')
+                      ? moment(Date.now()).format('h') ===
+                        moment(preOrder.createdAt).format('h')
+                        ? moment(preOrder.createdAt).fromNow()
+                        : moment(Date.now()).format('h:s')
+                      : moment(preOrder.createdAt).format('DD/MM/YYYY  h:s')}
+                  </span>
+                </div>
+              </div>
               <div className="image__add__header">
-                <h5>{description}</h5>
                 <h4 className="image__add__sec__title">Proposez un produit</h4>
                 <div className="file__uploader">
                   <label htmlFor="file" className="label__file">
@@ -69,12 +89,24 @@ const Container = styled.div`
       .form {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        padding: 1vh 2.5vw;
         .close__icon {
           font-size: 175%;
           align-self: flex-end;
         }
+        .preOrder__details {
+          display: flex;
+          box-shadow: 0px 0px 5px silver;
+          padding: 1vh 1vw;
+          align-items: center;
+          p {
+            margin-left: 1vw;
+          }
+        }
         .image__add__header {
           display: flex;
+          flex-direction: column;
           align-items: center;
           .file__uploader {
             display: flex;

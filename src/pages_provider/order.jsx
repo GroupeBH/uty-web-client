@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import utyLogo from '../assets/logo-uty.png'
+import { IoNotifications } from 'react-icons/io5'
+import MenuProvider from '../components/MenuProvider'
 import axios from 'axios'
 import { useState } from 'react'
 import Commande from '../assets/Articles vendus.png'
@@ -7,10 +11,10 @@ import Proposition from '../components/Proposition'
 import moment from 'moment'
 
 function Order() {
+  let navigate = useNavigate()
   const [preCommand, setPreCommand] = useState([])
   const [isClick, setIsClick] = useState(false)
   const [selectedId, setSelectedId] = useState('')
-  const [description, setDescription] = useState('')
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
@@ -21,9 +25,35 @@ function Order() {
     }
     getPreOrders()
   }, [])
+  // const handleTradeChange = (trade) => {
+  //   setCurrentTrade(trade)
+  // }
+  // const handleTrade = (e) => {
+  //   e.preventDefault()
+  //   setIsClick(true)
+  // }
+
   return (
     <Container>
+      <div className="navbar">
+        <div className="page__title" onClick={() => navigate('/HomePage')}>
+          <img
+            src={utyLogo}
+            alt=""
+            className="uty__logo"
+            onClick={() => navigate('/HomePage')}
+          />
+        </div>
+        <IoNotifications className="notification__icon" />
+        <MenuProvider />
+      </div>
       <div className="order__page">
+        {/* <PreOrders
+          preCommand={preCommand}
+          setTradeId={setTradeId}
+          changeTrade={handleTradeChange}
+          setIsClick={setIsClick}
+        /> */}
         {preCommand.map((preCom) => {
           console.log(preCom._id)
           return (
@@ -53,8 +83,7 @@ function Order() {
               <button
                 onClick={() => {
                   setIsClick(true)
-                  setSelectedId(preCom._id)
-                  setDescription(preCom.description)
+                  setSelectedId(preCom)
                 }}
               >
                 Répondre
@@ -63,11 +92,7 @@ function Order() {
           )
         })}
         {isClick && (
-          <Proposition
-            id={selectedId}
-            setIsClick={setIsClick}
-            description={description}
-          />
+          <Proposition preOrder={selectedId} setIsClick={setIsClick} />
         )}
       </div>
     </Container>
