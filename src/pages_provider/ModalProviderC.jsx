@@ -39,7 +39,7 @@ function ModalProviderC({ setOpen }) {
     if (validateForm()) {
       const { username, password } = values
       const { data } = await axios.post(
-        'http://localhost:5100/api/provider/login',
+        'http://localhost:5200/api/provider/login',
         {
           username,
           password,

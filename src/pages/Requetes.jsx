@@ -64,7 +64,7 @@ function Requetes() {
         sender: data._id,
         category: cate,
       })
-      await axios.post('http://localhost:5100/api/preOrder/addpre', {
+      await axios.post('http://localhost:5200/api/preOrder/addpre', {
         description: description,
         image: url,
         sender: data._id,

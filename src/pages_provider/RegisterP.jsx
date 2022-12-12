@@ -62,7 +62,7 @@ export default function RegisterP() {
     if (handleValidation()) {
       const { email, username, phone, password } = values
       const { data } = await axios.post(
-        'http://localhost:5100/api/provider/register',
+        'http://localhost:5200/api/provider/register',
         {
           username,
           email,
