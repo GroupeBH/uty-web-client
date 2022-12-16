@@ -1,13 +1,51 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
 import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
+import AWS from 'aws-sdk'
+
+const S3_BUCKET = 'uty-mage'
+const REGION = 'UE (Francfort) eu-central-1'
+
+AWS.config.update({
+  accessKeyId: 'AKIA5Y5ULADZQICQHU6M',
+  secretAccessKey: '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',
+})
+
+const myBucket = new AWS.S3({
+  params: { Bucket: S3_BUCKET },
+  region: REGION,
+})
 
 function Proposition({ setIsClick, preOrder }) {
   // const [imageProduct, setImageProduct] = useState()
   // console.log(imageProduct)
+  const [progress, setProgress] = useState(0)
+  const [selectedFile, setSelectedFile] = useState()
+
+  const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0])
+  }
+
+  const uploadFile = (file) => {
+    const params = {
+      ACL: 'public-read',
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: file.name,
+    }
+    myBucket
+      .putObject(params)
+      .on('httpUploadProgress', (evt) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100))
+      })
+      .send((error) => {
+        if (error) console.log(error)
+      })
+  }
+  console.log(progress)
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
@@ -79,6 +117,7 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
+                  onChange={handleFileInput}
                 />
               </div>
               <div className="image__frame1">
@@ -89,7 +128,9 @@ function Proposition({ setIsClick, preOrder }) {
               </div>
               <h6 className="price__title">Renseignez le prix du produit</h6>
               <input type="number" className="price__input" />
-              <button>Soumettre</button>
+              <button onClick={() => uploadFile(selectedFile)}>
+                Soumettre
+              </button>
             </div>
           </div>
         </div>
@@ -109,6 +150,8 @@ const Container = styled.div`
     position: fixed;
     display: flex;
     justify-content: center;
+    overflow-y: scroll;
+    scrollbar-width: width;
     .proposition__body {
       display: flex;
       flex-direction: column;
