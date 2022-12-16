@@ -5,13 +5,14 @@ import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
 import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
 import AWS from 'aws-sdk'
+import env from 'react-dotenv'
 
 const S3_BUCKET = 'uty-mage'
 const REGION = 'UE (Francfort) eu-central-1'
 
 AWS.config.update({
-  accessKeyId: 'AKIA5Y5ULADZQICQHU6M',
-  secretAccessKey: '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',
+  accessKeyId: env.AWS_ACCESS_ID_KEY,
+  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
 })
 
 const myBucket = new AWS.S3({
