@@ -39,7 +39,7 @@ function ModalConnect({ setIsOpen }) {
     if (validateForm()) {
       const { username, password } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/auth/login',
+        'https://uty-ti30.onrender.com/api/auth/login',
         {
           username,
           password,
