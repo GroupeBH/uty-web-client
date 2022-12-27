@@ -61,7 +61,7 @@ export default function Register() {
     if (handleValidation()) {
       const { email, username, phone, password } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/auth/register',
+        'https://uty-ti30.onrender.com/api/auth/register',
         {
           username,
           email,
