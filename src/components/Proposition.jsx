@@ -24,11 +24,11 @@ function Proposition({ setIsClick, preOrder }) {
   // const [imageProduct, setImageProduct] = useState()
   // console.log(imageProduct)
   const [progress, setProgress] = useState(0)
-  const [selectedFile, setSelectedFile] = useState()
+  const [selectedFile, setSelectedFile] = useState(null)
 
-  const handleFileInput = (e) => {
-    setSelectedFile(e.target.files[0])
-  }
+  // const handleFileInput = (e) => {
+  //   setSelectedFile(e.target.files[0])
+  // }
 
   const uploadFile = (file) => {
     const params = {
@@ -57,6 +57,10 @@ function Proposition({ setIsClick, preOrder }) {
     getPreOrders()
     console.log(preOrder)
   }, [])
+
+  const handleChange = (event) => {
+    setSelectedFile(event.target.files[0])
+  }
   return (
     <Container>
       <div className="body__back">
@@ -98,6 +102,8 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
+                  value={selectedFile}
+                  onChange={handleChange}
                 />
               </div>
               <div className="image__frame1">
@@ -118,7 +124,6 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
-                  onChange={handleFileInput}
                 />
               </div>
               <div className="image__frame1">

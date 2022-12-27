@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { IoClose } from 'react-icons/io5'
 
-function MenuDetails({ setIsUp }) {
+function MenuDetails({ setMenu }) {
   return (
     <Container>
       <div className="drop__back">
         <div className="drop__body">
-          <IoClose onClick={setIsUp(false)} />
+          <IoClose onClick={setMenu(false)} />
           <ul>
             <li>Profil</li>
             <li>My account</li>

@@ -2,18 +2,20 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
-import { IoNotifications } from 'react-icons/io5'
+import { IoMenu, IoNotifications } from 'react-icons/io5'
 import MenuProvider from '../components/MenuProvider'
 import axios from 'axios'
 import { useState } from 'react'
 import Commande from '../assets/Articles vendus.png'
 import Proposition from '../components/Proposition'
 import moment from 'moment'
+import MenuDetails from '../components/MenuDetails'
 
 function Order() {
   let navigate = useNavigate()
   const [preCommand, setPreCommand] = useState([])
   const [isClick, setIsClick] = useState(false)
+  const [menu, setMenu] = useState(false)
   const [selectedId, setSelectedId] = useState('')
   useEffect(() => {
     const getPreOrders = async () => {
@@ -46,6 +48,7 @@ function Order() {
         </div>
         <IoNotifications className="notification__icon" />
         <MenuProvider />
+        <IoMenu onClick={() => setMenu(true)} />
       </div>
       <div className="order__page">
         {/* <PreOrders
@@ -91,6 +94,7 @@ function Order() {
             </div>
           )
         })}
+        {menu && <MenuDetails setMenu={setMenu} />}
         {isClick && (
           <Proposition preOrder={selectedId} setIsClick={setIsClick} />
         )}

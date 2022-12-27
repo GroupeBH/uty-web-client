@@ -39,7 +39,7 @@ function ModalProviderC({ setOpen }) {
     if (validateForm()) {
       const { username, password } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/provider/login',
+        'https://uty-ti30.onrender.com/api/provider/login',
         {
           username,
           password,
