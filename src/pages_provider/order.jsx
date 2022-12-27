@@ -27,13 +27,6 @@ function Order() {
     }
     getPreOrders()
   }, [])
-  // const handleTradeChange = (trade) => {
-  //   setCurrentTrade(trade)
-  // }
-  // const handleTrade = (e) => {
-  //   e.preventDefault()
-  //   setIsClick(true)
-  // }
 
   return (
     <Container>
@@ -51,12 +44,6 @@ function Order() {
         <IoMenu onClick={() => setMenu(true)} />
       </div>
       <div className="order__page">
-        {/* <PreOrders
-          preCommand={preCommand}
-          setTradeId={setTradeId}
-          changeTrade={handleTradeChange}
-          setIsClick={setIsClick}
-        /> */}
         {preCommand.map((preCom) => {
           console.log(preCom._id)
           return (
