@@ -17,10 +17,11 @@ function Order() {
   const [isClick, setIsClick] = useState(false)
   const [menu, setMenu] = useState(false)
   const [selectedId, setSelectedId] = useState('')
+
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
-        'http://localhost:5200/api/preOrder/getpre'
+        'https://uty-ti30.onrender.com/api/preOrder/getpre'
       )
       setPreCommand(response.data)
       console.log(response.data)
@@ -50,7 +51,11 @@ function Order() {
             <div className="normal" key={preCom._id}>
               <div className="image__precommand">
                 {preCom.image ? (
-                  <img src={preCom.image} alt="precommand-image" />
+                  <img
+                    src={preCom.image}
+                    alt="precommand-image"
+                    className="preOrder__image"
+                  />
                 ) : (
                   <img src={Commande} alt="default-image" />
                 )}
@@ -144,6 +149,12 @@ const Container = styled.div`
       background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
       margin: 2vh 2vw;
       border-radius: 0.5rem;
+      height: 20vh;
+      .image__precommande {
+        .preOrder__image {
+          display: hidden;
+        }
+      }
       .preOrder__description {
         display: flex;
         flex-direction: column;

@@ -15,13 +15,8 @@ function Requetes() {
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [cate, setCate] = useState(null)
+  const cloudName = 'disyacex9'
   let navigate = useNavigate()
-
-  // const [values, setValues] = useState({
-  //     description: '',
-  //     category: '',
-  //     url: '',
-  //   });
 
   useEffect(() => {
     if (selectedImg) {
@@ -29,34 +24,27 @@ function Requetes() {
     }
   }, [selectedImg])
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const picData = new FormData()
     picData.append('file', selectedImg)
     picData.append('upload_preset', 'utyweb')
-    picData.append('cloud_name', 'disyacex9')
-
-    axios
-      .post(' https://api.cloudinary.com/v1_1/disyacex9/image/upload', {
-        method: 'post',
-        body: picData,
-      })
-      .then((response) => response.json())
-      .then((picData) => {
-        setUrl(picData.url)
-        console.log(picData)
-      })
-      .catch((error) => console.log(error))
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+        picData
+      )
+      setUrl(response.data.secure_url)
+      console.log(url)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  // const handleChange = (event) => {
-  //     setValues({ ...values, [event.target.name]: event.target.value });
-  //   };
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     console.log(data.username)
     console.log(data._id)
-    uploadImage()
     try {
       console.log({
         description: description,
@@ -64,7 +52,8 @@ function Requetes() {
         sender: data._id,
         category: cate,
       })
-      await axios.post('http://localhost:5200/api/preOrder/addpre', {
+      uploadImage()
+      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
         description: description,
         image: url,
         sender: data._id,

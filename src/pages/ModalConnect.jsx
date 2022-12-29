@@ -50,6 +50,7 @@ function ModalConnect({ setIsOpen }) {
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
+        localStorage.setItem('currentUser', JSON.stringify(data.user))
         navigate('/Requetes')
         setIsOpen(false)
       }

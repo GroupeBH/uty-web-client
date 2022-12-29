@@ -4,49 +4,15 @@ import axios from 'axios'
 import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
 import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
-import AWS from 'aws-sdk'
-import env from 'react-dotenv'
-
-const S3_BUCKET = 'uty-mage'
-const REGION = 'UE (Francfort) eu-central-1'
-
-AWS.config.update({
-  accessKeyId: env.AWS_ACCESS_ID_KEY,
-  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-})
-
-const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET },
-  region: REGION,
-})
 
 function Proposition({ setIsClick, preOrder }) {
   // const [imageProduct, setImageProduct] = useState()
   // console.log(imageProduct)
-  const [progress, setProgress] = useState(0)
   const [selectedFile, setSelectedFile] = useState(null)
 
   // const handleFileInput = (e) => {
   //   setSelectedFile(e.target.files[0])
-  // }
 
-  const uploadFile = (file) => {
-    const params = {
-      ACL: 'public-read',
-      Body: file,
-      Bucket: S3_BUCKET,
-      Key: file.name,
-    }
-    myBucket
-      .putObject(params)
-      .on('httpUploadProgress', (evt) => {
-        setProgress(Math.round((evt.loaded / evt.total) * 100))
-      })
-      .send((error) => {
-        if (error) console.log(error)
-      })
-  }
-  console.log(progress)
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
@@ -60,6 +26,7 @@ function Proposition({ setIsClick, preOrder }) {
 
   const handleChange = (event) => {
     setSelectedFile(event.target.files[0])
+    console.log(selectedFile.name)
   }
   return (
     <Container>
@@ -73,7 +40,7 @@ function Proposition({ setIsClick, preOrder }) {
               />
               <div className="preOrder__details">
                 {preOrder.image ? (
-                  <img src={preOrder.image} />
+                  <img src={preOrder.image} className="preOrder__image" />
                 ) : (
                   <img src={Commande} />
                 )}
@@ -105,6 +72,7 @@ function Proposition({ setIsClick, preOrder }) {
                   value={selectedFile}
                   onChange={handleChange}
                 />
+                {selectedFile ? <p>{selectedFile.name}</p> : <p></p>}
               </div>
               <div className="image__frame1">
                 <label htmlFor="file" className="label__file">
@@ -134,9 +102,7 @@ function Proposition({ setIsClick, preOrder }) {
               </div>
               <h6 className="price__title">Renseignez le prix du produit</h6>
               <input type="number" className="price__input" />
-              <button onClick={() => uploadFile(selectedFile)}>
-                Soumettre
-              </button>
+              <button>Soumettre</button>
             </div>
           </div>
         </div>
@@ -150,7 +116,7 @@ const Container = styled.div`
     background-color: white;
     width: 100vw;
     height: 100vh;
-    margin-top: -30.5vh;
+    margin-top: -100vh;
     z-index: 0;
     transform: translate(-0%, -100%);
     position: fixed;
@@ -195,9 +161,14 @@ const Container = styled.div`
           box-shadow: 0px 0px 5px silver;
           padding: 1vh 1vw;
           align-items: center;
+          height: 20vh;
           img {
             background-color: #020664;
             height: 10vh;
+          }
+          .preOrder__image {
+            height: 10vh;
+            width: 10vw;
           }
           p {
             margin-left: 1vw;
