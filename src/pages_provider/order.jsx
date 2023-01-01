@@ -87,10 +87,8 @@ function Order() {
           )
         })}
         {menu && <MenuDetails setMenu={setMenu} />}
-        {isClick && (
-          <Proposition preOrder={selectedId} setIsClick={setIsClick} />
-        )}
       </div>
+      {isClick && <Proposition preOrder={selectedId} setIsClick={setIsClick} />}
     </Container>
   )
 }

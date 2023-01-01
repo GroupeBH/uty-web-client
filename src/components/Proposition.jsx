@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
@@ -8,8 +8,8 @@ import moment from 'moment'
 function Proposition({ setIsClick, preOrder }) {
   // const [imageProduct, setImageProduct] = useState()
   // console.log(imageProduct)
-  const [selectedFile, setSelectedFile] = useState(null)
-
+  const [selectedFile, setSelectedFile] = useState('')
+  const fileOne = useRef(null)
   // const handleFileInput = (e) => {
   //   setSelectedFile(e.target.files[0])
 
@@ -24,10 +24,11 @@ function Proposition({ setIsClick, preOrder }) {
     console.log(preOrder)
   }, [])
 
-  const handleChange = (event) => {
-    setSelectedFile(event.target.files[0])
-    console.log(selectedFile.name)
-  }
+  // const handleChange = (event) => {
+  //   setSelectedFile(event.target.files[0])
+  //   console.log(selectedFile.name)
+  // }
+  console.log(fileOne.current)
   return (
     <Container>
       <div className="body__back">
@@ -69,9 +70,10 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
-                  value={selectedFile}
-                  onChange={handleChange}
+                  onChange={() => setSelectedFile(fileOne.current.files[0])}
+                  ref={fileOne}
                 />
+                <p>{}</p>
                 {selectedFile ? <p>{selectedFile.name}</p> : <p></p>}
               </div>
               <div className="image__frame1">
@@ -116,10 +118,9 @@ const Container = styled.div`
     background-color: white;
     width: 100vw;
     height: 100vh;
-    margin-top: -100vh;
+    margin-top: -50vh;
     z-index: 0;
     transform: translate(-0%, -100%);
-    position: fixed;
     display: flex;
     justify-content: center;
     overflow-y: scroll;
@@ -129,6 +130,7 @@ const Container = styled.div`
       flex-direction: column;
       align-items: center;
       z-index: 10;
+      height: 100vh;
       .form {
         display: flex;
         flex-direction: column;
@@ -161,7 +163,7 @@ const Container = styled.div`
           box-shadow: 0px 0px 5px silver;
           padding: 1vh 1vw;
           align-items: center;
-          height: 20vh;
+          height: 15vh;
           img {
             background-color: #020664;
             height: 10vh;
@@ -210,6 +212,7 @@ const Container = styled.div`
           height: 7.5vh;
           font-size: 125%;
           font-weight: bold;
+          margin-bottom: 4.5vh;
         }
       }
     }

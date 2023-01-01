@@ -82,12 +82,14 @@ function Requetes() {
         <div className="product__image">
           <img src={picUrl} alt="" className="picture" />
         </div>
-        <input
-          type="file"
-          onChange={(e) => setSelectedImg(e.target.files[0])}
-          className="file"
-        />
-        <label htmlFor="file">Ajouter une image</label>
+        <div className="image__upload">
+          <input
+            type="file"
+            onChange={(e) => setSelectedImg(e.target.files[0])}
+            className="file"
+          />
+          <label htmlFor="file">Ajouter une image</label>
+        </div>
         <span>Que voulez-vous?</span>
         <textarea
           cols="30"
@@ -162,28 +164,28 @@ const Container = styled.div`
       text-align: center;
       margin-top: 2.5vh;
     }
-    .file {
-      opacity: 0;
+    .image__upload {
       align-self: center;
-    }
-    label {
       position: relative;
-      background-color: blue;
-      border-radius: 1rem;
-      height: 6.5vh;
-      color: white;
-      font-weight: bold;
-      width: 50vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.2s ease-out;
-      align-self: center;
-    }
-    input:hover + label,
-    input:focus + label {
-      transform: scale(1.02);
+      .file {
+        opacity: 0;
+        position: absolute;
+        align-self: center;
+      }
+      label {
+        background-color: blue;
+        border-radius: 1rem;
+        height: 6.5vh;
+        color: white;
+        font-weight: bold;
+        width: 50vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease-out;
+        align-self: center;
+      }
     }
     .product__image {
       height: 15vh;
