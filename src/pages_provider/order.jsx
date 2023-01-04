@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
-import { IoMenu, IoNotifications } from 'react-icons/io5'
 import MenuProvider from '../components/MenuProvider'
 import axios from 'axios'
 import { useState } from 'react'
@@ -40,9 +39,7 @@ function Order() {
             onClick={() => navigate('/HomePage')}
           />
         </div>
-        <IoNotifications className="notification__icon" />
         <MenuProvider />
-        <IoMenu onClick={() => setMenu(true)} />
       </div>
       <div className="order__page">
         {preCommand.map((preCom) => {
@@ -87,8 +84,10 @@ function Order() {
           )
         })}
         {menu && <MenuDetails setMenu={setMenu} />}
+        {isClick && (
+          <Proposition preOrder={selectedId} setIsClick={setIsClick} />
+        )}
       </div>
-      {isClick && <Proposition preOrder={selectedId} setIsClick={setIsClick} />}
     </Container>
   )
 }
@@ -125,6 +124,7 @@ const Container = styled.div`
       .uty__logo {
         height: 8vh;
         width: 12.5vw;
+        margin-left: 2.5 vw;
       }
     }
     .notification__icon {
@@ -148,9 +148,9 @@ const Container = styled.div`
       margin: 2vh 2vw;
       border-radius: 0.5rem;
       height: 20vh;
-      .image__precommande {
+      .image__precommand {
         .preOrder__image {
-          display: hidden;
+          height: 10vh;
         }
       }
       .preOrder__description {

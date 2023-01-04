@@ -24,7 +24,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <IoMenu />
+        <IoMenu style={{ fontSize: ' 325%', color: '#020664' }} />
       </Button>
       <Menu
         id="basic-menu"
@@ -41,7 +41,9 @@ export default function BasicMenu() {
         <MenuItem onClick={handleClose}>Historique</MenuItem>
         <MenuItem onClick={handleClose}>Suivre une livraison</MenuItem>
         <MenuItem onClick={handleClose}>
-          <button>Se deconnecter</button>
+          <button style={{ height: '5vh', backgroundColor: '#ffc000' }}>
+            Se deconnecter
+          </button>
         </MenuItem>
       </Menu>
     </div>

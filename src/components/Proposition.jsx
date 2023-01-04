@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
@@ -6,29 +6,45 @@ import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
 
 function Proposition({ setIsClick, preOrder }) {
-  // const [imageProduct, setImageProduct] = useState()
-  // console.log(imageProduct)
   const [selectedFile, setSelectedFile] = useState('')
+  const [selectedTwo, setSelectedTwo] = useState('')
+  const [selectedThree, setSelectedThree] = useState('')
+  const [selectedDoc, setSelectedDoc] = useState('')
+  const [docUrls, setDocUrls] = useState('')
   const fileOne = useRef(null)
-  // const handleFileInput = (e) => {
-  //   setSelectedFile(e.target.files[0])
+  const fileTwo = useRef(null)
+  const fileThree = useRef(null)
+  const doc = useRef(null)
+  const cloudName = 'disyacex9'
 
-  useEffect(() => {
-    const getPreOrders = async () => {
-      const response = await axios.get(
-        `http://localhost:5200/api/preOrder/getOne/${preOrder._id}`
+  const uploadImage = async () => {
+    const propFiles = new FormData()
+    propFiles.append('file', selectedFile)
+    propFiles.append('file', selectedTwo)
+    propFiles.append('file', selectedThree)
+    // propFiles.append('file', selectedDoc)
+    propFiles.append('upload_preset', 'utyweb')
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+        propFiles
       )
-      console.log(response.data)
+      setDocUrls(response.data.secure_url)
+      console.log(docUrls)
+    } catch (error) {
+      console.error(error)
     }
-    getPreOrders()
-    console.log(preOrder)
-  }, [])
+  }
 
-  // const handleChange = (event) => {
-  //   setSelectedFile(event.target.files[0])
-  //   console.log(selectedFile.name)
-  // }
-  console.log(fileOne.current)
+  const handleClick = (e) => {
+    e.preventDefault()
+    try {
+      console.log('hello cloudinary')
+      uploadImage()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Container>
       <div className="body__back">
@@ -84,7 +100,10 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
+                  onChange={() => setSelectedTwo(fileTwo.current.files[0])}
+                  ref={fileTwo}
                 />
+                {selectedTwo ? <p>{selectedTwo.name}</p> : <p></p>}
               </div>
               <div className="image__frame1">
                 <label htmlFor="file" className="label__file">
@@ -94,17 +113,26 @@ function Proposition({ setIsClick, preOrder }) {
                   type="file"
                   className="product__image"
                   accept="image/*"
+                  onChange={() => setSelectedThree(fileThree.current.files[0])}
+                  ref={fileThree}
                 />
+                {selectedThree ? <p>{selectedThree.name}</p> : <p></p>}
               </div>
               <div className="image__frame1">
                 <label htmlFor="file" className="label__file">
                   <IoDocumentAttach />
                 </label>
-                <input type="file" className="product__image" />
+                <input
+                  type="file"
+                  className="product__image"
+                  onChange={() => setSelectedDoc(doc.current.files[0])}
+                  ref={doc}
+                />
+                {selectedDoc ? <p>{selectedDoc.name}</p> : <p></p>}
               </div>
               <h6 className="price__title">Renseignez le prix du produit</h6>
               <input type="number" className="price__input" />
-              <button>Soumettre</button>
+              <button onClick={(e) => handleClick(e)}>Soumettre</button>
             </div>
           </div>
         </div>
@@ -119,12 +147,13 @@ const Container = styled.div`
     width: 100vw;
     height: 100vh;
     margin-top: -50vh;
+    position: absolute;
     z-index: 0;
-    transform: translate(-0%, -100%);
     display: flex;
     justify-content: center;
     overflow-y: scroll;
     scrollbar-width: width;
+    transform: translate(-0%, -100%);
     .proposition__body {
       display: flex;
       flex-direction: column;

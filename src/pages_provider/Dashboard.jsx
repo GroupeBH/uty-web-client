@@ -26,8 +26,10 @@ function Dashboard() {
             onClick={() => navigate('/HomePage')}
           />
         </div>
-        <IoNotifications className="notification__icon" />
-        <MenuProvider />
+        <div className="menu__side">
+          <IoNotifications className="notification__icon" />
+          <MenuProvider />
+        </div>
       </div>
       <h3 className="provider__accroche">Pénètre ton marché différement</h3>
       <div className="list__post">
@@ -85,6 +87,7 @@ const Container = styled.div`
     margin-right: -5vw;
     margin-left: -5vw;
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+    box-shadow: 0px 0px 5px silver;
     padding: 1vh 5vw;
     margin-bottom: 2.5vh;
     .user__profil {
@@ -109,15 +112,21 @@ const Container = styled.div`
       .uty__logo {
         height: 8vh;
         width: 12.5vw;
+        align-self: flex-start;
       }
     }
-    .notification__icon {
-      font-size: 260%;
-    }
-    .menu__icon {
-      align-self: center;
-      font-size: 260%;
-      margin-right: 1vh;
+    .menu__side {
+      display: flex;
+      align-items: center;
+      .notification__icon {
+        font-size: 220%;
+        color: #020664;
+      }
+      .menu__icon {
+        align-self: center;
+        font-size: 260%;
+        margin-right: 1vh;
+      }
     }
   }
   h3 {
