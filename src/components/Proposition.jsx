@@ -195,93 +195,95 @@ const Container = styled.div`
     align-items: center;
     transform: translate(-0%, -100%);
     top: 100vh;
-    .proposition__body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-      .form {
+    .centered {
+      .proposition__body {
         display: flex;
         flex-direction: column;
-        gap: 2vh;
-        padding: 1vh 2.5vw;
-        .image__frame1 {
-          background-color: white;
-          display: flex;
-          position: relative;
-          padding: 1vh 2vw;
-          box-shadow: 0px 0px 5px silver;
-          margin-bottom: 1vh;
-          .label__file {
-            svg {
-              color: orange;
-              font-size: 250%;
-            }
-          }
-          .product__image {
-            opacity: 0;
-            position: absolute;
-          }
-        }
-        .close__icon {
-          font-size: 175%;
-          align-self: flex-end;
-        }
-        .preOrder__details {
-          display: flex;
-          box-shadow: 0px 0px 5px silver;
-          padding: 1vh 1vw;
-          align-items: center;
-          height: 15vh;
-          img {
-            background-color: #020664;
-            height: 10vh;
-          }
-          .preOrder__image {
-            height: 10vh;
-            width: 10vw;
-          }
-          p {
-            margin-left: 1vw;
-            margin-top: -1vh;
-            margin-bottom: -0.5vh;
-            color: #7e7d7a;
-          }
-          span {
-            color: orange;
-          }
-        }
-        .image__add__header {
+        align-items: center;
+        z-index: 10;
+        .form {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          margin-bottom: -9.5vh;
-          .image__add__sec__title {
-            color: #020664;
-            font-size: 130%;
+          gap: 2vh;
+          padding: 1vh 2.5vw;
+          .image__frame1 {
+            background-color: white;
+            display: flex;
+            position: relative;
+            padding: 1vh 2vw;
+            box-shadow: 0px 0px 5px silver;
+            margin-bottom: 1vh;
+            .label__file {
+              svg {
+                color: orange;
+                font-size: 250%;
+              }
+            }
+            .product__image {
+              opacity: 0;
+              position: absolute;
+            }
           }
-        }
-        h6 {
-          font-size: 105%;
-          color: #7e7d7a;
-          margin-bottom: -0.015vh;
-        }
-        .price__title {
-          margin-top: -0.25vh;
-        }
-        .price__input {
-          height: 6.5vh;
-          border: none;
-          box-shadow: 0px 0px 5px silver;
-          padding-left: 2vw;
-        }
-        button {
-          background-color: #020664;
-          color: white;
-          height: 7.5vh;
-          font-size: 125%;
-          font-weight: bold;
-          margin-bottom: 4.5vh;
+          .close__icon {
+            font-size: 175%;
+            align-self: flex-end;
+          }
+          .preOrder__details {
+            display: flex;
+            box-shadow: 0px 0px 5px silver;
+            padding: 1vh 1vw;
+            align-items: center;
+            height: 15vh;
+            img {
+              background-color: #020664;
+              height: 10vh;
+            }
+            .preOrder__image {
+              height: 10vh;
+              width: 10vw;
+            }
+            p {
+              margin-left: 1vw;
+              margin-top: -1vh;
+              margin-bottom: -0.5vh;
+              color: #7e7d7a;
+            }
+            span {
+              color: orange;
+            }
+          }
+          .image__add__header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: -9.5vh;
+            .image__add__sec__title {
+              color: #020664;
+              font-size: 130%;
+            }
+          }
+          h6 {
+            font-size: 105%;
+            color: #7e7d7a;
+            margin-bottom: -0.015vh;
+          }
+          .price__title {
+            margin-top: -0.25vh;
+          }
+          .price__input {
+            height: 6.5vh;
+            border: none;
+            box-shadow: 0px 0px 5px silver;
+            padding-left: 2vw;
+          }
+          button {
+            background-color: #020664;
+            color: white;
+            height: 7.5vh;
+            font-size: 125%;
+            font-weight: bold;
+            margin-bottom: 4.5vh;
+          }
         }
       }
     }

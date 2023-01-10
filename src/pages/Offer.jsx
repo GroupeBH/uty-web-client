@@ -47,7 +47,8 @@ function Offer() {
               }}
             >
               <p className="offer_message">
-                <span>offer.name</span>a repondu à votre requete du
+                <span>{offer.name ? offer.name : 'Un vendeur'}</span>
+                <span></span> a repondu à votre requete du
                 <span>
                   {moment(Date.now()).format('MMM Do YY') ===
                   moment(offer.createdAt).format('MMM Do YY')
@@ -106,6 +107,17 @@ const Container = styled.div`
       .menu__icon {
         font-size: 250%;
       }
+    }
+  }
+  .offer__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+    padding: 2vh 5vw;
+    .offer {
+      border-color: silver;
+      box-shadow: 0px 0px 5px silver;
+      padding-left: 2vw;
     }
   }
 `
