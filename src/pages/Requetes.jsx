@@ -74,7 +74,7 @@ function Requetes() {
           <img src={utyLogo} alt="" className="uty__logo" />{' '}
         </div>
         <div className="count__container">
-          <IoMenu className="menu__icon" />
+          <IoMenu className="menu__icon" onClick={() => navigate('/Offer')} />
         </div>
       </div>
       <div className="request__form">

@@ -10,7 +10,10 @@ function Proposition({ setIsClick, preOrder }) {
   const [selectedTwo, setSelectedTwo] = useState('')
   const [selectedThree, setSelectedThree] = useState('')
   const [selectedDoc, setSelectedDoc] = useState('')
-  const [docUrls, setDocUrls] = useState('')
+  const [docUrlOne, setDocUrlOne] = useState('')
+  const [docUrlTwo, setDocUrlTwo] = useState('')
+  const [docUrlThree, setDocUrlThree] = useState('')
+  const [price, setPrice] = useState('')
   const fileOne = useRef(null)
   const fileTwo = useRef(null)
   const fileThree = useRef(null)
@@ -18,29 +21,64 @@ function Proposition({ setIsClick, preOrder }) {
   const cloudName = 'disyacex9'
 
   const uploadImage = async () => {
-    const propFiles = new FormData()
-    propFiles.append('file', selectedFile)
-    propFiles.append('file', selectedTwo)
-    propFiles.append('file', selectedThree)
-    // propFiles.append('file', selectedDoc)
-    propFiles.append('upload_preset', 'utyweb')
+    const propFileOne = new FormData()
+    propFileOne.append('file', selectedFile)
+    propFileOne.append('upload_preset', 'utyweb')
     try {
       const response = await axios.post(
         `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-        propFiles
+        propFileOne
       )
-      setDocUrls(response.data.secure_url)
-      console.log(docUrls)
+      setDocUrlOne(response.data.secure_url)
+      console.log(docUrlOne)
+    } catch (error) {
+      console.error(error)
+    }
+    // second file upload
+    const propFileTwo = new FormData()
+    propFileTwo.append('file', selectedTwo)
+    propFileTwo.append('upload_preset', 'utyweb')
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+        propFileTwo
+      )
+      setDocUrlTwo(response.data.secure_url)
+      console.log(docUrlTwo)
+    } catch (error) {
+      console.error(error)
+    }
+    // third file upload
+    const propFileThree = new FormData()
+    propFileThree.append('file', selectedThree)
+    propFileThree.append('upload_preset', 'utyweb')
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+        propFileThree
+      )
+      setDocUrlThree(response.data.secure_url)
+      console.log(docUrlThree)
     } catch (error) {
       console.error(error)
     }
   }
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault()
+    const data = await JSON.parse(localStorage.getItem('currentUser'))
     try {
       console.log('hello cloudinary')
-      uploadImage()
+      await uploadImage()
+      await axios.post('http://localhost:5200/api/preOrder/addprop', {
+        from: data._id,
+        name: data.username,
+        to: preOrder.sender,
+        imageOne: docUrlOne,
+        imageTwo: docUrlTwo,
+        imageThree: docUrlThree,
+        price: price,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -131,7 +169,12 @@ function Proposition({ setIsClick, preOrder }) {
                 {selectedDoc ? <p>{selectedDoc.name}</p> : <p></p>}
               </div>
               <h6 className="price__title">Renseignez le prix du produit</h6>
-              <input type="number" className="price__input" />
+              <input
+                type="number"
+                className="price__input"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
               <button onClick={(e) => handleClick(e)}>Soumettre</button>
             </div>
           </div>
@@ -143,23 +186,20 @@ function Proposition({ setIsClick, preOrder }) {
 
 const Container = styled.div`
   .body__back {
-    background-color: white;
+    background-color: gray;
     width: 100vw;
-    height: 100vh;
-    margin-top: -50vh;
     position: absolute;
     z-index: 0;
     display: flex;
     justify-content: center;
-    overflow-y: scroll;
-    scrollbar-width: width;
+    align-items: center;
     transform: translate(-0%, -100%);
+    top: 100vh;
     .proposition__body {
       display: flex;
       flex-direction: column;
       align-items: center;
       z-index: 10;
-      height: 100vh;
       .form {
         display: flex;
         flex-direction: column;

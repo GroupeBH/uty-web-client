@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
+import { IoMenu } from 'react-icons/io5'
 
 function Redirect() {
   const navigate = useNavigate()
@@ -15,6 +16,24 @@ function Redirect() {
 
         <button onClick={() => navigate('/HomePage')}>Start</button>
       </div>
+      <div className="desktop__display">
+        <div className="start__navbar">
+          <div className="uty__logo">
+            <img src={utyLogo} alt="uty-logo" />
+          </div>
+          <IoMenu />
+        </div>
+        <div className="start__body">
+          <div className="left__side">
+            <div className="start__accroche">
+              <h3>Bienvenu chez uty</h3>
+              <p>Tout ce dont vous avez besoin en un click</p>
+            </div>
+            <button>Start</button>
+          </div>
+          <div className="right__side"></div>
+        </div>
+      </div>
     </Container>
   )
 }
@@ -26,6 +45,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  .desktop__display {
+    display: none;
+  }
   .sub__container {
     background-color: white;
     height: 80vh;
@@ -61,6 +83,47 @@ const Container = styled.div`
       background-color: #020664;
       color: white;
       font-weight: bold;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .desktop__display {
+      display: block;
+      background-color: white;
+      width: 97.5vw;
+      height: 97.5vh;
+      border-radius: 1rem;
+      .start__navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1vh 2.5vw;
+        svg {
+          font-size: 300%;
+        }
+        .uty__logo {
+          display: flex;
+          justify-content: center;
+          img {
+            height: 10vh;
+            width: 5vw;
+          }
+        }
+      }
+      .start__body {
+        display: flex;
+        .start__accroche {
+          h3 {
+            font-size: 250%;
+          }
+        }
+        button {
+          height: 5vh;
+          width: 5vw;
+        }
+      }
+    }
+    .sub__container {
+      display: none;
     }
   }
 `

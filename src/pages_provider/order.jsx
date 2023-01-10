@@ -8,13 +8,11 @@ import { useState } from 'react'
 import Commande from '../assets/Articles vendus.png'
 import Proposition from '../components/Proposition'
 import moment from 'moment'
-import MenuDetails from '../components/MenuDetails'
 
 function Order() {
   let navigate = useNavigate()
   const [preCommand, setPreCommand] = useState([])
   const [isClick, setIsClick] = useState(false)
-  const [menu, setMenu] = useState(false)
   const [selectedId, setSelectedId] = useState('')
 
   useEffect(() => {
@@ -23,7 +21,6 @@ function Order() {
         'https://uty-ti30.onrender.com/api/preOrder/getpre'
       )
       setPreCommand(response.data)
-      console.log(response.data)
     }
     getPreOrders()
   }, [])
@@ -36,14 +33,13 @@ function Order() {
             src={utyLogo}
             alt=""
             className="uty__logo"
-            onClick={() => navigate('/HomePage')}
+            onClick={() => navigate('/Dashboard')}
           />
         </div>
         <MenuProvider />
       </div>
       <div className="order__page">
         {preCommand.map((preCom) => {
-          console.log(preCom._id)
           return (
             <div className="normal" key={preCom._id}>
               <div className="image__precommand">
@@ -83,7 +79,6 @@ function Order() {
             </div>
           )
         })}
-        {menu && <MenuDetails setMenu={setMenu} />}
         {isClick && (
           <Proposition preOrder={selectedId} setIsClick={setIsClick} />
         )}
@@ -102,6 +97,8 @@ const Container = styled.div`
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     padding: 1vh 5vw;
     margin-bottom: 2.5vh;
+    position: sticky;
+    top: 0px;
     .user__profil {
       display: flex;
       align-items: center;
@@ -121,6 +118,7 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       padding-top: 1vh;
+      padding-left: 4.5vw;
       .uty__logo {
         height: 8vh;
         width: 12.5vw;
@@ -144,7 +142,9 @@ const Container = styled.div`
       padding: 1vh 2.5vw;
       align-items: center;
       border-color: silver 1px;
-      background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+      /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+      background-color: white;
+      box-shadow: 0px 0px 5px silver;
       margin: 2vh 2vw;
       border-radius: 0.5rem;
       height: 20vh;

@@ -9,6 +9,7 @@ import Dashboard from './pages_provider/Dashboard'
 import RegisterP from './pages_provider/RegisterP'
 import Compte from './pages_provider/Compte'
 import Order from './pages_provider/order'
+import Offer from './pages/Offer'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/Command" element={<Command />} />
           <Route exact path="/Compte" element={<Compte />} />
           <Route exact path="/Order" element={<Order />} />
+          <Route exact path="/Offer" element={<Offer />} />
         </Routes>
       </BrowserRouter>
     </>

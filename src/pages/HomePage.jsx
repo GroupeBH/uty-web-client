@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import decoback from '../assets/decoback.jpg'
 import utyLogo from '../assets/logo-uty.png'
 import { useNavigate } from 'react-router-dom'
-import { IoSearch } from 'react-icons/io5'
+import {} from 'react-icons/io5'
 import ModalConnect from './ModalConnect'
 import { useState } from 'react'
 import ModalProviderC from '../pages_provider/ModalProviderC'
@@ -24,22 +24,7 @@ function HomePage() {
           <button className="connect">Se connecter</button>
         </div>
       </div>
-      <div className="search__bar">
-        <input
-          type="search"
-          placeholder="Trouver un produit ou un service"
-          className="input__search"
-        />
-        <div className="search__icon">
-          <IoSearch />
-        </div>
-      </div>
       <div className="carousel__container">
-        {/* <Carousel>
-                    <CarouselItem>Item 1</CarouselItem>
-                    <CarouselItem>Item 2</CarouselItem>
-                    <CarouselItem>Item 3</CarouselItem>
-                </Carousel> */}
         <div className="pub__container">
           <p className="pub__message">
             Découvrez le meilleur de la déco près de chez vous
@@ -48,11 +33,6 @@ function HomePage() {
         </div>
       </div>
       <div className="carousel__container">
-        {/* <Carousel>
-                    <CarouselItem>Item 1</CarouselItem>
-                    <CarouselItem>Item 2</CarouselItem>
-                    <CarouselItem>Item 3</CarouselItem>
-                </Carousel> */}
         <div className="pub__container">
           <p className="pub__message">
             Découvrez le meilleur de la déco près de chez vous
@@ -131,32 +111,9 @@ const Container = styled.div`
         color: #020664;
       }
     }
-    .search__bar {
-      display: flex;
-      margin-right: 7.5vw;
-      .input__search {
-        margin-bottom: 2vh;
-        height: 7.5vh;
-        flex-grow: 2;
-      }
-      .search__icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #020664;
-        height: 7.5vh;
-        width: 15vw;
-        cursor: pointer;
-        svg {
-          color: white;
-          font-weight: bold;
-          font-size: 250%;
-        }
-      }
-    }
     .carousel__container {
       display: flex;
-      height: 45vh;
+      height: 40vh;
       background-image: url(${decoback});
       background-size: contain;
       background-repeat: no-repeat;
@@ -166,8 +123,7 @@ const Container = styled.div`
         flex-direction: column;
         background-color: #020664;
         width: 45vw;
-        height: 20vh;
-
+        height: 15vh;
         justify-content: center;
         margin-left: 5vw;
         border-radius: 1rem;
@@ -268,7 +224,6 @@ const Container = styled.div`
   }
   .carousel__container {
     display: flex;
-    height: 40vh;
     background-image: url(${decoback});
     background-size: contain;
     background-repeat: no-repeat;
