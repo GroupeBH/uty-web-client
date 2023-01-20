@@ -34,6 +34,11 @@ function ModalConnect({ setIsOpen }) {
     return true
   }
 
+  const handleGoogle = async (event) => {
+    event.preventDefault()
+    await axios.get('http://localhost:5200/api/auth/auth/google')
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (validateForm()) {
@@ -83,6 +88,7 @@ function ModalConnect({ setIsOpen }) {
                   onChange={(e) => handleChange(e)}
                 />
                 <button type="submit">Se connecter</button>
+                <button onClick={(e) => handleGoogle(e)}>Google</button>
                 <span>
                   Do not have an account ?{' '}
                   <Link to="/SignParticular" className="signR">
@@ -109,10 +115,10 @@ const Container = styled.div`
     transform: translate(-0%, -100%);
     position: absolute;
     margin-left: -3.5vw;
-    margin-top: -5vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 100vh;
     .centered {
       background-color: white;
       padding-right: 1vw;

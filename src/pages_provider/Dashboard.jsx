@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IoNotifications } from 'react-icons/io5'
 import MenuProvider from '../components/MenuProvider'
 import { useNavigate } from 'react-router-dom'
-
+import { io } from 'socket.io-client'
 import utyLogo from '../assets/logo-uty.png'
 import commande from '../assets/Affaires concl.png'
 import vendus from '../assets/Articles vendus.png'
@@ -14,6 +14,22 @@ import map from '../assets/map.png'
 
 function Dashboard() {
   let navigate = useNavigate()
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const socket = useRef()
+  const [notifications, setNotifications] = useState([])
+
+  useEffect(() => {
+    socket.current = io('http://localhost:5200')
+    socket.current.emit('add-user', currentUser._id)
+  }, [currentUser])
+
+  useEffect(() => {
+    socket.current.on('notification_receive', (data) => {
+      setNotifications((prev) => [...prev, data])
+    })
+  }, [socket])
+
+  console.log(notifications)
 
   return (
     <Container>
@@ -28,6 +44,7 @@ function Dashboard() {
         </div>
         <div className="menu__side">
           <IoNotifications className="notification__icon" />
+          <span>{notifications.length}</span>
           <MenuProvider />
         </div>
       </div>

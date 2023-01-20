@@ -28,7 +28,7 @@ function Offer() {
   return (
     <Container>
       <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/')}>
+        <div className="page__title" onClick={() => navigate('/Requetes')}>
           <img src={utyLogo} alt="" className="uty__logo" />{' '}
         </div>
         <div className="count__container">

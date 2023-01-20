@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { categories } from '../components/Categories'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Modal from '../components/Modal'
 import axios from 'axios'
 import utyLogo from '../assets/logo-uty.png'
-import { IoMenu } from 'react-icons/io5'
+import { IoMenu, IoNotifications } from 'react-icons/io5'
+import { io } from 'socket.io-client'
 
 function Requetes() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const socket = useRef()
   const [selectedImg, setSelectedImg] = useState(null)
   const [picUrl, setPicUrl] = useState(null)
   const [url, setUrl] = useState(null)
@@ -17,6 +20,11 @@ function Requetes() {
   const [cate, setCate] = useState(null)
   const cloudName = 'disyacex9'
   let navigate = useNavigate()
+
+  useEffect(() => {
+    socket.current = io('http://localhost:5200')
+    socket.current.emit('add-user', currentUser._id)
+  }, [currentUser])
 
   useEffect(() => {
     if (selectedImg) {
@@ -52,13 +60,25 @@ function Requetes() {
         sender: data._id,
         category: cate,
       })
-      uploadImage()
-      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
+      socket.current.emit('send-notification', {
+        sender: data._id,
+      })
+      socket.current.emit('sendPreOrder', {
+        sender: data.username,
         description: description,
         image: url,
-        sender: data._id,
         category: cate,
       })
+      await uploadImage()
+      if (url) {
+        await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
+          description: description,
+          image: url,
+          sender: data._id,
+          category: cate,
+        })
+      }
+
       setDescription('')
       setCate(null)
     } catch (error) {
@@ -69,12 +89,16 @@ function Requetes() {
   return (
     <Container>
       <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/')}>
+        <div className="page__title" onClick={() => navigate('/HomePage')}>
           {' '}
           <img src={utyLogo} alt="" className="uty__logo" />{' '}
         </div>
         <div className="count__container">
-          <IoMenu className="menu__icon" onClick={() => navigate('/Offer')} />
+          <IoNotifications
+            className="notify__icon"
+            onClick={() => navigate('/Offer')}
+          />
+          <IoMenu className="menu__icon" />
         </div>
       </div>
       <div className="request__form">
@@ -154,6 +178,12 @@ const Container = styled.div`
     .count__container {
       .menu__icon {
         font-size: 250%;
+        color: #020664;
+      }
+      .notify__icon {
+        font-size: 250%;
+        color: #020664;
+        margin-right: 5vw;
       }
     }
   }

@@ -24,20 +24,62 @@ function HomePage() {
           <button className="connect">Se connecter</button>
         </div>
       </div>
-      <div className="carousel__container">
-        <div className="pub__container">
-          <p className="pub__message">
-            Découvrez le meilleur de la déco près de chez vous
+      <div className="ads__container">
+        <div>
+          <h2>Découvrez uty près de chez vous</h2>
+          <p>
+            Remarquez les meilleurs services par uty au plus près de chez vous
           </p>
-          <button className="pub__buttom">Voir plus</button>
         </div>
-      </div>
-      <div className="carousel__container">
-        <div className="pub__container">
-          <p className="pub__message">
-            Découvrez le meilleur de la déco près de chez vous
-          </p>
-          <button className="pub__buttom">Voir plus</button>
+        <div className="ads__list">
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
+          <div className="carousel__container">
+            <div className="pub__container">
+              <p className="pub__message">
+                Découvrez le meilleur de la déco près de chez vous
+              </p>
+              <button className="pub__buttom">Voir plus</button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="button__container">
@@ -58,6 +100,11 @@ function HomePage() {
           Répondre à une requete
         </button>
       </div>
+      <div className="footer">
+        <p>
+          Copyright by <span>uty</span>
+        </p>
+      </div>
       {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       {open && <ModalProviderC setOpen={setOpen} />}
     </Container>
@@ -65,11 +112,73 @@ function HomePage() {
 }
 
 const Container = styled.div`
+  @media all and (min-width: 992px) {
+    display: flex;
+    .navbar {
+      display: none;
+    }
+    .ads__container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 35vh;
+      .ads__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-top: 35vh;
+        .carousel__container {
+          display: flex;
+          height: 45vh;
+          width: 27.5vw;
+          background-image: url(${decoback});
+          background-size: contain;
+          background-repeat: no-repeat;
+          margin-right: 2.5vw;
+          .pub__container {
+            display: flex;
+            flex-direction: column;
+            background-color: #020664;
+            width: 10vw;
+            height: 25vh;
+            justify-content: center;
+            border-radius: 1rem;
+            color: white;
+            font-weight: bold;
+            opacity: 70%;
+            p {
+              text-align: center;
+              align-self: center;
+              opacity: 100%;
+            }
+            .pub__buttom {
+              background-color: white;
+              color: red;
+              border: none;
+              border-radius: 0.5rem;
+              width: 5vw;
+              height: 5vh;
+              align-self: center;
+              font-weight: bold;
+              cursor: pointer;
+            }
+          }
+      }
+      }
+      
+      }
+    }
+    .button__container {
+      display: none;
+    }
+
+  } 
   @media all and (max-width: 800px) {
     display: flex;
     width: 100vw;
     flex-direction: column;
-
     .navbar {
       display: flex;
       align-items: center;
@@ -183,6 +292,9 @@ const Container = styled.div`
         width: 90vw;
         background-color: #fb2f17;
       }
+    }
+    .footer {
+      display: none;
     }
   }
   display: flex;

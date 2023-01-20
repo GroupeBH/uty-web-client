@@ -2,7 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
-import { IoMenu } from 'react-icons/io5'
+import first from '../assets/first.gif'
+import HomePage from './HomePage'
 
 function Redirect() {
   const navigate = useNavigate()
@@ -21,7 +22,10 @@ function Redirect() {
           <div className="uty__logo">
             <img src={utyLogo} alt="uty-logo" />
           </div>
-          <IoMenu />
+          <div className="sign__side">
+            <button className="signUp__button"></button>
+            <button className="login__button">Se connecter</button>
+          </div>
         </div>
         <div className="start__body">
           <div className="left__side">
@@ -29,10 +33,26 @@ function Redirect() {
               <h3>Bienvenu chez uty</h3>
               <p>Tout ce dont vous avez besoin en un click</p>
             </div>
-            <button>Start</button>
+            <div className="call__to__actions">
+              <button
+                className="ask__service"
+                onClick={() => navigate('/HomePage')}
+              >
+                Soumettre une requete
+              </button>
+              <button
+                className="give__service"
+                onClick={() => navigate('/HomePage')}
+              >
+                Répondre à une requete
+              </button>
+            </div>
           </div>
-          <div className="right__side"></div>
+          <div className="right__side">
+            <img src={first} alt="" />
+          </div>
         </div>
+        <HomePage />
       </div>
     </Container>
   )
@@ -44,7 +64,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
   .desktop__display {
     display: none;
   }
@@ -86,17 +106,25 @@ const Container = styled.div`
     }
   }
   @media screen and (min-width: 992px) {
+    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     .desktop__display {
       display: block;
-      background-color: white;
-      width: 97.5vw;
+      background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
       height: 97.5vh;
       border-radius: 1rem;
+      .footer {
+        background-color: black;
+        color: white;
+      }
       .start__navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1vh 2.5vw;
+        background-color: white;
+        position: sticky;
+        top: 0vh;
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
         svg {
           font-size: 300%;
         }
@@ -104,21 +132,75 @@ const Container = styled.div`
           display: flex;
           justify-content: center;
           img {
-            height: 10vh;
-            width: 5vw;
+            height: 7.55vh;
+            width: 4.5vw;
+            margin-top: 2vh;
+          }
+        }
+        .sign__side {
+          display: flex;
+          align-items: center;
+          button {
+            width: 10vw;
+            height: 7.5vh;
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 100%;
+          }
+          .signUp__button {
+            background-color: orange;
+            margin-right: 1vw;
+          }
+          .login__button {
+            background-color: #020664;
           }
         }
       }
       .start__body {
         display: flex;
-        .start__accroche {
-          h3 {
-            font-size: 250%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1vh 2.5vw;
+        padding-right: 10vw;
+        padding-left: 10vw;
+        .left__side {
+          .start__accroche {
+            margin-top: 20vh;
+            h3 {
+              font-size: 250%;
+              color: #020664;
+            }
+            p {
+              color: #7e7e80;
+              font-size: 135%;
+              font-weight: bold;
+              margin-top: -2.5vh;
+              margin-bottom: 4vh;
+            }
+          }
+          .call__to__actions {
+            display: flex;
+            button {
+              height: 10vh;
+              width: 15vw;
+              font-weight: bold;
+              font-size: 100%;
+              color: white;
+              background-color: #020664;
+              border: none;
+              border-radius: 0.5rem;
+              margin-bottom: 10vh;
+            }
+            .ask__service {
+              background-color: orange;
+              margin-right: 1vw;
+            }
           }
         }
-        button {
-          height: 5vh;
-          width: 5vw;
+        .right__side {
+          background-image: linear-gradient(to top, #e6e9f0 0%, #5492e2 80%);
+          height: 50vh;
         }
       }
     }
