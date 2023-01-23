@@ -112,7 +112,6 @@ const Container = styled.div`
     z-index: 0;
     transform: translate(-0%, -100%);
     position: absolute;
-    margin-left: -3.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
