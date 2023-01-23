@@ -5,6 +5,7 @@ import utyLogo from '../assets/logo-uty.png'
 import { useNavigate } from 'react-router-dom'
 import {} from 'react-icons/io5'
 import ModalConnect from './ModalConnect'
+import MenuHome from '../components/MenuHome'
 import { useState } from 'react'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 
@@ -23,6 +24,9 @@ function HomePage() {
         <div className="count__container">
           <button className="connect">Se connecter</button>
         </div>
+        <div className="phone__navbar">
+          <MenuHome />
+        </div>
       </div>
       <div className="ads__container">
         <div>
@@ -30,6 +34,17 @@ function HomePage() {
           <p>
             Remarquez les meilleurs services par uty au plus près de chez vous
           </p>
+        </div>
+        {/* <div className="carrousel">
+          <CarrouselHome />
+        </div> */}
+        <div className="carousel ">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
         </div>
         <div className="ads__list">
           <div className="carousel__container">
@@ -40,6 +55,7 @@ function HomePage() {
               <button className="pub__buttom">Voir plus</button>
             </div>
           </div>
+
           <div className="carousel__container">
             <div className="pub__container">
               <p className="pub__message">
@@ -89,7 +105,7 @@ function HomePage() {
             setIsOpen(true)
           }}
         >
-          Soumettre la requete
+          Soumettre une requete
         </button>
         <button
           className="give__service"
@@ -117,9 +133,12 @@ const Container = styled.div`
     .navbar {
       display: none;
     }
+    .carrousel {
+      display: none;
+    }
     .ads__container {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       margin-top: 35vh;
@@ -173,17 +192,15 @@ const Container = styled.div`
     .button__container {
       display: none;
     }
-
   } 
+
   @media all and (max-width: 800px) {
-    display: flex;
-    width: 100vw;
-    flex-direction: column;
     .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-left: -5vw;
+      margin-right: -2vw;
       background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
       padding: 1vh 5vw;
       margin-bottom: 2.5vh;
@@ -204,12 +221,15 @@ const Container = styled.div`
 
       .page__title {
         padding-top: 1vh;
+        padding-right: 1vw;
         .uty__logo {
           height: 8vh;
           width: 12.5vw;
+          margin-right: 1vw;
         }
       }
       .connect {
+        display: none;
         font-size: 110%;
         padding: 2vh 2.5vw;
         border-radius: 2rem;
@@ -220,42 +240,10 @@ const Container = styled.div`
         color: #020664;
       }
     }
-    .carousel__container {
+    .ads__container {
       display: flex;
-      height: 40vh;
-      background-image: url(${decoback});
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin-right: 7.5vw;
-      .pub__container {
+      .ads__list {
         display: flex;
-        flex-direction: column;
-        background-color: #020664;
-        width: 45vw;
-        height: 15vh;
-        justify-content: center;
-        margin-left: 5vw;
-        border-radius: 1rem;
-        color: white;
-        font-weight: bold;
-        opacity: 70%;
-        p {
-          text-align: center;
-          align-self: center;
-          opacity: 100%;
-        }
-        .pub__buttom {
-          background-color: white;
-          color: red;
-          border: none;
-          border-radius: 0.5rem;
-          width: 30vw;
-          height: 5vh;
-
-          align-self: center;
-          font-weight: bold;
-          cursor: pointer;
-        }
       }
     }
     .button__container {
@@ -264,13 +252,14 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       position: fixed;
-      margin-top: 70vh;
-      background-color: white;
+      margin-top: 55vh;
       width: 100vw;
       background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
       margin-left: -3.5vw;
       padding-top: 3vh;
-      padding-bottom: 3vh;
+      padding-bottom: 10vh;
+      padding-left: 2vw;
+      padding-right: 2vw;
       .ask__service {
         height: 10vh;
         width: 90vw;
@@ -286,105 +275,24 @@ const Container = styled.div`
         cursor: pointer;
       }
       .give__service {
-        font-size: 130%;
-        padding-left: 5vw;
-        padding-right: 4vw;
+        height: 10vh;
         width: 90vw;
-        background-color: #fb2f17;
+        padding-left: 6vw;
+        padding-right: 6vw;
+        margin-top: 2vh;
+        font-size: 135%;
+        font-weight: bold;
+        border-radius: 1rem;
+        background-color: orange;
+        color: white;
+        border: none;
+        cursor: pointer;
       }
     }
     .footer {
       display: none;
     }
   }
-  display: flex;
-  flex-direction: column;
-  padding-left: 3.5vw;
-  padding-right: 3.5vw;
-  .navbar {
-    svg {
-      font-size: 150%;
-      cursor: pointer;
-    }
-    .page__title {
-      font-size: 300%;
-      color: red;
-      font-weight: bold;
-    }
-  }
-  .search__bar {
-    display: flex;
-    .input__search {
-      margin-bottom: 2vh;
-      height: 7.5vh;
-      flex-grow: 2;
-    }
-    .search__icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: black;
-      height: 7.5vh;
-      width: 15vw;
-      cursor: pointer;
-      svg {
-        color: white;
-        font-weight: bold;
-        font-size: 250%;
-      }
-    }
-  }
-  .carousel__container {
-    display: flex;
-    background-image: url(${decoback});
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    .pub__container {
-      display: flex;
-      flex-direction: column;
-      background-color: blue;
-      width: 45vw;
-      height: 30vh;
-      align-self: center;
-      padding-top: 5vh;
-      margin-left: 5vw;
-      border-radius: 1rem;
-      color: white;
-      font-weight: bold;
-      opacity: 70%;
-      p {
-        margin-bottom: 5vh;
-        text-align: center;
-        align-self: center;
-        opacity: 100%;
-      }
-      .pub__buttom {
-        background-color: red;
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        width: 30vw;
-        height: 5vh;
-        margin-top: -2.5vh;
-        align-self: center;
-        font-weight: bold;
-        cursor: pointer;
-      }
-    }
-  }
-  .ask__service,
-  .give__service {
-    height: 10vh;
-    margin-top: 5vh;
-    font-size: 150%;
-    font-weight: bold;
-    border-radius: 1rem;
-    background-color: blue;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-`
+ `
 
 export default HomePage

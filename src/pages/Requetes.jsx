@@ -70,14 +70,12 @@ function Requetes() {
         category: cate,
       })
       await uploadImage()
-      if (url) {
-        await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
-          description: description,
-          image: url,
-          sender: data._id,
-          category: cate,
-        })
-      }
+      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
+        description: description,
+        image: url,
+        sender: data._id,
+        category: cate,
+      })
 
       setDescription('')
       setCate(null)
@@ -102,7 +100,7 @@ function Requetes() {
         </div>
       </div>
       <div className="request__form">
-        <h3>Salut, trouvons votre produit</h3>
+        <h3>Salut {currentUser.username} trouvons votre produit</h3>
         <div className="product__image">
           <img src={picUrl} alt="" className="picture" />
         </div>

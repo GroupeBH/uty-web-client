@@ -6,9 +6,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
+import ModalSign from '../components/ModalSign'
 
 export default function Register() {
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -75,7 +77,7 @@ export default function Register() {
       }
       if (data.status === true) {
         localStorage.setItem('currentUser', JSON.stringify(data.user))
-        navigate('/Requetes')
+        setOpen(true)
       }
     }
   }
@@ -135,6 +137,7 @@ export default function Register() {
           </form>
         </div>
       </FormContainer>
+      {open && <ModalSign />}
       <ToastContainer />
     </>
   )

@@ -2,11 +2,12 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
-import first from '../assets/first.gif'
+import first from '../assets/deskOne.png'
 import HomePage from './HomePage'
 
 function Redirect() {
   const navigate = useNavigate()
+
   return (
     <Container>
       <div className="sub__container">
@@ -23,8 +24,10 @@ function Redirect() {
             <img src={utyLogo} alt="uty-logo" />
           </div>
           <div className="sign__side">
-            <button className="signUp__button"></button>
-            <button className="login__button">Se connecter</button>
+            <span>A propos de nous</span>
+            <span>Blog</span>
+            <span>Dévenir livreur</span>
+            <button className="login__button">Nous contacter</button>
           </div>
         </div>
         <div className="start__body">
@@ -52,7 +55,9 @@ function Redirect() {
             <img src={first} alt="" />
           </div>
         </div>
-        <HomePage />
+        <div className="ads__side">
+          <HomePage />
+        </div>
       </div>
     </Container>
   )
@@ -105,13 +110,13 @@ const Container = styled.div`
       font-weight: bold;
     }
   }
-  @media screen and (min-width: 992px) {
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  @media all and (min-width: 992px) {
+    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
     .desktop__display {
       display: block;
-      background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-      height: 97.5vh;
-      border-radius: 1rem;
+      /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+      padding-left: 2.5vw;
+      padding-right: 2.5vw;
       .footer {
         background-color: black;
         color: white;
@@ -120,17 +125,20 @@ const Container = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: white;
+        /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
         position: sticky;
         top: 0vh;
-        padding-left: 2.5vw;
-        padding-right: 2.5vw;
+        padding-left: 0.5vw;
+        padding-right: 0.5vw;
+        margin-top: -12.75vh;
+        border: none;
         svg {
           font-size: 300%;
         }
         .uty__logo {
           display: flex;
           justify-content: center;
+          align-self: flex-start;
           img {
             height: 7.55vh;
             width: 4.5vw;
@@ -140,9 +148,12 @@ const Container = styled.div`
         .sign__side {
           display: flex;
           align-items: center;
+          span {
+            margin-right: 2vw;
+          }
           button {
-            width: 10vw;
-            height: 7.5vh;
+            width: 12.5vw;
+            height: 6.5vh;
             border: none;
             border-radius: 0.5rem;
             color: white;
@@ -162,9 +173,10 @@ const Container = styled.div`
         justify-content: space-between;
         align-items: center;
         padding: 1vh 2.5vw;
-        padding-right: 10vw;
-        padding-left: 10vw;
+        padding-right: 5vw;
+        padding-left: 5vw;
         .left__side {
+          margin-right: 3.5vw;
           .start__accroche {
             margin-top: 20vh;
             h3 {
@@ -199,8 +211,9 @@ const Container = styled.div`
           }
         }
         .right__side {
-          background-image: linear-gradient(to top, #e6e9f0 0%, #5492e2 80%);
-          height: 50vh;
+          img {
+            height: 70vh;
+          }
         }
       }
     }

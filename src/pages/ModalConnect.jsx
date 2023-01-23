@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import { IoClose } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
 import { useNavigate, Link } from 'react-router-dom'
-
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -32,11 +32,6 @@ function ModalConnect({ setIsOpen }) {
       return false
     }
     return true
-  }
-
-  const handleGoogle = async (event) => {
-    event.preventDefault()
-    await axios.get('http://localhost:5200/api/auth/auth/google')
   }
 
   const handleSubmit = async (event) => {
@@ -68,6 +63,10 @@ function ModalConnect({ setIsOpen }) {
         <div className="centered">
           <div className="modal__body">
             <div className="login__page">
+              <IoClose
+                className="close__icon"
+                onClick={() => setIsOpen(false)}
+              />
               <div className="image__side">
                 <img src="" alt="image__login" />
               </div>
@@ -88,7 +87,6 @@ function ModalConnect({ setIsOpen }) {
                   onChange={(e) => handleChange(e)}
                 />
                 <button type="submit">Se connecter</button>
-                <button onClick={(e) => handleGoogle(e)}>Google</button>
                 <span>
                   Do not have an account ?{' '}
                   <Link to="/SignParticular" className="signR">
@@ -136,6 +134,12 @@ const Container = styled.div`
         z-index: 10;
 
         .login__page {
+          display: flex;
+          flex-direction: column;
+          padding-top: 3vh;
+          svg {
+            font-size: 200%;
+          }
           .image__side {
             display: none;
           }

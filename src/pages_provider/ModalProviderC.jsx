@@ -3,7 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import { useNavigate, Link } from 'react-router-dom'
-
+import { IoClose } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -63,6 +63,11 @@ function ModalProviderC({ setOpen }) {
         <div className="centered">
           <div className="modal__body">
             <div className="login__page">
+              <IoClose
+                onClick={() => {
+                  setOpen(false)
+                }}
+              />
               <div className="image__side">
                 <img src="" alt="image__login" />
               </div>
@@ -102,14 +107,13 @@ function ModalProviderC({ setOpen }) {
 const Container = styled.div`
   .modal__back {
     background-color: rgba(0, 0, 0, 0.5);
-
+    top: 100vh;
     width: 100vw;
     height: 100vh;
     z-index: 0;
     transform: translate(-0%, -100%);
     position: absolute;
     margin-left: -3.5vw;
-    margin-top: -5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,6 +134,12 @@ const Container = styled.div`
         z-index: 10;
 
         .login__page {
+          display: flex;
+          flex-direction: column;
+          padding-top: 3vh;
+          svg {
+            font-size: 200%;
+          }
           .image__side {
             display: none;
           }
