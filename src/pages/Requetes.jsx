@@ -18,12 +18,14 @@ function Requetes() {
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [cate, setCate] = useState(null)
+  const [loading, setLoading] = useState(false)
   const cloudName = 'disyacex9'
   let navigate = useNavigate()
 
   useEffect(() => {
     socket.current = io('http://localhost:5200')
     socket.current.emit('add-user', currentUser._id)
+    setLoading(false)
   }, [currentUser])
 
   useEffect(() => {
@@ -60,7 +62,7 @@ function Requetes() {
         sender: data._id,
         category: cate,
       })
-      socket.current.emit('send-notification', {
+      socket.current.emit('sendToProvider', {
         sender: data._id,
       })
       socket.current.emit('sendPreOrder', {
@@ -85,54 +87,68 @@ function Requetes() {
     setIsOpen(true)
   }
   return (
-    <Container>
-      <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/HomePage')}>
-          {' '}
-          <img src={utyLogo} alt="" className="uty__logo" />{' '}
-        </div>
-        <div className="count__container">
-          <IoNotifications
-            className="notify__icon"
-            onClick={() => navigate('/Offer')}
-          />
-          <IoMenu className="menu__icon" />
-        </div>
-      </div>
-      <div className="request__form">
-        <h3>Salut {currentUser.username} trouvons votre produit</h3>
-        <div className="product__image">
-          <img src={picUrl} alt="" className="picture" />
-        </div>
-        <div className="image__upload">
-          <input
-            type="file"
-            onChange={(e) => setSelectedImg(e.target.files[0])}
-            className="file"
-          />
-          <label htmlFor="file">Ajouter une image</label>
-        </div>
-        <span>Que voulez-vous?</span>
-        <textarea
-          cols="30"
-          rows="10"
-          className="request__input"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        ></textarea>
+    <>
+      {loading ? (
+        <ContainerL>
+          <img src="" alt="" />
+        </ContainerL>
+      ) : (
+        <Container>
+          <div className="navbar">
+            <div className="page__title" onClick={() => navigate('/HomePage')}>
+              {' '}
+              <img src={utyLogo} alt="" className="uty__logo" />{' '}
+            </div>
+            <div className="count__container">
+              <IoNotifications
+                className="notify__icon"
+                onClick={() => navigate('/Offer')}
+              />
+              <IoMenu className="menu__icon" />
+            </div>
+          </div>
+          <div className="request__form">
+            <h3>Salut {currentUser.username} trouvons votre produit</h3>
+            <div className="product__image">
+              <img src={picUrl} alt="" className="picture" />
+            </div>
+            <div className="image__upload">
+              <input
+                type="file"
+                onChange={(e) => setSelectedImg(e.target.files[0])}
+                className="file"
+              />
+              <label htmlFor="file">Ajouter une image</label>
+            </div>
+            <span>Que voulez-vous?</span>
+            <textarea
+              cols="30"
+              rows="10"
+              className="request__input"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            ></textarea>
 
-        <span>Sélectionnez la catégorie du produit</span>
-        <select name="category" id="" onChange={(e) => setCate(e.target.value)}>
-          <option value=""></option>
-          {categories.map((cat) => (
-            <option key={cat}>{cat}</option>
-          ))}
-        </select>
+            <span>Sélectionnez la catégorie du produit</span>
+            <select
+              name="category"
+              id=""
+              onChange={(e) => setCate(e.target.value)}
+            >
+              <option value=""></option>
+              {categories.map((cat) => (
+                <option key={cat}>{cat}</option>
+              ))}
+            </select>
 
-        <button onClick={(e) => handleSubmit(e)}>Soumettre la requete</button>
-      </div>
-      {isOpen && <Modal setIsOpen={setIsOpen} />}
-    </Container>
+            <button onClick={(e) => handleSubmit(e)}>
+              Soumettre la requete
+            </button>
+          </div>
+          {isOpen && <Modal setIsOpen={setIsOpen} />}
+        </Container>
+      )}
+    </>
   )
 }
 
@@ -254,5 +270,7 @@ const Container = styled.div`
     }
   }
 `
+
+const ContainerL = styled.div``
 
 export default Requetes

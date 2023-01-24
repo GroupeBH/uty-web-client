@@ -33,6 +33,56 @@ function HomePage() {
           <button className="pub__buttom">Voir plus</button>
         </div>
       </div>
+      <div className="ads__list">
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="pub__container">
+            <p className="pub__message">
+              Découvrez le meilleur de la déco près de chez vous
+            </p>
+            <button className="pub__buttom">Voir plus</button>
+          </div>
+        </div>
+      </div>
       <div className="button__container">
         <button
           className="ask__service"
@@ -68,18 +118,71 @@ const Container = styled.div`
   }
   @media all and (min-width: 992px) {
     display: flex;
+    flex-direction: column;
     .navbar {
       display: none;
     }
-    .carrousel {
+    .carousel {
       display: none;
+    }
+    .ads__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-bottom: 5vw;
+      .carousel {
+        display: flex;
+        align-items: center;
+        height: 50vh;
+        width: 25vw;
+        background-image: url(${decoback});
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-left: 2.5vw;
+        margin-top: 5vh;
+        .pub__container {
+          display: flex;
+          flex-direction: column;
+          margin-left: 5vw;
+          padding-left: 2vw;
+          padding-right: 2vw;
+          background-color: #020664;
+          width: 15vw;
+          height: 35vh;
+          justify-content: center;
+          border-radius: 1rem;
+          color: white;
+          font-weight: bold;
+          opacity: 70%;
+          p {
+            text-align: center;
+            align-self: center;
+            opacity: 100%;
+          }
+          .pub__buttom {
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            width: 10vw;
+            height: 5vh;
+            align-self: center;
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
+      }
     }
     .button__container {
       display: none;
     }
   }
 
-  @media all and (max-width: 800px) {
+  @media all and (max-width: 875px) {
+    .ads__list {
+      display: none;
+    }
     .navbar {
       display: flex;
       align-items: center;

@@ -20,12 +20,12 @@ function Dashboard() {
 
   useEffect(() => {
     socket.current = io('http://localhost:5200')
-    socket.current.emit('add-user', currentUser._id)
+    socket.current.emit('add-user', currentUser._id, currentUser.username)
   }, [currentUser])
 
   useEffect(() => {
-    socket.current.on('notification_receive', (data) => {
-      setNotifications((prev) => [...prev, data])
+    socket.current.on('provider_notif', (sender) => {
+      setNotifications((prev) => [...prev, sender])
     })
   }, [socket])
 

@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import first from '../assets/deskOne.png'
 import HomePage from './HomePage'
+import ModalConnect from './ModalConnect'
+import ModalProviderC from '../pages_provider/ModalProviderC'
 
 function Redirect() {
   const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
     <Container>
@@ -39,13 +43,17 @@ function Redirect() {
             <div className="call__to__actions">
               <button
                 className="ask__service"
-                onClick={() => navigate('/HomePage')}
+                onClick={() => {
+                  setIsOpen(true)
+                }}
               >
                 Soumettre une requete
               </button>
               <button
                 className="give__service"
-                onClick={() => navigate('/HomePage')}
+                onClick={() => {
+                  setOpen(true)
+                }}
               >
                 Répondre à une requete
               </button>
@@ -56,19 +64,26 @@ function Redirect() {
           </div>
         </div>
         <div className="ads__side">
+          <div className="accroche__desk">
+            <h3>Les meilleurs services uty près de chez vous</h3>
+            <p>Avec trouvez tout à tout à toute heure </p>
+          </div>
           <HomePage />
         </div>
       </div>
+      {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
+      {open && <ModalProviderC setOpen={setOpen} />}
     </Container>
   )
 }
 
 const Container = styled.div`
   height: 100vh;
-  width: 100vw;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  padding-top: 7.5vh;
+  padding-left: 7.5vw;
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
   .desktop__display {
     display: none;
@@ -113,11 +128,14 @@ const Container = styled.div`
   @media all and (min-width: 992px) {
     /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
     .desktop__display {
-      display: block;
+      display: flex;
+      flex-direction: column;
       /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
       padding-left: 2.5vw;
       padding-right: 2.5vw;
       .footer {
+        display: flex;
+        justify-content: center;
         background-color: black;
         color: white;
       }
@@ -128,8 +146,7 @@ const Container = styled.div`
         /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
         position: sticky;
         top: 0vh;
-        padding-left: 0.5vw;
-        padding-right: 0.5vw;
+        padding-right: 7.5vw;
         margin-top: -12.75vh;
         border: none;
         svg {
@@ -149,6 +166,7 @@ const Container = styled.div`
           display: flex;
           align-items: center;
           span {
+            color: #000;
             margin-right: 2vw;
           }
           button {
@@ -171,12 +189,13 @@ const Container = styled.div`
       .start__body {
         display: flex;
         justify-content: space-between;
+        height: 95vh;
         align-items: center;
-        padding: 1vh 2.5vw;
-        padding-right: 5vw;
-        padding-left: 5vw;
+        padding-right: 7.5vw;
+        padding-left: 7.5vw;
         .left__side {
           margin-right: 3.5vw;
+          margin-left: -7.5vw;
           .start__accroche {
             margin-top: 20vh;
             h3 {
@@ -213,6 +232,24 @@ const Container = styled.div`
         .right__side {
           img {
             height: 70vh;
+          }
+        }
+      }
+      .ads__side {
+        background-color: white;
+        width: 100vw;
+        padding-top: 2.75vh;
+        margin-left: -10vw;
+        .accroche__desk {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-bottom: 2.75vh;
+          h3 {
+            font-size: 150%;
+          }
+          p {
+            margin-top: -1.5vh;
           }
         }
       }

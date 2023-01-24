@@ -38,7 +38,13 @@ export default function BasicMenu() {
         <MenuItem onClick={handleClose}>A propos</MenuItem>
         <MenuItem onClick={handleClose}>Dévenir livreur</MenuItem>
         <MenuItem onClick={handleClose}>
-          <button style={{ height: '5vh', backgroundColor: '#ffc000' }}>
+          <button
+            style={{
+              height: '5vh',
+              backgroundColor: '#ffc000',
+              border: 'none',
+            }}
+          >
             Nous contacter
           </button>
         </MenuItem>
