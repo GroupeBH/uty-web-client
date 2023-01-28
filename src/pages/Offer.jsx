@@ -17,7 +17,7 @@ function Offer() {
     const getOffers = async () => {
       const data = await JSON.parse(localStorage.getItem('currentUser'))
       const response = await axios.get(
-        `http://localhost:5200/api/preOrder/getprop/${data._id}`
+        `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
       )
       setOffers(response.data)
       console.log(offers)
