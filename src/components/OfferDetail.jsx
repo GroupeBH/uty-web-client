@@ -10,22 +10,26 @@ function OfferDetail({ selectedOffer, setIsClick }) {
   return (
     <Container>
       <div className="body__back">
-        <IoClose onClick={() => setIsClick(false)} />
         <div className="centered">
           <div className="carousel">
-            <Carousel autoPlay>
-              <div>
+            <IoClose onClick={() => setIsClick(false)} />
+            <Carousel autoPlay infiniteLoop showThumbs={false}>
+              <div style={{ marginTop: '5vh' }}>
                 {selectedOffer.imageOne ? (
                   <img src={selectedOffer.imageOne} alt="First product image" />
                 ) : (
-                  <img src={utyLogo} alt="uty logo" />
+                  <img src={utyLogo} alt="first_product_image" />
                 )}
               </div>
               <div>
                 {selectedOffer.imageTwo ? (
                   <img src={selectedOffer.imageTwo} alt="First product image" />
                 ) : (
-                  <img src={utyLogo} alt="uty logo" />
+                  <img
+                    src={utyLogo}
+                    alt="first_product_image"
+                    style={{ width: '60vw' }}
+                  />
                 )}
               </div>
               <div>
@@ -35,12 +39,16 @@ function OfferDetail({ selectedOffer, setIsClick }) {
                     alt="First product image"
                   />
                 ) : (
-                  <img src={utyLogo} alt="uty logo" />
+                  <img
+                    src={utyLogo}
+                    alt="first_product_image"
+                    style={{ width: '60vw' }}
+                  />
                 )}
               </div>
             </Carousel>
           </div>
-          <div className="price">{selectedOffer.price}</div>
+          <div className="price">Prix du produit: {selectedOffer.price} FC</div>
           <button className="confirm__command">Acheter</button>
         </div>
       </div>
@@ -54,7 +62,7 @@ const Container = styled.div`
   .body__back {
     background-color: gray;
     width: 100vw;
-    height: 88.5vh;
+    height: 100vh;
     position: absolute;
     z-index: 0;
     display: flex;
@@ -65,9 +73,30 @@ const Container = styled.div`
     .centered {
       display: flex;
       flex-direction: column;
+      margin-top: 5vh;
       height: 88.5vh;
       background-color: white;
-      width: 90vw;
+      width: 80vw;
+      .carousel {
+        width: 70vw;
+        height: 55vh;
+        padding-left: 3.5vw;
+      }
+      .price {
+        margin-top: 5vh;
+        padding: 5vh 3.5vw;
+        font-size: 125%;
+      }
+      .confirm__command {
+        background-color: #020664;
+        color: white;
+        border-radius: 0.5rem;
+        border: none;
+        margin-left: 3.5vw;
+        font-size: 125%;
+        width: 90%;
+        height: 7.5vh;
+      }
     }
   }
 `

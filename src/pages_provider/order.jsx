@@ -151,6 +151,7 @@ const Container = styled.div`
       .image__precommand {
         .preOrder__image {
           height: 10vh;
+          width: 20vw;
         }
       }
       .preOrder__description {
@@ -158,6 +159,7 @@ const Container = styled.div`
         flex-direction: column;
         flex-grow: 2;
         margin-left: 2.5vw;
+        width: 70%;
         h3 {
           color: #020664;
         }

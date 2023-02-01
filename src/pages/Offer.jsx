@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import OfferDetail from '../components/OfferDetail'
+import loader from '../assets/loader.gif'
 
 function Offer() {
   const navigate = useNavigate()
   const [offers, setOffers] = useState([])
   const [selectedOffer, setSelectedOffer] = useState('')
   const [isClick, setIsClick] = useState(false)
-
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const getOffers = async () => {
       const data = await JSON.parse(localStorage.getItem('currentUser'))
@@ -20,56 +21,78 @@ function Offer() {
         `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
       )
       setOffers(response.data)
+      setLoading(false)
       console.log(offers)
     }
     getOffers()
   }, [])
 
   return (
-    <Container>
-      <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/Requetes')}>
-          <img src={utyLogo} alt="" className="uty__logo" />{' '}
-        </div>
-        <div className="count__container">
-          <IoMenu className="menu__icon" />
-        </div>
-      </div>
-      <div className="offer__list">
-        {offers.map((offer) => {
-          return (
-            <div
-              className="offer"
-              key={offer._id}
-              onClick={() => {
-                setSelectedOffer(offer)
-                setIsClick(true)
-              }}
-            >
-              <p className="offer_message">
-                <span>{offer.name ? offer.name : 'Un vendeur'}</span>
-                <span></span> a repondu à votre requete du
-                <span>
-                  {moment(Date.now()).format('MMM Do YY') ===
-                  moment(offer.createdAt).format('MMM Do YY')
-                    ? moment(Date.now()).format('h') ===
-                      moment(offer.createdAt).format('h')
-                      ? moment(offer.createdAt).fromNow()
-                      : moment(Date.now()).format('h:s')
-                    : moment(offer.createdAt).format('DD/MM/YYYY  h:s')}
-                </span>
-              </p>
+    <>
+      {loading ? (
+        <ContainerL>
+          <img src={loader} alt="loader" className="loader" />
+        </ContainerL>
+      ) : (
+        <Container>
+          <div className="navbar">
+            <div className="page__title" onClick={() => navigate('/Requetes')}>
+              <img src={utyLogo} alt="" className="uty__logo" />{' '}
             </div>
-          )
-        })}
+            <div className="count__container">
+              <IoMenu className="menu__icon" />
+            </div>
+          </div>
+          <div className="offer__list">
+            {offers.map((offer) => {
+              return (
+                <div
+                  className="offer"
+                  key={offer._id}
+                  onClick={() => {
+                    setSelectedOffer(offer)
+                    setIsClick(true)
+                  }}
+                >
+                  <p className="offer_message">
+                    <span>{offer.name ? offer.name : 'Un vendeur'}</span>
+                    <span></span> a repondu à votre requete du
+                    <span>
+                      {moment(Date.now()).format('MMM Do YY') ===
+                      moment(offer.createdAt).format('MMM Do YY')
+                        ? moment(Date.now()).format('h') ===
+                          moment(offer.createdAt).format('h')
+                          ? moment(offer.createdAt).fromNow()
+                          : moment(Date.now()).format('h:s')
+                        : moment(offer.createdAt).format('DD/MM/YYYY  h:s')}
+                    </span>
+                  </p>
+                </div>
+              )
+            })}
 
-        {isClick && (
-          <OfferDetail selectedOffer={selectedOffer} setIsClick={setIsClick} />
-        )}
-      </div>
-    </Container>
+            {isClick && (
+              <OfferDetail
+                selectedOffer={selectedOffer}
+                setIsClick={setIsClick}
+              />
+            )}
+          </div>
+        </Container>
+      )}
+    </>
   )
 }
+
+const ContainerL = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 45vh;
+  img {
+    height: 10vh;
+  }
+`
 
 const Container = styled.div`
   .navbar {

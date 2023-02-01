@@ -186,9 +186,9 @@ function Proposition({ setIsClick, preOrder }) {
 
 const Container = styled.div`
   .body__back {
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
-    position: absolute;
+    position: fixed;
     z-index: 0;
     display: flex;
     justify-content: center;
@@ -196,16 +196,25 @@ const Container = styled.div`
     transform: translate(-0%, -100%);
     top: 100vh;
     .centered {
+      margin-top: 25vh;
+      margin-bottom: 1.5vh;
+      padding-top: 15vh;
+      width: 90vw;
+      height: 95vh;
+      overflow-y: scroll;
       .proposition__body {
         display: flex;
         flex-direction: column;
+        border-radius: 0.5rem;
         align-items: center;
         z-index: 10;
+        background-color: white;
+        border-bottom: solid;
         .form {
           display: flex;
           flex-direction: column;
           gap: 2vh;
-          padding: 1vh 2.5vw;
+          padding: 1vh 7.5vw;
           .image__frame1 {
             background-color: white;
             display: flex;
@@ -282,7 +291,8 @@ const Container = styled.div`
             height: 7.5vh;
             font-size: 125%;
             font-weight: bold;
-            margin-bottom: 4.5vh;
+            margin-top: 1.5vh;
+            margin-bottom: 2.5vh;
           }
         }
       }
