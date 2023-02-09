@@ -49,7 +49,7 @@ function Compte() {
     e.preventDefault()
     try {
       const response = await axios.put(
-        `http://localhost:5100/api/provider/updateCount/${data_user._id}`,
+        `http://localhost:5200/api/provider/updateCount/${data_user._id}`,
         { username, email, selectedOptions }
       )
       console.log(response.data)
@@ -102,6 +102,7 @@ function Compte() {
             className="select"
             isMulti
           />
+          {console.log(selectedOptions)}
         </div>
         <button onClick={(e) => handleclick(e)}>Update</button>
         <button className="cancel__button">Cancel</button>

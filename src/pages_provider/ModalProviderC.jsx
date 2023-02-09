@@ -169,7 +169,7 @@ const Container = styled.div`
             height: 7.5vh;
             font-size: 150%;
             font-weight: bold;
-            border-radius: 2rem;
+            border-radius: 0.5rem;
             border: none;
             background-color: #020664;
             color: white;

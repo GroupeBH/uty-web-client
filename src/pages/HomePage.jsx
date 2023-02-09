@@ -8,6 +8,7 @@ import ModalConnect from './ModalConnect'
 import MenuHome from '../components/MenuHome'
 import { useState } from 'react'
 import ModalProviderC from '../pages_provider/ModalProviderC'
+import CarrouselHome from '../components/CarrouselHome'
 
 function HomePage() {
   let navigate = useNavigate()
@@ -26,12 +27,13 @@ function HomePage() {
         </div>
       </div>
       <div className="carousel">
-        <div className="pub__container">
+        <CarrouselHome />
+        {/* <div className="pub__container">
           <p className="pub__message">
             Découvrez le meilleur de la déco près de chez vous
           </p>
           <button className="pub__buttom">Voir plus</button>
-        </div>
+        </div> */}
       </div>
       <div className="ads__list">
         <div className="carousel">
@@ -217,7 +219,8 @@ const Container = styled.div`
       }
     }
     .carousel {
-      display: flex;
+      display: block;
+      /* display: flex;
       align-items: center;
       height: 50vh;
       width: 95vw;
@@ -257,7 +260,7 @@ const Container = styled.div`
           font-weight: bold;
           cursor: pointer;
         }
-      }
+      } */
     }
 
     .button__container {

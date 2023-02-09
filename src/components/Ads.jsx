@@ -20,18 +20,24 @@ function Ads() {
 const Container = styled.div`
   .carousel__container {
     display: flex;
-    height: 45vh;
-    width: 27.5vw;
+    align-items: center;
+    height: 50vh;
+    width: 95vw;
     background-image: url(${decoback});
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    margin-right: 2.5vw;
+    margin-left: 2.5vw;
+    margin-top: 2.5vh;
     .pub__container {
       display: flex;
       flex-direction: column;
+      margin-left: 5vw;
+      padding-left: 2.5vw;
+      padding-right: 2.5vw;
       background-color: #020664;
-      width: 10vw;
-      height: 25vh;
+      width: 50vw;
+      height: 35vh;
       justify-content: center;
       border-radius: 1rem;
       color: white;
@@ -43,11 +49,11 @@ const Container = styled.div`
         opacity: 100%;
       }
       .pub__buttom {
-        background-color: white;
-        color: red;
+        background-color: orange;
+        color: white;
         border: none;
         border-radius: 0.5rem;
-        width: 5vw;
+        width: 25vw;
         height: 5vh;
         align-self: center;
         font-weight: bold;

@@ -10,6 +10,10 @@ import RegisterP from './pages_provider/RegisterP'
 import Compte from './pages_provider/Compte'
 import Order from './pages_provider/order'
 import Offer from './pages/Offer'
+import DeliveryOne from './pages_provider/DeliveryOne'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import SearchT from './pages_provider/SearchT'
+import ConfirmT from './pages_provider/ConfirmT'
 
 function App() {
   return (
@@ -26,6 +30,9 @@ function App() {
           <Route exact path="/Compte" element={<Compte />} />
           <Route exact path="/Order" element={<Order />} />
           <Route exact path="/Offer" element={<Offer />} />
+          <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
+          <Route exact path="/SearchT" element={<SearchT />} />
+          <Route exact path="/ConfirmT" element={<ConfirmT />} />
         </Routes>
       </BrowserRouter>
     </>

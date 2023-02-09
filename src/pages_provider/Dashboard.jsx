@@ -82,8 +82,20 @@ function Dashboard() {
           <div className="box__description">Budget ads</div>
           <img src={pubPrice} alt="" />
         </div>
-        <div className="commande__link">
-          <div className="box__description">Traçage</div>
+        <div
+          className="commande__link"
+          onClick={() => {
+            navigate('/DeliveryOne')
+          }}
+        >
+          <div
+            className="box__description"
+            onClick={() => {
+              navigate('/DeliveryOne')
+            }}
+          >
+            Traçage
+          </div>
           <img src={map} alt="" />
         </div>
       </div>
