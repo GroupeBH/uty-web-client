@@ -34,9 +34,9 @@ function ModalProviderC({ setOpen }) {
     return true
   }
 
-  const handleGoogle = async () => {
-    await axios.get('http://localhost:5200/auth/google')
-  }
+  // const handleGoogle = async () => {
+  //   await axios.get('http://localhost:5200/auth/google')
+  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -92,7 +92,6 @@ function ModalProviderC({ setOpen }) {
                   onChange={(e) => handleChange(e)}
                 />
                 <button type="submit">Se connecter</button>
-                <button onClick={handleGoogle}>Google</button>
                 <span>
                   Do not have an account ?{' '}
                   <Link to="/RegisterP" className="signR">
