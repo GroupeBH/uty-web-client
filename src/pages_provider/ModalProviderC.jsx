@@ -129,6 +129,7 @@ const Container = styled.div`
       margin-left: 5vw;
       border-radius: 1rem;
       padding-bottom: 2.5vh;
+      z-index: 0;
       .modal__body {
         display: flex;
         flex-direction: column;
