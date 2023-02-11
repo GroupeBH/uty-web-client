@@ -27,13 +27,11 @@ function ModalSign() {
 const Container = styled.div`
   .modal__back {
     background-color: rgba(0, 0, 0, 0.5);
-
-    width: 100vw;
     height: 100vh;
+    width: 100vw;
     z-index: 0;
     transform: translate(-0%, -100%);
     position: absolute;
-    margin-left: -5vw;
     display: flex;
     justify-content: center;
     align-items: center;

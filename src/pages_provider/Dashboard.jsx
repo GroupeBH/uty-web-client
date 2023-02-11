@@ -11,14 +11,30 @@ import recettes from '../assets/Chiffre daffaire.png'
 import ads from '../assets/Campagnes ads.png'
 import pubPrice from '../assets/Dépenses Pub.png'
 import map from '../assets/map.png'
+import { useGeolocated } from 'react-geolocated'
 
 function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const socket = useRef()
   const [notifications, setNotifications] = useState([])
+  const [location, setLocation] = useState()
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: {
+        enabledHighAccuracy: false,
+      },
+      userDecisionTimeout: 30000,
+    })
+
+  // console.log(coords)
+  console.log(isGeolocationAvailable)
+  console.log(isGeolocationEnabled)
 
   useEffect(() => {
+    setLocation(coords)
+    console.log(location)
     socket.current = io('http://localhost:5200')
     socket.current.emit('add-user', currentUser._id, currentUser.username)
   }, [currentUser])
@@ -85,13 +101,18 @@ function Dashboard() {
         <div
           className="commande__link"
           onClick={() => {
+            localStorage.setItem('currentLocation', JSON.stringify(location))
             navigate('/DeliveryOne')
           }}
         >
           <div
             className="box__description"
-            onClick={() => {
-              navigate('/DeliveryOne')
+            onClick={async () => {
+              await localStorage.setItem(
+                'currentLocation',
+                JSON.stringify(coords)
+              )
+              await navigate('/DeliveryOne')
             }}
           >
             Traçage

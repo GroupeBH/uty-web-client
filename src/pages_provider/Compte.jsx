@@ -9,7 +9,7 @@ import axios from 'axios'
 
 function Compte() {
   let navigate = useNavigate()
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [category, setCategory] = useState([])
   const data_user = JSON.parse(localStorage.getItem('currentUser'))
   const [username, setUsername] = useState(`${data_user.username}`)
   const [email, setEmail] = useState(`${data_user.email}`)
@@ -41,16 +41,18 @@ function Compte() {
     { value: 'Presse', label: 'Presse' },
   ]
 
+  console.log(data_user._id)
+
   const handleSelect = (data) => {
-    setSelectedOptions(data)
-    console.log(selectedOptions[0].value)
+    setCategory(data)
+    console.log(category[0].value)
   }
   const handleclick = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `http://localhost:5200/api/provider/updateCount/${data_user._id}`,
-        { username, email, selectedOptions }
+        { username, email, category }
       )
       console.log(response.data)
     } catch (error) {
@@ -97,12 +99,12 @@ function Compte() {
           <label htmlFor="">Catégorie</label>
           <Select
             options={optionList}
-            value={selectedOptions}
+            value={category}
             onChange={handleSelect}
             className="select"
             isMulti
           />
-          {console.log(selectedOptions)}
+          {console.log(category)}
         </div>
         <button onClick={(e) => handleclick(e)}>Update</button>
         <button className="cancel__button">Cancel</button>

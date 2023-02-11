@@ -142,7 +142,6 @@ const FormContainer = styled.div`
     justify-content: center;
     gap: 1rem;
     align-items: center;
-
     .register__page {
       height: 100vh;
       width: 100vw;

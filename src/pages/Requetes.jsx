@@ -8,6 +8,7 @@ import axios from 'axios'
 import utyLogo from '../assets/logo-uty.png'
 import { IoMenu, IoNotifications } from 'react-icons/io5'
 import { io } from 'socket.io-client'
+import { useGeolocated } from 'react-geolocated'
 
 function Requetes() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -20,6 +21,18 @@ function Requetes() {
   const [cate, setCate] = useState(null)
   const cloudName = 'disyacex9'
   let navigate = useNavigate()
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: {
+        enabledHighAccuracy: false,
+      },
+      userDecisionTimeout: 30000,
+    })
+
+  console.log(coords)
+  console.log(isGeolocationAvailable)
+  console.log(isGeolocationEnabled)
 
   useEffect(() => {
     socket.current = io('http://localhost:5200')
