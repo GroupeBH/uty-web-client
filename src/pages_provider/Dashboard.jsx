@@ -12,7 +12,7 @@ import ads from '../assets/Campagnes ads.png'
 import pubPrice from '../assets/Dépenses Pub.png'
 import map from '../assets/map.png'
 import { useGeolocated } from 'react-geolocated'
-import { useBookStore } from '../utils/Store'
+// import { useBookStore } from '../utils/Store'
 
 function Dashboard() {
   let navigate = useNavigate()
@@ -20,8 +20,8 @@ function Dashboard() {
   const socket = useRef()
   const [notifications, setNotifications] = useState([])
   const [location, setLocation] = useState()
-  const latitude = useBookStore((state) => state.latitude)
-  const updateLatitude = useBookStore((state) => state.updateLatitude)
+  // const latitude = useBookStore((state) => state.latitude)
+  // const updateLatitude = useBookStore((state) => state.updateLatitude)
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {
@@ -36,8 +36,8 @@ function Dashboard() {
 
   useEffect(() => {
     setLocation(coords)
-    updateLatitude(coords.latitude)
-    console.log(latitude)
+    // updateLatitude(coords.latitude)
+    // console.log(latitude)
     socket.current = io('http://localhost:5200')
     socket.current.emit('add-user', currentUser._id, currentUser.username)
   }, [currentUser])

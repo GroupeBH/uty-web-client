@@ -70,7 +70,7 @@ function Proposition({ setIsClick, preOrder }) {
     try {
       console.log('hello cloudinary')
       await uploadImage()
-      await axios.post('http://localhost:5200/api/preOrder/addprop', {
+      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addprop', {
         from: data._id,
         name: data.username,
         to: preOrder.sender,
@@ -289,6 +289,7 @@ const Container = styled.div`
             background-color: #020664;
             color: white;
             height: 7.5vh;
+            border-radius: 0.5rem;
             font-size: 125%;
             font-weight: bold;
             margin-top: 1.5vh;
