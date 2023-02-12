@@ -99,8 +99,6 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: -5vw;
-    margin-right: -5vw;
     background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
     padding: 1vh 5vw;
     margin-bottom: 2.5vh;
@@ -141,6 +139,23 @@ const Container = styled.div`
       border-color: silver;
       box-shadow: 0px 0px 5px silver;
       padding-left: 2vw;
+    }
+  }
+  .not__offers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 100vw;
+    img {
+      height: 45vh;
+      width: 40vh;
+    }
+    p {
+      color: #5f6161;
+      span {
+        color: orange;
+      }
     }
   }
 `

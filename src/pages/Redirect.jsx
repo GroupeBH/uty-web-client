@@ -78,53 +78,54 @@ function Redirect() {
 }
 
 const Container = styled.div`
-  height: 100vh;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  padding-top: 7.5vh;
-  padding-left: 7.5vw;
-  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-  .desktop__display {
-    display: none;
-  }
-  .sub__container {
-    background-color: white;
-    height: 80vh;
-    width: 80vw;
+  @media all and (max-width: 800px) {
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 1vh;
-    border-radius: 1rem;
-    .uty__logo {
+    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+    .desktop__display {
+      display: none;
+    }
+    .sub__container {
+      background-color: white;
+      height: 80vh;
+      width: 80vw;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      margin-top: -10vh;
-      img {
-        height: 25vh;
-        width: 30vw;
+      align-items: center;
+      padding-top: 1vh;
+      border-radius: 1rem;
+      .uty__logo {
+        display: flex;
+        justify-content: center;
+        margin-top: -10vh;
+        img {
+          height: 25vh;
+          width: 30vw;
+        }
+      }
+      p {
+        font-weight: bold;
+        font-size: 150%;
+        margin-top: 10vh;
+        color: #7e7e80;
+      }
+      button {
+        height: 10vh;
+        width: 50vw;
+        font-size: 200%;
+        margin-top: 2.5vh;
+        border: none;
+        border-radius: 1rem;
+        background-color: #020664;
+        color: white;
+        font-weight: bold;
       }
     }
-    p {
-      font-weight: bold;
-      font-size: 150%;
-      margin-top: 10vh;
-      color: #7e7e80;
-    }
-    button {
-      height: 10vh;
-      width: 50vw;
-      font-size: 200%;
-      margin-top: 2.5vh;
-      border: none;
-      border-radius: 1rem;
-      background-color: #020664;
-      color: white;
-      font-weight: bold;
-    }
   }
+
   @media all and (min-width: 992px) {
     /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
     .desktop__display {
