@@ -271,21 +271,18 @@ const Container = styled.div`
       position: fixed;
       margin-top: 5vh;
       width: 100vw;
-      background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-      margin-left: -3.5vw;
-      padding-top: 3vh;
+      /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+      padding-top: 0.75vh;
       padding-bottom: 10vh;
-      padding-left: 2vw;
-      padding-right: 2vw;
       .ask__service {
         height: 10vh;
-        width: 90vw;
+        width: 95vw;
         padding-left: 6vw;
         padding-right: 6vw;
         margin-top: -0.1vh;
         font-size: 135%;
         font-weight: bold;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         background-color: #020664;
         color: white;
         border: none;
@@ -293,13 +290,13 @@ const Container = styled.div`
       }
       .give__service {
         height: 10vh;
-        width: 90vw;
+        width: 95vw;
         padding-left: 6vw;
         padding-right: 6vw;
         margin-top: 2vh;
         font-size: 135%;
         font-weight: bold;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         background-color: orange;
         color: white;
         border: none;

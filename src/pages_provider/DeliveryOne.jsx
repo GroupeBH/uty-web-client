@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import Map from '../components/Map'
 import utyLogo from '../assets/logo-uty.png'
 import { useNavigate } from 'react-router-dom'
+import { useStore } from '../utils/Store'
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
@@ -11,6 +12,10 @@ mapboxgl.accessToken =
 function DeliveryOne() {
   const data = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
+  const latitude = useStore((state) => state.latitude)
+  const longitude = useStore((state) => state.longitude)
+  console.log(latitude)
+  console.log(longitude)
   return (
     <Container>
       <Map />

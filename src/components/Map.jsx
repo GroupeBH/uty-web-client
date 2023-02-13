@@ -11,17 +11,12 @@ function Map({ pickUpCoord, dropOffCoord }) {
 
   // const [zoom, setZoom] = useState(3)
 
-  const addToMap = (map, coordinates) => {
-    const marker1 = new mapboxgl.Marker().setLngLat(coordinates).addTo(map)
-    console.log(marker1)
-  }
-
   useEffect(() => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-4.038333, 21.758664],
-      zoom: 3,
+      zoom: 9,
     })
 
     // map.current.on('move', () => {
@@ -31,11 +26,11 @@ function Map({ pickUpCoord, dropOffCoord }) {
     // })
 
     if (pickUpCoord) {
-      addToMap(map, pickUpCoord)
+      addMarkerToMap(map, pickUpCoord)
     }
 
     if (dropOffCoord) {
-      addToMap(map, dropOffCoord)
+      addMarkerToMap(map, dropOffCoord)
     }
   })
 
@@ -47,6 +42,10 @@ function Map({ pickUpCoord, dropOffCoord }) {
   //   })
   // })
 
+  const addMarkerToMap = (map, coordinates) => {
+    const marker1 = new mapboxgl.Marker().setLngLat(coordinates).addTo(map)
+    console.log(marker1)
+  }
   return (
     <Container>
       <div ref={mapContainer} className="mapDiv"></div>

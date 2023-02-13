@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { useNavigate, Link } from 'react-router-dom'
-import google from '../assets/google.png'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
@@ -125,11 +124,6 @@ export default function RegisterP() {
               onChange={(e) => handleChange(e)}
             />
             <button type="submit">enregistrer</button>
-            <button className="social__network">
-              <span>
-                Continuer avec <img src={google} alt="" />
-              </span>
-            </button>
             <span>
               Dejà enregistré ? <Link to="/Login">Login.</Link>
             </span>

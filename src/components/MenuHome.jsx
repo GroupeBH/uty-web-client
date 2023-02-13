@@ -24,7 +24,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <IoMenu style={{ fontSize: ' 325%', color: '#020664' }} />
+        <IoMenu style={{ fontSize: ' 375%', color: '#020664' }} />
       </Button>
       <Menu
         id="basic-menu"
@@ -34,15 +34,35 @@ export default function BasicMenu() {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
-        <MenuItem onClick={handleClose}>A propos</MenuItem>
-        <MenuItem onClick={handleClose}>Dévenir livreur</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <p
+            style={{
+              fontSize: '130%',
+              fontWeight: 'bold',
+              marginBottom: '-5vh',
+            }}
+          >
+            A propos
+          </p>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <p style={{ fontSize: '130%', fontWeight: 'bold' }}>
+            Dévenir livreur
+          </p>
+        </MenuItem>
         <MenuItem onClick={handleClose}>
           <button
             style={{
-              height: '5vh',
+              height: '7.5vh',
+              width: '55vw',
               backgroundColor: '#ffc000',
               border: 'none',
+              marginBottom: '50vh',
+              fontSize: '120%',
+              fontWeight: 'bold',
+              marginTop: '-1.5vh',
             }}
           >
             Nous contacter

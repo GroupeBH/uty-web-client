@@ -11,8 +11,8 @@ import recettes from '../assets/Chiffre daffaire.png'
 import ads from '../assets/Campagnes ads.png'
 import pubPrice from '../assets/Dépenses Pub.png'
 import map from '../assets/map.png'
-import { useGeolocated } from 'react-geolocated'
-// import { useBookStore } from '../utils/Store'
+import axios from 'axios'
+import { useStore } from '../utils/Store'
 
 function Dashboard() {
   let navigate = useNavigate()
@@ -20,27 +20,48 @@ function Dashboard() {
   const socket = useRef()
   const [notifications, setNotifications] = useState([])
   const [location, setLocation] = useState()
-  // const latitude = useBookStore((state) => state.latitude)
-  // const updateLatitude = useBookStore((state) => state.updateLatitude)
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-    useGeolocated({
-      positionOptions: {
-        enabledHighAccuracy: false,
-      },
-      userDecisionTimeout: 30000,
-    })
+  const latitude = useStore((state) => state.latitude)
+  const updateLatitude = useStore((state) => state.updateLatitude)
+  const longitude = useStore((state) => state.longitude)
+  const updateLongitude = useStore((state) => state.updateLongitude)
 
-  // console.log(coords)
-  console.log(isGeolocationAvailable)
-  console.log(isGeolocationEnabled)
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      console.log('location not supproted')
+    } else {
+      console.log('locating...')
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          updateLatitude(position.coords.latitude)
+          updateLongitude(position.coords.longitude)
+        },
+        () => {
+          console.log('enabled to retrieve location')
+        }
+      )
+    }
+  }
 
   useEffect(() => {
-    setLocation(coords)
+    getLocation()
+    setLocation()
     // updateLatitude(coords.latitude)
-    // console.log(latitude)
+    console.log(latitude)
+    console.log(longitude)
+    const updateCoords = async () => {
+      const response = await axios.patch(
+        `http://localhost:5200/api/provider/updateCoords/${currentUser._id}`,
+        { latitude, longitude }
+      )
+      setLocation(response.data)
+    }
+    updateCoords()
+
     socket.current = io('http://localhost:5200')
     socket.current.emit('add-user', currentUser._id, currentUser.username)
   }, [currentUser])
+
+  // console.log(latitude)
 
   useEffect(() => {
     socket.current.on('provider_notif', (sender) => {
@@ -111,10 +132,7 @@ function Dashboard() {
           <div
             className="box__description"
             onClick={async () => {
-              await localStorage.setItem(
-                'currentLocation',
-                JSON.stringify(coords)
-              )
+              await localStorage.setItem('currentLocation')
               await navigate('/DeliveryOne')
             }}
           >
