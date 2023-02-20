@@ -50,7 +50,7 @@ function Dashboard() {
     console.log(longitude)
     const updateCoords = async () => {
       const response = await axios.patch(
-        `http://localhost:5200/api/provider/updateCoords/${currentUser._id}`,
+        `https://uty-ti30.onrender.com/api/provider/updateCoords/${currentUser._id}`,
         { latitude, longitude }
       )
       setLocation(response.data)

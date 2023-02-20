@@ -6,13 +6,33 @@ import axios from 'axios'
 function ConfirmT() {
   const [pickUpCoord, setPickUpCoord] = useState()
   const [dropOffCoord, setDropOffCoord] = useState()
-  const access_token =
-    'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
+  // const [distance, setDistance] = useState()
+
+  const getDirection = (pickUpCoord, dropOffCoord) => {
+    try {
+      const direction = axios.get(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?`,
+        new URLSearchParams({
+          access_token:
+            'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+        })
+      )
+      console.log(direction.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const getPickUppoint = async () => {
     const pickUp = 'Kintambo magasin'
     try {
       const pickUrl = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickUp}.json?access_token=${access_token}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickUp}.json?` +
+          new URLSearchParams({
+            access_token:
+              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+            limit: 1,
+          })
       )
       console.log(pickUrl.data)
       setPickUpCoord(pickUrl.data.features[0].center)
@@ -25,7 +45,12 @@ function ConfirmT() {
     const dropOff = 'Kinshasa, Masanga-mbila'
     try {
       const pickUrl = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropOff}.json?access_token=${access_token}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropOff}.json?` +
+          new URLSearchParams({
+            access_token:
+              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+            limit: 1,
+          })
       )
       console.log(pickUrl.data)
       setDropOffCoord(pickUrl.data.features[0].center)
@@ -37,7 +62,11 @@ function ConfirmT() {
   useEffect(() => {
     getPickUppoint()
     getDropOffpoint()
-  })
+    if (pickUpCoord && dropOffCoord) {
+      getDirection(pickUpCoord, dropOffCoord)
+    }
+  }, [pickUpCoord, dropOffCoord])
+
   return (
     <Container>
       <Map pickUpCoord={pickUpCoord} dropOffCoord={dropOffCoord} />

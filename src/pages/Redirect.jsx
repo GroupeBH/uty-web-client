@@ -132,11 +132,12 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
-      padding-left: 2.5vw;
-      padding-right: 2.5vw;
+      justify-content: center;
+      margin-left: 7.5vw;
       .footer {
         display: flex;
         justify-content: center;
+        margin-right: -5vw;
         background-color: black;
         color: white;
       }

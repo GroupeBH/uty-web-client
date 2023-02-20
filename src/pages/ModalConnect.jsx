@@ -6,10 +6,12 @@ import utyLogo from '../assets/logo-uty.png'
 import { useNavigate, Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Rings } from 'react-loader-spinner'
 
 function ModalConnect({ setIsOpen }) {
   const navigate = useNavigate()
   const [values, setValues] = useState({ username: '', password: '' })
+  const [loading, setLoading] = useState(false)
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -26,9 +28,11 @@ function ModalConnect({ setIsOpen }) {
     const { username, password } = values
     if (username === '') {
       toast.error('Email and Password is required.', toastOptions)
+      setLoading(false)
       return false
     } else if (password === '') {
       toast.error('Email and Password is required.', toastOptions)
+      setLoading(false)
       return false
     }
     return true
@@ -36,6 +40,7 @@ function ModalConnect({ setIsOpen }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     if (validateForm()) {
       const { username, password } = values
       const { data } = await axios.post(
@@ -47,11 +52,13 @@ function ModalConnect({ setIsOpen }) {
       )
       console.log(data)
       if (data.status === false) {
+        setLoading(false)
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
         localStorage.setItem('currentUser', JSON.stringify(data.user))
         navigate('/Requetes')
+        setLoading(false)
         setIsOpen(false)
       }
     }
@@ -86,7 +93,25 @@ function ModalConnect({ setIsOpen }) {
                   name="password"
                   onChange={(e) => handleChange(e)}
                 />
-                <button type="submit">Se connecter</button>
+                <button type="submit">
+                  {loading ? (
+                    <>
+                      <div
+                        className="loader"
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginTop: '-2vh',
+                        }}
+                      >
+                        <Rings height="80" width="80" color="white" />
+                      </div>
+                    </>
+                  ) : (
+                    <>Se connecter</>
+                  )}
+                </button>
                 <span>
                   Do not have an account ?{' '}
                   <Link to="/SignParticular" className="signR">

@@ -51,7 +51,7 @@ function Compte() {
     e.preventDefault()
     try {
       const response = await axios.patch(
-        `http://localhost:5200/api/provider/updateCount/${data_user._id}`,
+        `https://uty-ti30.onrender.com/api/provider/updateCount/${data_user._id}`,
         { username, email, category }
       )
       console.log(response.data)

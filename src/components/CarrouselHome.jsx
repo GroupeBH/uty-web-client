@@ -7,7 +7,13 @@ import styled from 'styled-components'
 function CarrouselHome() {
   return (
     <Container>
-      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
+      <Carousel
+        autoPlay
+        infiniteLoop
+        showThumbs={false}
+        showStatus={false}
+        showIndicators={false}
+      >
         <Ads />
         <Ads />
         <Ads />
@@ -17,7 +23,7 @@ function CarrouselHome() {
 }
 
 const Container = styled.div`
-  z-index: 2;
+  z-index: 5;
 `
 
 export default CarrouselHome

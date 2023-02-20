@@ -12,6 +12,7 @@ import Order from './pages_provider/order'
 import Offer from './pages/Offer'
 import DeliveryOne from './pages_provider/DeliveryOne'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import SearchT from './pages_provider/SearchT'
 import ConfirmT from './pages_provider/ConfirmT'
 
