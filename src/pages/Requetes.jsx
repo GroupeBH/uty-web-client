@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import Modal from '../components/Modal'
 import axios from 'axios'
 import utyLogo from '../assets/logo-uty.png'
-import { IoMenu, IoNotifications } from 'react-icons/io5'
+import { IoNotifications } from 'react-icons/io5'
+import MenuClient from '../components/MenuClient'
 import { io } from 'socket.io-client'
 import { useGeolocated } from 'react-geolocated'
+import { Rings } from 'react-loader-spinner'
 
 function Requetes() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -19,6 +21,7 @@ function Requetes() {
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [cate, setCate] = useState(null)
+  const [load, setLoad] = useState(false)
   const cloudName = 'disyacex9'
   let navigate = useNavigate()
 
@@ -63,6 +66,7 @@ function Requetes() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoad(true)
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     console.log(data.username)
     console.log(data._id)
@@ -91,6 +95,7 @@ function Requetes() {
       })
 
       setDescription('')
+      setLoad(false)
       setCate(null)
     } catch (error) {
       console.log(error)
@@ -109,7 +114,7 @@ function Requetes() {
             className="notify__icon"
             onClick={() => navigate('/Offer')}
           />
-          <IoMenu className="menu__icon" />
+          <MenuClient />
         </div>
       </div>
       <div className="request__form">
@@ -153,7 +158,25 @@ function Requetes() {
             </select>
           </div>
 
-          <button onClick={(e) => handleSubmit(e)}>Soumettre la requete</button>
+          <button onClick={(e) => handleSubmit(e)}>
+            {load ? (
+              <>
+                <div
+                  className="loader"
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '-2vh',
+                  }}
+                >
+                  <Rings height="80" width="80" color="white" />
+                </div>
+              </>
+            ) : (
+              <>Soumettre la requete</>
+            )}
+          </button>
         </div>
       </div>
       {isOpen && <Modal setIsOpen={setIsOpen} />}
@@ -198,6 +221,8 @@ const Container = styled.div`
       }
     }
     .count__container {
+      display: flex;
+      align-items: center;
       .menu__icon {
         font-size: 250%;
         color: #020664;

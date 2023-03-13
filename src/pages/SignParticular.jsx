@@ -7,10 +7,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
 import ModalSign from '../components/ModalSign'
+import { Rings } from 'react-loader-spinner'
 
 export default function Register() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [isLoad, setIsLoad] = useState(false)
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -40,9 +42,11 @@ export default function Register() {
     const { password, confirmPassword, username, email, phone } = values
     if (password !== confirmPassword) {
       toast.error('Password and confirm password should be same.', toastOptions)
+      setIsLoad(false)
       return false
     } else if (username.length < 3) {
       toast.error('Username should be greater than 3 characters.', toastOptions)
+      setIsLoad(false)
       return false
     } else if (password.length < 8) {
       toast.error(
@@ -60,6 +64,7 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setIsLoad(true)
     if (handleValidation()) {
       const { email, username, phone, password } = values
       const { data } = await axios.post(
@@ -73,9 +78,11 @@ export default function Register() {
       )
 
       if (data.status === false) {
+        setIsLoad(false)
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
+        setIsLoad(false)
         localStorage.setItem('currentUser', JSON.stringify(data.user))
         setOpen(true)
       }
@@ -125,7 +132,25 @@ export default function Register() {
               name="confirmPassword"
               onChange={(e) => handleChange(e)}
             />
-            <button type="submit">Enregistrement</button>
+            <button type="submit">
+              {isLoad ? (
+                <>
+                  <div
+                    className="loader"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: '-2vh',
+                    }}
+                  >
+                    <Rings height="80" width="80" color="white" />
+                  </div>
+                </>
+              ) : (
+                <>Enregistrement</>
+              )}
+            </button>
           </form>
         </div>
       </FormContainer>

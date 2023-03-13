@@ -130,8 +130,8 @@ function ModalConnect({ setIsOpen }) {
 
 const Container = styled.div`
   .modal__back {
-    background-color: rgba(0, 0, 0, 0.5);
-
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-left: -10.5vw;
     width: 100vw;
     height: 100vh;
     z-index: 0;

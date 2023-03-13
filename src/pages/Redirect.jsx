@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import first from '../assets/deskOne.png'
@@ -8,19 +8,22 @@ import ModalConnect from './ModalConnect'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 
 function Redirect() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
   return (
     <Container>
       <div className="sub__container">
-        <div className="uty__logo">
-          <img src={utyLogo} alt="uty-logo" />
-        </div>
-        <p>Bienvenu chez uty</p>
+        <div className="sub__container__body">
+          <div className="uty__logo">
+            <img src={utyLogo} alt="uty-logo" />
+          </div>
+          <p>Bienvenu chez uty</p>
 
-        <button onClick={() => navigate('/HomePage')}>Start</button>
+          <button onClick={() => setIsOpen(true)}>Start</button>
+        </div>
+        {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       </div>
       <div className="desktop__display">
         <div className="start__navbar">
@@ -71,7 +74,7 @@ function Redirect() {
           <HomePage />
         </div>
       </div>
-      {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
+      {/* {isOpen && <ModalConnect setIsOpen={setIsOpen} />} */}
       {open && <ModalProviderC setOpen={setOpen} />}
     </Container>
   )
@@ -88,40 +91,45 @@ const Container = styled.div`
       display: none;
     }
     .sub__container {
-      background-color: white;
-      height: 80vh;
-      width: 80vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding-top: 1vh;
-      border-radius: 1rem;
-      .uty__logo {
+      .sub__container__body {
+        background-color: white;
+        height: 80vh;
+        width: 80vw;
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        margin-top: -10vh;
-        img {
-          height: 25vh;
-          width: 30vw;
-        }
-      }
-      p {
-        font-weight: bold;
-        font-size: 150%;
-        margin-top: 10vh;
-        color: #7e7e80;
-      }
-      button {
-        height: 10vh;
-        width: 50vw;
-        font-size: 200%;
-        margin-top: 2.5vh;
-        border: none;
+        align-items: center;
+        padding-top: 1vh;
         border-radius: 1rem;
-        background-color: #020664;
-        color: white;
-        font-weight: bold;
+        .uty__logo {
+          display: flex;
+          justify-content: center;
+          margin-top: -10vh;
+          img {
+            height: 25vh;
+            width: 30vw;
+          }
+        }
+        p {
+          font-weight: bold;
+          font-size: 150%;
+          margin-top: 10vh;
+          color: #7e7e80;
+        }
+        button {
+          height: 10vh;
+          width: 50vw;
+          font-size: 200%;
+          margin-top: 2.5vh;
+          border: none;
+          border-radius: 1rem;
+          background-color: #020664;
+          color: white;
+          font-weight: bold;
+        }
       }
     }
   }

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import utyLogo from '../assets/logo-uty.png'
 
 function Modal({ setIsOpen }) {
   return (
@@ -7,7 +8,7 @@ function Modal({ setIsOpen }) {
       <div className="modal__back">
         <div className="centered">
           <div className="modal__body">
-            <h2>uty</h2>
+            <img src={utyLogo} />
             <p>Merci d utiliser uty Votre demande est en traitement</p>
             <button onClick={() => setIsOpen(false)}>Ok</button>
           </div>
@@ -20,7 +21,7 @@ function Modal({ setIsOpen }) {
 const Container = styled.div`
   .modal__back {
     background-color: rgba(0, 0, 0, 0.5);
-
+    top: 100vh;
     width: 100vw;
     height: 100vh;
     z-index: 0;
@@ -45,23 +46,22 @@ const Container = styled.div`
         justify-content: center;
         align-items: center;
         z-index: 10;
-        h2 {
-          color: #fa5343;
-          font-size: 200%;
+        img {
+          height: 17.5vh;
+          margin-top: 2.5vh;
         }
         p {
-          margin-top: -2vh;
           font-size: 120%;
           font-weight: bold;
           color: #4f4b4b;
         }
         button {
           color: white;
-          background-color: blue;
+          background-color: #020664;
           border: none;
-          width: 30vw;
+          width: 80vw;
           height: 7.5vh;
-          border-radius: 1rem;
+          border-radius: 0.5rem;
           font-size: 120%;
           font-weight: bold;
         }

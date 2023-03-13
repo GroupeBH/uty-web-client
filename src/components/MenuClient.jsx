@@ -55,20 +55,10 @@ export default function BasicMenu() {
               marginBottom: '-1.5vh',
             }}
           >
-            Commandes
-          </p>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <p
-            style={{
-              fontSize: '130%',
-              fontWeight: 'bold',
-              marginBottom: '-1.5vh',
-            }}
-          >
             Historique
           </p>
         </MenuItem>
+
         <MenuItem onClick={handleClose}>
           <p
             style={{
@@ -77,7 +67,7 @@ export default function BasicMenu() {
               marginBottom: '2.5vh',
             }}
           >
-            Suivre une livraison
+            Suivre ma livraison
           </p>
         </MenuItem>
         <MenuItem onClick={handleClose}>

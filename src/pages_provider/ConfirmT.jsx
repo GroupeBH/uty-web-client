@@ -6,23 +6,49 @@ import axios from 'axios'
 function ConfirmT() {
   const [pickUpCoord, setPickUpCoord] = useState()
   const [dropOffCoord, setDropOffCoord] = useState()
-  // const [distance, setDistance] = useState()
+  const [direction, setDirection] = useState()
 
-  const getDirection = (pickUpCoord, dropOffCoord) => {
+  const getMatching = (pickUpCoord, dropOffCoord) => {
     try {
-      const direction = axios.get(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?`,
-        new URLSearchParams({
-          access_token:
-            'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
-        })
+      fetch(
+        `https://api.mapbox.com/matching/v5/mapbox/driving/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
+          new URLSearchParams({
+            access_token:
+              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+          })
       )
-      console.log(direction.data)
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          console.log(data.matchings[0])
+        })
     } catch (error) {
       console.log(error)
     }
   }
 
+  const getDirection = (pickUpCoord, dropOffCoord) => {
+    try {
+      fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
+          new URLSearchParams({
+            access_token:
+              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+          })
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          console.log(data.routes[0])
+          setDirection(data.routes[0])
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(direction)
   const getPickUppoint = async () => {
     const pickUp = 'Kintambo magasin'
     try {
@@ -64,12 +90,17 @@ function ConfirmT() {
     getDropOffpoint()
     if (pickUpCoord && dropOffCoord) {
       getDirection(pickUpCoord, dropOffCoord)
+      getMatching(pickUpCoord, dropOffCoord)
     }
   }, [pickUpCoord, dropOffCoord])
 
   return (
     <Container>
-      <Map pickUpCoord={pickUpCoord} dropOffCoord={dropOffCoord} />
+      <Map
+        pickUpCoord={pickUpCoord}
+        dropOffCoord={dropOffCoord}
+        direction={direction}
+      />
       <div className="button__side">
         <button>Lancer la levée</button>
       </div>
