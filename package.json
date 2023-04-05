@@ -2,6 +2,7 @@
   "name": "uty_web",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
     "@emotion/react": "^11.10.5",

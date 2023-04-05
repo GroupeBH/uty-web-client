@@ -15,6 +15,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import SearchT from './pages_provider/SearchT'
 import ConfirmT from './pages_provider/ConfirmT'
+import Location from './pages/Location'
+import Categories from './pages/Categories'
 
 function App() {
   return (
@@ -24,7 +26,7 @@ function App() {
           <Route exact path="/" element={<Redirect />} />
           <Route exact path="/SignParticular" element={<SignParticular />} />
           <Route exact path="/HomePage" element={<HomePage />} />
-          <Route exact path="/Requetes" element={<Requetes />} />
+          <Route exact path="/Requetes/:id" element={<Requetes />} />
           <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route exact path="/RegisterP" element={<RegisterP />} />
           <Route exact path="/Command" element={<Command />} />
@@ -34,6 +36,8 @@ function App() {
           <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
           <Route exact path="/SearchT" element={<SearchT />} />
           <Route exact path="/ConfirmT" element={<ConfirmT />} />
+          <Route exact path="/Location" element={<Location />} />
+          <Route exact path="/Categories" element={<Categories />} />
         </Routes>
       </BrowserRouter>
     </>

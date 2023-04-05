@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import first from '../assets/deskOne.png'
 import HomePage from './HomePage'
 import ModalConnect from './ModalConnect'
 import ModalProviderC from '../pages_provider/ModalProviderC'
+import SearchLocation from '../components/SearchLocation'
 
 function Redirect() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -18,10 +19,17 @@ function Redirect() {
         <div className="sub__container__body">
           <div className="uty__logo">
             <img src={utyLogo} alt="uty-logo" />
+            <button onClick={() => setIsOpen(true)}>Get started</button>
           </div>
-          <p>Bienvenu chez uty</p>
-
-          <button onClick={() => setIsOpen(true)}>Start</button>
+          <div className="header__body">
+            <div className="accroche">
+              <h4>Trouve tout ce que tu veux, on te le livre</h4>
+              <span>Boissons, nourritures, médicaments, quincaillerie...</span>
+            </div>
+            <div className="serch__side" onClick={() => navigate('/Location')}>
+              <SearchLocation />
+            </div>
+          </div>
         </div>
         {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       </div>
@@ -93,24 +101,53 @@ const Container = styled.div`
     .sub__container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       .sub__container__body {
-        background-color: white;
-        height: 80vh;
-        width: 80vw;
+        height: 100vh;
+        width: 100vw;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding-top: 1vh;
         border-radius: 1rem;
+        .header__body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 90vw;
+          margin-left: 5vw;
+          margin-top: 10vh;
+          .accroche {
+            margin-bottom: 5vh;
+            h4 {
+              font-size: 155%;
+              margin-bottom: 2vh;
+            }
+            span {
+              font-size: 110%;
+            }
+          }
+        }
         .uty__logo {
           display: flex;
-          justify-content: center;
-          margin-top: -10vh;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 1vh;
+          padding-right: 5vw;
+          padding-left: 5vw;
           img {
-            height: 25vh;
-            width: 30vw;
+            height: 10.5vh;
+            width: 15vw;
+            align-self: center;
+          }
+          button {
+            height: 7.5vh;
+            width: 37.5vw;
+            font-size: 125%;
+            margin-top: 2.5vh;
+            border: none;
+            border-radius: 1rem;
+            background-color: #020664;
+            color: white;
+            align-self: center;
           }
         }
         p {
@@ -118,17 +155,6 @@ const Container = styled.div`
           font-size: 150%;
           margin-top: 10vh;
           color: #7e7e80;
-        }
-        button {
-          height: 10vh;
-          width: 50vw;
-          font-size: 200%;
-          margin-top: 2.5vh;
-          border: none;
-          border-radius: 1rem;
-          background-color: #020664;
-          color: white;
-          font-weight: bold;
         }
       }
     }

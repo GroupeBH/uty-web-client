@@ -9,9 +9,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Rings } from 'react-loader-spinner'
 
 function ModalConnect({ setIsOpen }) {
+  const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
   const [values, setValues] = useState({ username: '', password: '' })
   const [loading, setLoading] = useState(false)
+
+  console.log(location)
+
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -55,11 +59,22 @@ function ModalConnect({ setIsOpen }) {
         setLoading(false)
         toast.error(data.msg, toastOptions)
       }
-      if (data.status === true) {
+      if (
+        data.status === true &&
+        location[0] === 0 &&
+        location[1] === 0 &&
+        location[2].length === 0
+      ) {
         localStorage.setItem('currentUser', JSON.stringify(data.user))
-        navigate('/Requetes')
+        navigate('/Location')
         setLoading(false)
         setIsOpen(false)
+      } else if (
+        (data.status === true && location[0] > 0) ||
+        location[1] > 0 ||
+        location[2] > 0
+      ) {
+        navigate('/Location')
       }
     }
   }
