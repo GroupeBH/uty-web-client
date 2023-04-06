@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
-import { IoMenu } from 'react-icons/io5'
+import MenuClient from './MenuClient'
 
 function Nav() {
   return (
@@ -10,7 +10,7 @@ function Nav() {
         <img src={utyLogo} alt="" className="uty__logo" />{' '}
       </div>
       <div className="count__container">
-        <IoMenu className="menu__icon" />
+        <MenuClient />
       </div>
     </Container>
   )

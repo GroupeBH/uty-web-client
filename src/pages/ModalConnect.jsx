@@ -69,12 +69,8 @@ function ModalConnect({ setIsOpen }) {
         navigate('/Location')
         setLoading(false)
         setIsOpen(false)
-      } else if (
-        (data.status === true && location[0] > 0) ||
-        location[1] > 0 ||
-        location[2] > 0
-      ) {
-        navigate('/Location')
+      } else {
+        navigate('/Categories')
       }
     }
   }
@@ -146,7 +142,6 @@ function ModalConnect({ setIsOpen }) {
 const Container = styled.div`
   .modal__back {
     background-color: rgba(0, 0, 0, 0.2);
-    margin-left: -10.5vw;
     width: 100vw;
     height: 100vh;
     z-index: 0;

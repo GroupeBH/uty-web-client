@@ -1,3 +1,3 @@
 window.env = {
-  "HOST": "http://localhost:5100"
-};
+  HOST: 'http://localhost:5100',
+}
