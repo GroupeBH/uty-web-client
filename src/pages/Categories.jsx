@@ -17,7 +17,7 @@ function Categories() {
   useEffect(() => {
     const getCategories = async () => {
       const response = await axios.get(
-        'http://localhost:5200/api/category/getCategories'
+        'https://uty-ti30.onrender.com/api/category/getCategories'
       )
       setCategories(response.data)
       setLoading(false)
