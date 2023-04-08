@@ -11,6 +11,7 @@ import {
   IoPhonePortraitOutline,
   IoAddSharp,
 } from 'react-icons/io5'
+import { useStore } from '../utils/Store'
 
 function Requetes() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -21,8 +22,11 @@ function Requetes() {
   const [url, setUrl] = useState(null)
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [cate, setCate] = useState(null)
   const [load, setLoad] = useState(false)
+  const username = useStore((state) => state.username)
+
   const cloudName = 'disyacex9'
   const params = useParams()
 
@@ -32,6 +36,11 @@ function Requetes() {
   //   'Entre 25000 et 50000 fc',
   //   'Entre '
   // ]
+  useEffect(() => {
+    if (!username && !currentUser) {
+      navigate('/SignParticular')
+    }
+  }, [username, currentUser])
 
   useEffect(() => {
     socket.current = io('http://localhost:5200')
@@ -103,7 +112,7 @@ function Requetes() {
       <div className="request__form">
         <IoArrowBackSharp onClick={() => navigate('/Categories')} />
         <h3>
-          Salut <span className="username">{currentUser.username}</span>
+          Salut <span className="username">{username}</span>
           trouvons votre produit
         </h3>
         <hr />

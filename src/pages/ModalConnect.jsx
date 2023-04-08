@@ -7,12 +7,14 @@ import { useNavigate, Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Rings } from 'react-loader-spinner'
+// import { useStore } from '../utils/Store'
 
 function ModalConnect({ setIsOpen }) {
   const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
   const [values, setValues] = useState({ username: '', password: '' })
   const [loading, setLoading] = useState(false)
+  // const username = useStore((state) => state.username)
 
   console.log(location)
 
@@ -59,18 +61,11 @@ function ModalConnect({ setIsOpen }) {
         setLoading(false)
         toast.error(data.msg, toastOptions)
       }
-      if (
-        data.status === true &&
-        location[0] === 0 &&
-        location[1] === 0 &&
-        location[2].length === 0
-      ) {
+      if (data.status === true) {
         localStorage.setItem('currentUser', JSON.stringify(data.user))
-        navigate('/Location')
+        navigate('/Categories')
         setLoading(false)
         setIsOpen(false)
-      } else {
-        navigate('/Categories')
       }
     }
   }

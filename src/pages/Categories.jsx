@@ -3,16 +3,23 @@ import styled from 'styled-components'
 import axios from 'axios'
 import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Categories() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const location = localStorage.getItem('currentLocation')
+  const navigate = useNavigate()
   // const navigate = useNavigate()
 
   // const handleClick = (item) => {
   //   navigate(`/Requetes/${item}`)
   // }
+  useEffect(() => {
+    if (!location) {
+      navigate('/Location')
+    }
+  })
 
   useEffect(() => {
     const getCategories = async () => {

@@ -7,8 +7,10 @@ import HomePage from './HomePage'
 import ModalConnect from './ModalConnect'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 import SearchLocation from '../components/SearchLocation'
+import MenuClient from '../components/MenuClient'
 
 function Redirect() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const [open, setOpen] = useState(false)
@@ -19,7 +21,13 @@ function Redirect() {
         <div className="sub__container__body">
           <div className="uty__logo">
             <img src={utyLogo} alt="uty-logo" />
-            <button onClick={() => setIsOpen(true)}>Get started</button>
+            <div className="button__side">
+              {currentUser ? (
+                <MenuClient />
+              ) : (
+                <button onClick={() => setIsOpen(true)}>Get started</button>
+              )}
+            </div>
           </div>
           <div className="header__body">
             <div className="accroche">
@@ -138,16 +146,18 @@ const Container = styled.div`
             width: 15vw;
             align-self: center;
           }
-          button {
-            height: 7.5vh;
-            width: 37.5vw;
-            font-size: 125%;
-            margin-top: 2.5vh;
-            border: none;
-            border-radius: 1rem;
-            background-color: #020664;
-            color: white;
-            align-self: center;
+          .button__side {
+            button {
+              height: 7.5vh;
+              width: 37.5vw;
+              font-size: 125%;
+              margin-top: 2.5vh;
+              border: none;
+              border-radius: 1rem;
+              background-color: #020664;
+              color: white;
+              align-self: center;
+            }
           }
         }
         p {

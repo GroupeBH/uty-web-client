@@ -4,13 +4,17 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { IoMenu } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
+// import { useStore } from '../utils/Store'
 
 export default function BasicMenu() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  // const user = useStore((state) => state.user)
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
+  // console.log(user)
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -36,6 +40,32 @@ export default function BasicMenu() {
         }}
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
+        {currentUser.isProvider && (
+          <MenuItem onClick={() => navigate('/Dashboard')}>
+            <p
+              style={{
+                fontSize: '130%',
+                fontWeight: 'bold',
+                marginBottom: '-1.5vh',
+              }}
+            >
+              My dashboard
+            </p>
+          </MenuItem>
+        )}
+        {currentUser.isDeliver && (
+          <MenuItem onClick={() => navigate('/Compte')}>
+            <p
+              style={{
+                fontSize: '130%',
+                fontWeight: 'bold',
+                marginBottom: '-1.5vh',
+              }}
+            >
+              My courses
+            </p>
+          </MenuItem>
+        )}
         <MenuItem onClick={() => navigate('/Compte')}>
           <p
             style={{
@@ -81,6 +111,7 @@ export default function BasicMenu() {
               fontSize: '135%',
               marginBottom: '2.5vh',
             }}
+            onClick={() => localStorage.removeItem('currentUser')}
           >
             Se deconnecter
           </button>

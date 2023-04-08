@@ -5,7 +5,7 @@ import utyLogo from '../assets/logo-uty.png'
 import { useNavigate } from 'react-router-dom'
 import {} from 'react-icons/io5'
 import ModalConnect from './ModalConnect'
-import MenuHome from '../components/MenuHome'
+import MenuClient from '../components/MenuClient'
 import { useState } from 'react'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 import CarrouselHome from '../components/CarrouselHome'
@@ -23,7 +23,7 @@ function HomePage() {
           <img src={utyLogo} alt="" className="uty__logo" />{' '}
         </div>
         <div className="phone__navbar">
-          <MenuHome />
+          <MenuClient />
         </div>
       </div>
       <div className="carousel">

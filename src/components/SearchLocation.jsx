@@ -5,7 +5,7 @@ import { IoLocate, IoLocation } from 'react-icons/io5'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
 
-function SearchLocation() {
+function SearchLocation({ handleClick }) {
   //   const navigate = useNavigate()
   const [adress, setAdress] = useState()
   const latitude = useStore((state) => state.latitude)
@@ -39,6 +39,7 @@ function SearchLocation() {
           console.log('enabled to retrieve location')
         }
       )
+      handleClick()
     }
   }
 
