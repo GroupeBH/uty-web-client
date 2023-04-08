@@ -48,7 +48,7 @@ function SearchLocation({ handleClick }) {
     <Container>
       <div className="input__search">
         <div className="locate__flag">
-          <IoLocate onClick={getSearchAdress} />
+          <IoLocate onClick={getSearchAdress} className="locate__icon" />
         </div>
         <input
           type="text"
@@ -74,6 +74,7 @@ const Container = styled.div`
     display: flex;
     width: 90vw;
     margin-bottom: 2.5vh;
+    box-shadow: 0px 0px 5px #5b5e5e;
     .locate__flag {
       background-color: orange;
       width: 15vw;
@@ -81,7 +82,8 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      svg {
+      .locate__icon {
+        align-self: center;
         color: white;
         font-size: 150%;
       }
