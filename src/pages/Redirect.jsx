@@ -7,7 +7,7 @@ import HomePage from './HomePage'
 import ModalConnect from './ModalConnect'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 import SearchLocation from '../components/SearchLocation'
-import MenuClient from '../components/MenuClient'
+// import MenuClient from '../components/MenuClient'
 
 function Redirect() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -22,8 +22,9 @@ function Redirect() {
           <div className="uty__logo">
             <img src={utyLogo} alt="uty-logo" />
             <div className="button__side">
-              {currentUser ? (
-                <MenuClient />
+              {currentUser !== null ? (
+                // <MenuClient />
+                <p></p>
               ) : (
                 <button onClick={() => setIsOpen(true)}>Get started</button>
               )}
