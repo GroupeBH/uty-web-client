@@ -40,7 +40,7 @@ export default function BasicMenu() {
         }}
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
-        {currentUser.isProvider !== null ? (
+        {currentUser.isProvider !== null && currentUser.isProvider !== false ? (
           <MenuItem onClick={() => navigate('/Dashboard')}>
             <p
               style={{
@@ -55,7 +55,7 @@ export default function BasicMenu() {
         ) : (
           <p></p>
         )}
-        {currentUser.isDeliver !== null ? (
+        {currentUser.isDeliver !== null && currentUser.isDeliver !== false ? (
           <MenuItem onClick={() => navigate('/Compte')}>
             <p
               style={{

@@ -7,11 +7,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
 import ModalSign from '../components/ModalSign'
+import ModalConnect from './ModalConnect'
 import { Rings } from 'react-loader-spinner'
 
 export default function Register() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [isLoad, setIsLoad] = useState(false)
   const toastOptions = {
     position: 'bottom-right',
@@ -151,10 +153,15 @@ export default function Register() {
                 <>Enregistrement</>
               )}
             </button>
+            <p>
+              Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
+              si vous avez un compte
+            </p>
           </form>
         </div>
       </FormContainer>
       {open && <ModalSign />}
+      {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       <ToastContainer />
     </>
   )
@@ -240,32 +247,20 @@ const FormContainer = styled.div`
           background-color: #4e0eff;
         }
       }
-      span {
+      p {
         color: black;
-        text-transform: uppercase;
-        margin-top: -2vh;
-        a {
-          color: #fa5343;
-          text-decoration: none;
-          font-weight: bold;
+        margin-bottom: 2.5vh;
+        margin-top: -2.5vh;
+        font-size: 105%;
+        span {
+          color: red;
+          font-weight: semi-bold;
+          margin-right: 1vw;
         }
-      }
-      .social__network {
-        display: flex;
-        background-color: silver;
-        color: black;
-        padding: 1rem 2rem;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 0.4rem;
-        font-size: 1rem;
-        text-transform: uppercase;
-        font-weight: bold;
       }
     }
   }
-  height: 100vh;
+  /* height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -330,5 +325,5 @@ const FormContainer = styled.div`
       text-decoration: none;
       font-weight: bold;
     }
-  }
+  } */
 `

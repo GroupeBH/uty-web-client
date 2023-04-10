@@ -7,7 +7,7 @@ import HomePage from './HomePage'
 import ModalConnect from './ModalConnect'
 import ModalProviderC from '../pages_provider/ModalProviderC'
 import SearchLocation from '../components/SearchLocation'
-// import MenuClient from '../components/MenuClient'
+import MenuClient from '../components/MenuClient'
 
 function Redirect() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -23,10 +23,14 @@ function Redirect() {
             <img src={utyLogo} alt="uty-logo" />
             <div className="button__side">
               {currentUser !== null ? (
-                // <MenuClient />
-                <p></p>
+                <MenuClient />
               ) : (
-                <button onClick={() => setIsOpen(true)}>Get started</button>
+                <button
+                  className="started__button"
+                  onClick={() => setIsOpen(true)}
+                >
+                  Get started
+                </button>
               )}
             </div>
           </div>
@@ -148,7 +152,7 @@ const Container = styled.div`
             align-self: center;
           }
           .button__side {
-            button {
+            .started__button {
               height: 7.5vh;
               width: 37.5vw;
               font-size: 125%;
