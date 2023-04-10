@@ -1,7 +1,6 @@
 {
   "name": "uty_web",
   "version": "0.1.0",
-  "homepage": "https://uty.life",
   "private": true,
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
