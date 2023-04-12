@@ -16,7 +16,7 @@ function ModalSign() {
               Salut <span>{currentUser.username}</span>, nous vous souhaitons le
               bienvenu sur uty
             </p>
-            <button onClick={() => navigate('/Requetes')}>Commencer</button>
+            <button onClick={() => navigate('/Categories')}>Commencer</button>
           </div>
         </div>
       </div>

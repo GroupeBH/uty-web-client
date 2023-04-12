@@ -80,8 +80,8 @@ export default function Register() {
       )
 
       if (data.status === false) {
-        setIsLoad(false)
         toast.error(data.msg, toastOptions)
+        setIsLoad(false)
       }
       if (data.status === true) {
         setIsLoad(false)
