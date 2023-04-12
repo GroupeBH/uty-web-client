@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import utyLogo from '../assets/logo-uty.png'
-import { IoMenu } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
 import OfferDetail from '../components/OfferDetail'
 import loader from '../assets/loader.gif'
+import Nav from '../components/Nav'
 
 function Offer() {
-  const navigate = useNavigate()
   const [offers, setOffers] = useState([])
   const [selectedOffer, setSelectedOffer] = useState('')
   const [isClick, setIsClick] = useState(false)
   const [loading, setLoading] = useState(true)
+  const data = JSON.parse(localStorage.getItem('currentUser'))
+
   useEffect(() => {
     const getOffers = async () => {
-      const data = await JSON.parse(localStorage.getItem('currentUser'))
       const response = await axios.get(
         `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
       )
@@ -35,15 +33,14 @@ function Offer() {
         </ContainerL>
       ) : (
         <Container>
-          <div className="navbar">
-            <div className="page__title" onClick={() => navigate('/Requetes')}>
-              <img src={utyLogo} alt="" className="uty__logo" />{' '}
-            </div>
-            <div className="count__container">
-              <IoMenu className="menu__icon" />
-            </div>
-          </div>
+          <Nav />
           <div className="offer__list">
+            {offers.length == 0 && (
+              <div className="offer__empty">
+                Salut {data.username} vous n avez pas d offres pour le moment
+              </div>
+            )}
+
             {offers.map((offer) => {
               return (
                 <div
@@ -95,46 +92,16 @@ const ContainerL = styled.div`
 `
 
 const Container = styled.div`
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-    padding: 1vh 5vw;
-    margin-bottom: 2.5vh;
-    .user__profil {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #020664;
-      background-color: white;
-      border-radius: 2rem;
-      padding-left: 2vw;
-      padding-right: 2vw;
-      svg {
-        font-size: 150%;
-        cursor: pointer;
-      }
-    }
-
-    .page__title {
-      padding-top: 1vh;
-      .uty__logo {
-        height: 8vh;
-        width: 12.5vw;
-      }
-    }
-    .count__container {
-      .menu__icon {
-        font-size: 250%;
-      }
-    }
-  }
   .offer__list {
     display: flex;
     flex-direction: column;
     gap: 2.5vh;
     padding: 2vh 5vw;
+    .offer__empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .offer {
       border-color: silver;
       box-shadow: 0px 0px 5px silver;

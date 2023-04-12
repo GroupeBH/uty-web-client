@@ -4,8 +4,10 @@ import axios from 'axios'
 import { IoClose, IoDocumentAttach, IoImage } from 'react-icons/io5'
 import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
+import { Rings } from 'react-loader-spinner'
 
 function Proposition({ setIsClick, preOrder }) {
+  const [loading, setLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState('')
   const [selectedTwo, setSelectedTwo] = useState('')
   const [selectedThree, setSelectedThree] = useState('')
@@ -66,9 +68,9 @@ function Proposition({ setIsClick, preOrder }) {
 
   const handleClick = async (e) => {
     e.preventDefault()
+    setLoading(true)
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     try {
-      console.log('hello cloudinary')
       await uploadImage()
       await axios.post('https://uty-ti30.onrender.com/api/preOrder/addprop', {
         from: data._id,
@@ -79,8 +81,11 @@ function Proposition({ setIsClick, preOrder }) {
         imageThree: docUrlThree,
         price: price,
       })
+
+      setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
   }
   return (
@@ -127,7 +132,6 @@ function Proposition({ setIsClick, preOrder }) {
                   onChange={() => setSelectedFile(fileOne.current.files[0])}
                   ref={fileOne}
                 />
-                <p>{}</p>
                 {selectedFile ? <p>{selectedFile.name}</p> : <p></p>}
               </div>
               <div className="image__frame1">
@@ -175,7 +179,25 @@ function Proposition({ setIsClick, preOrder }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <button onClick={(e) => handleClick(e)}>Soumettre</button>
+              <button onClick={(e) => handleClick(e)}>
+                {loading ? (
+                  <>
+                    <div
+                      className="loader"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '-2vh',
+                      }}
+                    >
+                      <Rings height="80" width="80" color="white" />
+                    </div>
+                  </>
+                ) : (
+                  <>Soumettre</>
+                )}
+              </button>
             </div>
           </div>
         </div>

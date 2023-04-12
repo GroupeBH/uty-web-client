@@ -13,7 +13,6 @@ import Offer from './pages/Offer'
 import DeliveryOne from './pages_provider/DeliveryOne'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
-import SearchT from './pages_provider/SearchT'
 import ConfirmT from './pages_provider/ConfirmT'
 import Location from './pages/Location'
 import Categories from './pages/Categories'
@@ -34,7 +33,6 @@ function App() {
           <Route exact path="/Order" element={<Order />} />
           <Route exact path="/Offer" element={<Offer />} />
           <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
-          <Route exact path="/SearchT" element={<SearchT />} />
           <Route exact path="/ConfirmT" element={<ConfirmT />} />
           <Route exact path="/Location" element={<Location />} />
           <Route exact path="/Categories" element={<Categories />} />

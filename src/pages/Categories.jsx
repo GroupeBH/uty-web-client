@@ -6,15 +6,18 @@ import Nav from '../components/Nav'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Categories() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
-  // const navigate = useNavigate()
 
-  // const handleClick = (item) => {
-  //   navigate(`/Requetes/${item}`)
-  // }
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/')
+    }
+  })
+
   useEffect(() => {
     if (!location) {
       navigate('/Location')

@@ -25,7 +25,7 @@ function DeliveryOne() {
           <span>{data.username}</span>
         </div>
         <h4>Livrez vos marchandises en toute sécurité</h4>
-        <button onClick={() => navigate('/SearchT')}>Lancer la levée</button>
+        <button onClick={() => navigate('/ConfirmT')}>Lancer la levée</button>
       </div>
     </Container>
   )

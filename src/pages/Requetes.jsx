@@ -18,24 +18,17 @@ function Requetes() {
   const navigate = useNavigate()
   const socket = useRef()
   const [selectedImg, setSelectedImg] = useState(null)
+  const [phone, setPhone] = useState(null)
   const [picUrl, setPicUrl] = useState(null)
   const [url, setUrl] = useState(null)
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  // const [open, setOpen] = useState(false)
-  const [cate, setCate] = useState(null)
   const [load, setLoad] = useState(false)
   const username = useStore((state) => state.username)
 
   const cloudName = 'disyacex9'
   const params = useParams()
 
-  // const prices = [
-  //   'Entre 1000 et 10000 fc',
-  //   'Entre 10000 fc et 25000',
-  //   'Entre 25000 et 50000 fc',
-  //   'Entre '
-  // ]
   useEffect(() => {
     if (!username && !currentUser) {
       navigate('/SignParticular')
@@ -76,32 +69,17 @@ function Requetes() {
     console.log(data.username)
     console.log(data._id)
     try {
-      console.log({
-        description: description,
-        image: url,
-        sender: data._id,
-        category: cate,
-      })
-      socket.current.emit('sendToProvider', {
-        sender: data._id,
-      })
-      socket.current.emit('sendPreOrder', {
-        sender: data.username,
-        description: description,
-        image: url,
-        category: cate,
-      })
       await uploadImage()
       await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
         description: description,
         image: url,
+        phone: phone,
         sender: data._id,
-        category: cate,
+        category: params.id,
       })
 
       setDescription('')
       setLoad(false)
-      setCate(null)
     } catch (error) {
       console.log(error)
     }
@@ -110,9 +88,12 @@ function Requetes() {
   return (
     <Container>
       <div className="request__form">
-        <IoArrowBackSharp onClick={() => navigate('/Categories')} />
+        <IoArrowBackSharp
+          className="return"
+          onClick={() => navigate('/Categories')}
+        />
         <h3>
-          Salut <span className="username">{username}</span>
+          Salut <span className="username">{currentUser.username}</span>
           trouvons votre produit
         </h3>
         <hr />
@@ -136,7 +117,7 @@ function Requetes() {
                     className="file"
                   />
                   <label htmlFor="file">
-                    <IoAddSharp /> Ajouter une image
+                    <IoAddSharp className="add__product" /> Ajouter une image
                   </label>
                 </div>
               ) : (
@@ -150,6 +131,8 @@ function Requetes() {
               <input
                 type="number"
                 placeholder="Entrez votre numéro de téléphone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           </div>
@@ -187,7 +170,7 @@ const Container = styled.div`
   flex-direction: column;
   .request__form {
     width: 100%;
-    svg {
+    .return {
       font-size: 250%;
       font-weight: bold;
       margin-bottom: 2.5vh;
@@ -210,6 +193,9 @@ const Container = styled.div`
       width: 90vw;
       padding: 1vh 1vw;
       font-size: 120%;
+      svg {
+        font-size: 250%;
+      }
       input {
         border: none;
       }
@@ -247,13 +233,17 @@ const Container = styled.div`
               color: white;
               font-weight: bold;
               font-size: 105%;
+              padding-left: 1vw;
+              padding-right: 1vw;
               width: 50vw;
               display: flex;
               align-items: center;
               justify-content: center;
               cursor: pointer;
               transition: transform 0.2s ease-out;
-              align-self: center;
+              .add__product {
+                font-size: 250%;
+              }
             }
           }
         }

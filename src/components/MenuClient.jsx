@@ -40,6 +40,17 @@ export default function BasicMenu() {
         }}
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
+        <MenuItem onClick={() => navigate('/')}>
+          <p
+            style={{
+              fontSize: '130%',
+              fontWeight: 'bold',
+              marginBottom: '-1.5vh',
+            }}
+          >
+            Accueil
+          </p>
+        </MenuItem>
         {currentUser.isProvider !== null && currentUser.isProvider !== false ? (
           <MenuItem onClick={() => navigate('/Dashboard')}>
             <p
@@ -90,6 +101,18 @@ export default function BasicMenu() {
             }}
           >
             Historique
+          </p>
+        </MenuItem>
+
+        <MenuItem onClick={() => navigate('/Offer')}>
+          <p
+            style={{
+              fontSize: '130%',
+              fontWeight: 'bold',
+              marginBottom: '-1.5vh',
+            }}
+          >
+            Offres
           </p>
         </MenuItem>
 

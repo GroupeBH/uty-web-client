@@ -104,7 +104,7 @@ function Compte() {
   return (
     <Container>
       <div className="form__update">
-        <IoArrowBackSharp />
+        <IoArrowBackSharp onClick={() => navigate('/')} />
         <h2>Manage your account</h2>
         <div className="image__container">
           <input
