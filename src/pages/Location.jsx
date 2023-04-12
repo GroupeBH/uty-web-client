@@ -50,8 +50,11 @@ function Location() {
 }
 
 const Container = styled.div`
-  padding: 2vh 5vw;
   .location__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     .inputs__field {
       display: flex;
       flex-direction: column;
