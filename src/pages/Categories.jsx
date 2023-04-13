@@ -67,6 +67,7 @@ function Categories() {
                       <div className="card__title">
                         <p>{categorie.name}</p>
                       </div>
+                      <p className="hover__title">{categorie.name}</p>
                     </Link>
                   </div>
                 )
@@ -133,6 +134,9 @@ const Container = styled.div`
         width: 40vw;
         border-radius: 0.75rem;
         cursor: pointer;
+        .hover__title {
+          display: none;
+        }
         .card__icon {
           img {
             width: 30vw;
@@ -148,6 +152,22 @@ const Container = styled.div`
             text-overflow: ellipsis;
             text-decoration: none;
           }
+        }
+      }
+      .card:hover {
+        background-color: #020664;
+        .card__icon {
+          display: none;
+        }
+        .card__title {
+          display: none;
+        }
+        .hover__title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          font-size: 150%;
         }
       }
     }
