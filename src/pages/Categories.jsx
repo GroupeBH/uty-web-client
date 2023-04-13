@@ -104,11 +104,12 @@ const Container = styled.div`
     .categories__accroche {
       text-align: center;
       padding: 1vh 4.5vw;
+      margin-bottom: 1.5vh;
       p {
         font-size: 130%;
         font-weight: bold;
         color: #777474;
-        margin-bottom: -0.5vh;
+        margin-bottom: 0.25vh;
         span {
           margin-right: 1vw;
           color: orange;
@@ -127,7 +128,7 @@ const Container = styled.div`
         justify-content: center;
         align-items: center;
         box-shadow: 0px 0px 5px silver;
-        margin-bottom: 5vh;
+        margin-bottom: 0.75vh;
         padding: 1vh 1vw;
         width: 40vw;
         border-radius: 0.75rem;
