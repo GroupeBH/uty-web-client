@@ -95,6 +95,7 @@ function Compte() {
         { username, email, phone, url, select, selectTwo, category }
       )
       updateUser(response.data)
+      localStorage.setItem('currentUser', JSON.stringify(response.data))
       console.log(user)
       setLoading(false)
     } catch (error) {

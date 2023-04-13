@@ -48,6 +48,14 @@ function Categories() {
             <Nav />
           </div>
           <div className="categories__body">
+            <div className="categories__accroche">
+              <p>
+                Hey <span>{currentUser.username}</span>
+                Renseignez ce dont vous avez besoin selon les catégories
+                suivants
+              </p>
+              <hr />
+            </div>
             <div className="categories__list">
               {categories.map((categorie) => {
                 return (
@@ -90,8 +98,24 @@ const Container = styled.div`
   }
   .categories__body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    .categories__accroche {
+      text-align: center;
+      padding: 1vh 4.5vw;
+      p {
+        font-size: 130%;
+        font-weight: bold;
+        color: #777474;
+        margin-bottom: -0.5vh;
+        span {
+          margin-right: 1vw;
+          color: orange;
+          font-weight: bold;
+        }
+      }
+    }
     .categories__list {
       display: flex;
       flex-wrap: wrap;
@@ -121,6 +145,7 @@ const Container = styled.div`
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-decoration: none;
           }
         }
       }
