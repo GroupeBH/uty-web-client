@@ -1,41 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
-import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
+// import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import styled from 'styled-components'
-// import axios from 'axios'
+import axios from 'axios'
+// import * as turf from '@turf/turf'
+import { useStore } from '../utils/Store'
+import polyline from '@mapbox/polyline'
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
-function Map({ pickUpCoord, dropOffCoord, direction }) {
-  // const coords = [pickUpCoord, dropOffCoord]
-  // const [distance, setDistance] = useState()
-  const [geometrie, setGeometrie] = useState()
+function Map({ pickUpCoord, dropOffCoord }) {
   const mapContainer = useRef(null)
-  // const geo = direction.geometry
-  console.log(direction)
-  const getDirection = async (pickUpCoord, dropOffCoord) => {
-    await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/driving/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
-        new URLSearchParams({
-          access_token:
-            'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
-        })
-    )
-      .then((response) => {
-        return response.json()
-      })
-      .then((data) => {
-        console.log(data.routes[0])
-        // setDistance(data.routes[0].duration)
-        setGeometrie(data.routes[0].geometry)
-      })
-  }
-  getDirection()
-  console.log(geometrie)
+  const geometrie = useStore((state) => state.geometrie)
+  const updateGeometrie = useStore((state) => state.updateGeometrie)
+  // const updateRideDistance = useStore((state) => state.updateRideDistance)
   const addMarkerToMap = (map, coordinates) => {
     new mapboxgl.Marker().setLngLat(coordinates).addTo(map)
   }
+
+  useEffect(() => {
+    const getMatrix = async () => {
+      const response = await axios.get(
+        `https://api.mapbox.com/optimized-trips/v1/mapbox/driving-traffic/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
+          new URLSearchParams({
+            access_token:
+              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+          })
+      )
+      console.log(response)
+      updateGeometrie(response.data.trips[0].geometry)
+      console.log(geometrie)
+    }
+    getMatrix()
+  })
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -45,7 +43,9 @@ function Map({ pickUpCoord, dropOffCoord, direction }) {
       zoom: 3,
     })
 
-    getDirection(pickUpCoord, dropOffCoord)
+    console.log(geometrie)
+
+    var myGeoJSON = polyline.toGeoJSON(geometrie)
 
     if (
       pickUpCoord &&
@@ -53,42 +53,44 @@ function Map({ pickUpCoord, dropOffCoord, direction }) {
       pickUpCoord.length &&
       dropOffCoord.length
     ) {
-      addMarkerToMap(map, pickUpCoord)
-      addMarkerToMap(map, dropOffCoord)
       map.on('load', () => {
         map.fitBounds([pickUpCoord, dropOffCoord], { padding: 60 })
-        const directions = new MapboxDirections({
-          accessToken: mapboxgl.accessToken,
-          unit: 'metric',
-          profile: 'mapbox/driving-traffic',
-          alternatives: true,
-          language: 'Fr',
-          // geometries: 'geojson',
-          controls: { instructions: false },
-          // congestion: true,
+        addMarkerToMap(map, pickUpCoord)
+        addMarkerToMap(map, dropOffCoord)
+
+        map.addSource('route', {
+          type: 'geojson',
+          data: myGeoJSON,
         })
-        map.addControl(directions, 'top-left')
-        console.log(geometrie)
-        directions.setOrigin('Kintambo, kinshasa')
-        directions.setDestination('Masanga-mbila, kinshasa')
-        map.addLayer({
-          id: 'route',
-          type: 'line',
-          source: {
-            type: 'geojson',
-            data: {
-              type: 'Feature',
-              geometry: geometrie,
+        console.log(myGeoJSON)
+
+        map.addLayer(
+          {
+            id: 'routeline-active',
+            type: 'line',
+            source: 'route',
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round',
+            },
+            paint: {
+              'line-color': 'blue',
+              'line-width': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                12,
+                3,
+                22,
+                12,
+              ],
             },
           },
-          paint: {
-            'line-color': 'blue',
-            'line-width': 2,
-          },
-        })
+          'waterway-label'
+        )
       })
     }
-  }, [pickUpCoord, dropOffCoord])
+  }, [pickUpCoord, dropOffCoord, geometrie])
 
   return (
     <Container>

@@ -1,7 +1,8 @@
 node_modules
-public
+public/
 build
 /.config.js
 serviceWorker.js
 index.js
 worker.js
+firebase-messaging-sw.js

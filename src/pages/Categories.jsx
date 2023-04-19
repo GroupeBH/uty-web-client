@@ -4,6 +4,7 @@ import axios from 'axios'
 import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
 import { Link, useNavigate } from 'react-router-dom'
+import { getTokenFromFirebase, onMessageListener } from '../firebase'
 
 function Categories() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -16,6 +17,17 @@ function Categories() {
     if (!currentUser) {
       navigate('/')
     }
+    //👉🏻Logs the device token to the console
+    getTokenFromFirebase()
+
+    //👉🏻Listen and logs the push messages from the server.
+    onMessageListener()
+      .then((payload) => {
+        console.log('From Message', payload)
+      })
+      .catch((err) => console.log('failed: ', err))
+
+    //....socket.io listeners
   })
 
   useEffect(() => {

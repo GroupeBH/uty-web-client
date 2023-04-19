@@ -6,7 +6,7 @@ import Commande from '../assets/Articles vendus.png'
 import moment from 'moment'
 import { Rings } from 'react-loader-spinner'
 
-function Proposition({ setIsClick, preOrder }) {
+function Proposition({ setIsClick, preOrder, setOpen }) {
   const [loading, setLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState('')
   const [selectedTwo, setSelectedTwo] = useState('')
@@ -83,9 +83,12 @@ function Proposition({ setIsClick, preOrder }) {
       })
 
       setLoading(false)
+      setIsClick(false)
     } catch (error) {
       console.log(error)
       setLoading(false)
+      setIsClick(false)
+      setOpen(true)
     }
   }
   return (
@@ -216,6 +219,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     transform: translate(-0%, -100%);
+    margin-left: -75vw;
     top: 100vh;
     .centered {
       margin-top: 25vh;

@@ -12,6 +12,7 @@ import {
   IoAddSharp,
 } from 'react-icons/io5'
 import { useStore } from '../utils/Store'
+import ModalError from '../components/ModalError'
 
 function Requetes() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -23,6 +24,7 @@ function Requetes() {
   const [url, setUrl] = useState(null)
   const [description, setDescription] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [load, setLoad] = useState(false)
   const username = useStore((state) => state.username)
 
@@ -80,10 +82,12 @@ function Requetes() {
 
       setDescription('')
       setLoad(false)
+      setIsOpen(true)
     } catch (error) {
       console.log(error)
+      setLoad(false)
+      setIsOpen(true)
     }
-    setIsOpen(true)
   }
   return (
     <Container>
@@ -158,6 +162,7 @@ function Requetes() {
         </div>
       </div>
       {isOpen && <Modal setIsOpen={setIsOpen} />}
+      {open && <ModalError setIsOpen={setOpen} />}
     </Container>
   )
 }
