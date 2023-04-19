@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
-// import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import styled from 'styled-components'
 import axios from 'axios'
-// import * as turf from '@turf/turf'
 import { useStore } from '../utils/Store'
 import polyline from '@mapbox/polyline'
 
@@ -14,7 +12,6 @@ function Map({ pickUpCoord, dropOffCoord }) {
   const mapContainer = useRef(null)
   const geometrie = useStore((state) => state.geometrie)
   const updateGeometrie = useStore((state) => state.updateGeometrie)
-  // const updateRideDistance = useStore((state) => state.updateRideDistance)
   const addMarkerToMap = (map, coordinates) => {
     new mapboxgl.Marker().setLngLat(coordinates).addTo(map)
   }
