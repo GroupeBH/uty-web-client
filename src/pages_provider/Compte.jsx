@@ -130,7 +130,7 @@ function Compte() {
         <div className="fields">
           <label htmlFor="">Phone</label>
           <input
-            type="number"
+            type="text"
             value={user.phone}
             onChange={(e) => setPhone(e.target.value)}
           />

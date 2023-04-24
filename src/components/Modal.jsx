@@ -1,8 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 
 function Modal({ setIsOpen }) {
+  const navigate = useNavigate()
+  const handleClick = () => {
+    setIsOpen(false)
+    navigate('/Categories')
+  }
   return (
     <Container>
       <div className="modal__back">
@@ -10,7 +16,7 @@ function Modal({ setIsOpen }) {
           <div className="modal__body">
             <img src={utyLogo} />
             <p>Merci d utiliser uty Votre demande est en traitement</p>
-            <button onClick={() => setIsOpen(false)}>Ok</button>
+            <button onClick={() => handleClick()}>Ok</button>
           </div>
         </div>
       </div>

@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import first from '../assets/deskOne.png'
-import HomePage from './HomePage'
 import ModalConnect from './ModalConnect'
-import ModalProviderC from '../pages_provider/ModalProviderC'
 import SearchLocation from '../components/SearchLocation'
 import MenuClient from '../components/MenuClient'
 
@@ -13,7 +11,6 @@ function Redirect() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
-  const [open, setOpen] = useState(false)
 
   return (
     <Container>
@@ -76,7 +73,7 @@ function Redirect() {
               <button
                 className="give__service"
                 onClick={() => {
-                  setOpen(true)
+                  // setOpen(true)
                 }}
               >
                 Répondre à une requete
@@ -92,11 +89,9 @@ function Redirect() {
             <h3>Les meilleurs services uty près de chez vous</h3>
             <p>Avec trouvez tout à tout à toute heure </p>
           </div>
-          <HomePage />
         </div>
       </div>
       {/* {isOpen && <ModalConnect setIsOpen={setIsOpen} />} */}
-      {open && <ModalProviderC setOpen={setOpen} />}
     </Container>
   )
 }

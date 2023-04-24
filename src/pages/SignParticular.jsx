@@ -117,7 +117,7 @@ export default function Register() {
               onChange={(e) => handleChange(e)}
             />
             <input
-              type="tel"
+              type="text"
               placeholder="Téléphone"
               name="phone"
               onChange={(e) => handleChange(e)}
@@ -234,7 +234,7 @@ const FormContainer = styled.div`
       button {
         background-color: #040154;
         color: white;
-        padding: 1rem 2rem;
+        height: 7.5vh;
         border: none;
         font-weight: bold;
         margin-top: -1vh;
@@ -243,9 +243,6 @@ const FormContainer = styled.div`
         font-size: 1rem;
         text-transform: uppercase;
         font-weight: bold;
-        &:hover {
-          background-color: #4e0eff;
-        }
       }
       p {
         color: black;

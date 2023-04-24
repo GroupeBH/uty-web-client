@@ -1,55 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IoClose } from 'react-icons/io5'
-import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import utyLogo from '../assets/logo-uty.png'
+import CarrousselOffer from './CarrouselOffer'
 
-function OfferDetail({ selectedOffer, setIsClick }) {
-  console.log(selectedOffer)
+function OfferDetail({ selectedOffer, setIsClick, setIsConfirm }) {
+  const handleClick = () => {
+    setIsClick(false)
+    setIsConfirm(true)
+  }
   return (
     <Container>
       <div className="body__back">
         <div className="centered">
           <div className="carousel">
             <IoClose onClick={() => setIsClick(false)} />
-            <Carousel autoPlay infiniteLoop showThumbs={false}>
-              <div style={{ marginTop: '5vh' }}>
-                {selectedOffer.imageOne ? (
-                  <img src={selectedOffer.imageOne} alt="First product image" />
-                ) : (
-                  <img src={utyLogo} alt="first_product_image" />
-                )}
-              </div>
-              <div>
-                {selectedOffer.imageTwo ? (
-                  <img src={selectedOffer.imageTwo} alt="First product image" />
-                ) : (
-                  <img
-                    src={utyLogo}
-                    alt="first_product_image"
-                    style={{ width: '60vw' }}
-                  />
-                )}
-              </div>
-              <div>
-                {selectedOffer.imageThree ? (
-                  <img
-                    src={selectedOffer.imageThree}
-                    alt="First product image"
-                  />
-                ) : (
-                  <img
-                    src={utyLogo}
-                    alt="first_product_image"
-                    style={{ width: '60vw' }}
-                  />
-                )}
-              </div>
-            </Carousel>
+            <CarrousselOffer selectedOffer={selectedOffer} />
           </div>
-          <div className="price">Prix du produit: {selectedOffer.price} FC</div>
-          <button className="confirm__command">Acheter</button>
+          <div className="comm">
+            Commentaire:
+            {selectedOffer.finded.text}
+          </div>
+          <button className="confirm__command" onClick={handleClick}>
+            Continuer
+          </button>
         </div>
       </div>
     </Container>
@@ -82,7 +56,7 @@ const Container = styled.div`
         height: 55vh;
         padding-left: 3.5vw;
       }
-      .price {
+      .comm {
         margin-top: 5vh;
         padding: 5vh 3.5vw;
         font-size: 125%;

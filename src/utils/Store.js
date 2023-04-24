@@ -9,6 +9,7 @@ export const useStore = create((set) => ({
   coords: [],
   user: [],
   geometrie: '',
+  adress: '',
   rideDistance: 0,
   rideDuration: 0,
   updateUsername: (newUsername) => {
@@ -45,5 +46,9 @@ export const useStore = create((set) => ({
 
   updateRideDuration: (newRideDuration) => {
     set({ rideDuration: newRideDuration })
+  },
+
+  updateAdress: (newAdress) => {
+    set({ adress: newAdress })
   },
 }))

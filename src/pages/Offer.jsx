@@ -5,24 +5,48 @@ import moment from 'moment'
 import OfferDetail from '../components/OfferDetail'
 import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
+import ConfirmAdress from '../components/ConfirmAdress'
 
 function Offer() {
   const [offers, setOffers] = useState([])
   const [selectedOffer, setSelectedOffer] = useState('')
   const [isClick, setIsClick] = useState(false)
+  const [isConfirm, setIsConfirm] = useState(false)
+  const [coords, setCoords] = useState([])
   const [loading, setLoading] = useState(true)
   const data = JSON.parse(localStorage.getItem('currentUser'))
 
   useEffect(() => {
+    const getLocation = () => {
+      if (!navigator.geolocation) {
+        console.log('location not supproted')
+      } else {
+        console.log('locating...')
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setCoords([position.coords.latitude, position.coords.longitude])
+          },
+          () => {
+            console.log('enabled to retrieve location')
+          }
+        )
+      }
+    }
     const getOffers = async () => {
-      const response = await axios.get(
-        `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
+      // const response = await axios.get(
+      //   `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
+      // )
+      const resp = await axios.get(
+        `https://uty-ti30.onrender.com/api/order/getprop/${data._id}`
       )
-      setOffers(response.data)
+      console.log(resp.data)
+      setOffers(resp.data)
       setLoading(false)
       console.log(offers)
     }
     getOffers()
+    getLocation()
+    console.log(coords)
   }, [])
 
   return (
@@ -52,7 +76,11 @@ function Offer() {
                   }}
                 >
                   <p className="offer_message">
-                    <span>{offer.name ? offer.name : 'Un vendeur'}</span>
+                    <span>
+                      {offer.provider !== null
+                        ? offer.provider.name
+                        : 'Un vendeur'}
+                    </span>
                     <span></span> a repondu à votre requete du
                     <span>
                       {moment(Date.now()).format('MMM Do YY') ===
@@ -72,7 +100,11 @@ function Offer() {
               <OfferDetail
                 selectedOffer={selectedOffer}
                 setIsClick={setIsClick}
+                setIsConfirm={setIsConfirm}
               />
+            )}
+            {isConfirm && (
+              <ConfirmAdress coords={coords} setIsConfirm={setIsConfirm} />
             )}
           </div>
         </Container>

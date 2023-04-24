@@ -31,10 +31,11 @@ const Container = styled.div`
     width: 100vw;
     z-index: 0;
     transform: translate(-0%, -100%);
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 100vh;
     .centered {
       align-self: center;
       background-color: white;

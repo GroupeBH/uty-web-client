@@ -72,12 +72,12 @@ function Requetes() {
     console.log(data._id)
     try {
       await uploadImage()
-      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addpre', {
+
+      await axios.post('https://uty-ti30.onrender.com/api/order/addOrder', {
         description: description,
         image: url,
-        phone: phone,
         sender: data._id,
-        category: params.id,
+        category: params._id,
       })
 
       setDescription('')

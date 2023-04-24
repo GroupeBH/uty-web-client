@@ -138,7 +138,10 @@ export default function BasicMenu() {
               fontSize: '135%',
               marginBottom: '2.5vh',
             }}
-            onClick={() => localStorage.removeItem('currentUser')}
+            onClick={() => {
+              localStorage.removeItem('currentUser')
+              navigate('/')
+            }}
           >
             Se deconnecter
           </button>

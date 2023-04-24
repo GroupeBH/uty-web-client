@@ -15,17 +15,27 @@ function Order() {
   const [selectedId, setSelectedId] = useState('')
   const [open, setOpen] = useState('')
   const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState([])
 
   useEffect(() => {
     const getPreOrders = async () => {
       const response = await axios.get(
-        'https://uty-ti30.onrender.com/api/preOrder/getpre'
+        'https://uty-ti30.onrender.com/api/order/getOrder'
       )
       setPreCommand(response.data)
       setLoading(false)
     }
+    const getOrders = async () => {
+      const resp = await axios.get(
+        'https://uty-ti30.onrender.com/api/order/getOrder'
+      )
+      setOrders(resp.data)
+    }
     getPreOrders()
+    getOrders()
   }, [])
+
+  console.log(orders)
 
   return (
     <>
@@ -41,9 +51,9 @@ function Order() {
               return (
                 <div className="normal" key={preCom._id}>
                   <div className="image__precommand">
-                    {preCom.image ? (
+                    {preCom.wanted.media ? (
                       <img
-                        src={preCom.image}
+                        src={preCom.wanted.media}
                         alt="precommand-image"
                         className="preOrder__image"
                       />
@@ -56,7 +66,7 @@ function Order() {
                     <h5 className="preOrder__name"></h5>
                     <p className="preOrder__desc">
                       <span className="first">{preCom.category}</span>
-                      <div className="second">{preCom.description}</div>
+                      <div className="second">{preCom.wanted.text}</div>
                     </p>
                     <p className="preOrder__date">
                       <span>

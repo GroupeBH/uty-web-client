@@ -8,7 +8,7 @@ import polyline from '@mapbox/polyline'
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
-function Map({ pickUpCoord, dropOffCoord }) {
+function Map({ pickUpCoord, dropOffCoord, coords }) {
   const mapContainer = useRef(null)
   const geometrie = useStore((state) => state.geometrie)
   const updateGeometrie = useStore((state) => state.updateGeometrie)
@@ -43,7 +43,16 @@ function Map({ pickUpCoord, dropOffCoord }) {
     console.log(geometrie)
 
     var myGeoJSON = polyline.toGeoJSON(geometrie)
-
+    if (coords.length > 0) {
+      map.on('load', () => {
+        map.flyTo({
+          center: [coords[1], coords[0]],
+          essential: true,
+          zoom: 17,
+        })
+        addMarkerToMap(map, [coords[1], coords[0]])
+      })
+    }
     if (
       pickUpCoord &&
       dropOffCoord &&
@@ -99,6 +108,7 @@ function Map({ pickUpCoord, dropOffCoord }) {
 const Container = styled.div`
   .mapDiv {
     height: 68.5vh;
+    width: 100%;
   }
 `
 

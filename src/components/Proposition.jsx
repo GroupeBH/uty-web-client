@@ -16,6 +16,7 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
   const [docUrlTwo, setDocUrlTwo] = useState('')
   const [docUrlThree, setDocUrlThree] = useState('')
   const [price, setPrice] = useState('')
+  const [commentaire, setCommentaire] = useState('')
   const fileOne = useRef(null)
   const fileTwo = useRef(null)
   const fileThree = useRef(null)
@@ -72,15 +73,17 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     try {
       await uploadImage()
-      await axios.post('https://uty-ti30.onrender.com/api/preOrder/addprop', {
-        from: data._id,
-        name: data.username,
-        to: preOrder.sender,
-        imageOne: docUrlOne,
-        imageTwo: docUrlTwo,
-        imageThree: docUrlThree,
-        price: price,
-      })
+      await axios
+        .patch('https://uty-ti30.onrender.com/api/order/addProposition', {
+          orderId: preOrder._id,
+          from: data._id,
+          imageOne: docUrlOne,
+          imageTwo: docUrlTwo,
+          imageThree: docUrlThree,
+          price: price,
+          commentaire: commentaire,
+        })
+        .then((response) => console.log(response.data))
 
       setLoading(false)
       setIsClick(false)
@@ -102,13 +105,16 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
                 className="close__icon"
               />
               <div className="preOrder__details">
-                {preOrder.image ? (
-                  <img src={preOrder.image} className="preOrder__image" />
+                {preOrder.wanted.media ? (
+                  <img
+                    src={preOrder.wanted.image}
+                    className="preOrder__image"
+                  />
                 ) : (
                   <img src={Commande} />
                 )}
                 <div className="preOrder__description">
-                  <p>{preOrder.description}</p>
+                  <p>{preOrder.wanted.text}</p>
                   <span>
                     {moment(Date.now()).format('MMM Do YY') ===
                     moment(preOrder.createdAt).format('MMM Do YY')
@@ -123,7 +129,7 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
               <div className="image__add__header">
                 <h4 className="image__add__sec__title">Proposez un produit</h4>
               </div>
-              <h6>Ajoutez lez images de votre produit</h6>
+              <h6>Ajoutez les images de votre produit</h6>
               <div className="image__frame1">
                 <label htmlFor="file" className="label__file">
                   <IoImage />
@@ -182,6 +188,11 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
+              <h6 className="price__title">Ajoutez un commentaire</h6>
+              <textarea
+                className="comm_area"
+                onChange={(e) => setCommentaire(e.target.value)}
+              ></textarea>
               <button onClick={(e) => handleClick(e)}>
                 {loading ? (
                   <>
@@ -219,7 +230,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     transform: translate(-0%, -100%);
-    margin-left: -75vw;
+    margin-left: -100vw;
     top: 100vh;
     .centered {
       margin-top: 25vh;

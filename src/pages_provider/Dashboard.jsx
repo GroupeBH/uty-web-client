@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { IoNotifications } from 'react-icons/io5'
-import MenuProvider from '../components/MenuProvider'
 import { useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
-import utyLogo from '../assets/logo-uty.png'
+import Nav from '../components/Nav'
 import commande from '../assets/Affaires concl.png'
 import vendus from '../assets/Articles vendus.png'
 import recettes from '../assets/Chiffre daffaire.png'
@@ -17,6 +15,7 @@ import { useStore } from '../utils/Store'
 function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const [provider, setProvider] = useState()
   const socket = useRef()
   const [notifications, setNotifications] = useState([])
   const [location, setLocation] = useState()
@@ -50,15 +49,25 @@ function Dashboard() {
     console.log(longitude)
     const updateCoords = async () => {
       const response = await axios.patch(
-        `https://uty-ti30.onrender.com/api/provider/updateCoords/${currentUser._id}`,
+        `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentUser._id}`,
         { latitude, longitude }
       )
       setLocation(response.data)
     }
     updateCoords()
 
-    socket.current = io('http://localhost:5200')
-    socket.current.emit('add-user', currentUser._id, currentUser.username)
+    const getProvider = async () => {
+      const response = await axios.get(
+        `https://uty-ti30.onrender.com/api/auth/getProvider/${currentUser._id}`
+      )
+      setProvider(response.data)
+      console.log(provider)
+    }
+
+    getProvider()
+
+    socket.current = io('https://uty-ti30.onrender.com')
+    // socket.current.emit('add-user', currentUser._id, currentUser.username)
   }, [currentUser])
 
   // console.log(latitude)
@@ -74,19 +83,7 @@ function Dashboard() {
   return (
     <Container>
       <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/HomePage')}>
-          <img
-            src={utyLogo}
-            alt=""
-            className="uty__logo"
-            onClick={() => navigate('/HomePage')}
-          />
-        </div>
-        <div className="menu__side">
-          <IoNotifications className="notification__icon" />
-          <span>{notifications.length}</span>
-          <MenuProvider />
-        </div>
+        <Nav />
       </div>
       <h3 className="provider__accroche">Pénètre ton marché différement</h3>
       <div className="list__post">
@@ -132,8 +129,8 @@ function Dashboard() {
           <div
             className="box__description"
             onClick={async () => {
-              await localStorage.setItem('currentLocation')
-              await navigate('/DeliveryOne')
+              localStorage.setItem('currentLocation')
+              navigate('/DeliveryOne')
             }}
           >
             Traçage
@@ -150,55 +147,8 @@ const Container = styled.div`
   padding-right: 5vw;
   display: flex;
   flex-direction: column;
-
   .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: -5vw;
-    margin-left: -5vw;
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-    box-shadow: 0px 0px 5px silver;
-    padding: 1vh 5vw;
-    margin-bottom: 2.5vh;
-    .user__profil {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #020664;
-      background-color: white;
-      border-radius: 2rem;
-      padding-left: 2vw;
-      padding-right: 2vw;
-      svg {
-        font-size: 150%;
-        cursor: pointer;
-      }
-    }
-
-    .page__title {
-      display: flex;
-      justify-content: center;
-      padding-top: 1vh;
-      .uty__logo {
-        height: 8vh;
-        width: 12.5vw;
-        align-self: flex-start;
-      }
-    }
-    .menu__side {
-      display: flex;
-      align-items: center;
-      .notification__icon {
-        font-size: 220%;
-        color: #020664;
-      }
-      .menu__icon {
-        align-self: center;
-        font-size: 260%;
-        margin-right: 1vh;
-      }
-    }
+    width: 100%;
   }
   h3 {
     text-align: center;
