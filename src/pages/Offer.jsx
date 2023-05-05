@@ -6,18 +6,20 @@ import OfferDetail from '../components/OfferDetail'
 import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
 import ConfirmAdress from '../components/ConfirmAdress'
+import BuyingModal from '../components/BuyingModal'
 
 function Offer() {
   const [offers, setOffers] = useState([])
   const [selectedOffer, setSelectedOffer] = useState('')
   const [isClick, setIsClick] = useState(false)
   const [isConfirm, setIsConfirm] = useState(false)
+  const [isBuying, setIsBuying] = useState(false)
   const [coords, setCoords] = useState([])
   const [loading, setLoading] = useState(true)
   const data = JSON.parse(localStorage.getItem('currentUser'))
 
   useEffect(() => {
-    const getLocation = () => {
+    const getLocation = async () => {
       if (!navigator.geolocation) {
         console.log('location not supproted')
       } else {
@@ -31,6 +33,11 @@ function Offer() {
           }
         )
       }
+      const response = await axios.patch(
+        `https://uty-ti30.onrender.com/api/auth/updateCoords/${data._id}`,
+        coords
+      )
+      console.log(response)
     }
     const getOffers = async () => {
       // const response = await axios.get(
@@ -104,7 +111,17 @@ function Offer() {
               />
             )}
             {isConfirm && (
-              <ConfirmAdress coords={coords} setIsConfirm={setIsConfirm} />
+              <ConfirmAdress
+                coords={coords}
+                setIsConfirm={setIsConfirm}
+                setIsBuying={setIsBuying}
+              />
+            )}
+            {isBuying && (
+              <BuyingModal
+                setIsBuying={setIsBuying}
+                selectedOffer={selectedOffer}
+              />
             )}
           </div>
         </Container>

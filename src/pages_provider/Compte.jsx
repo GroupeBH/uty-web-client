@@ -27,8 +27,29 @@ function Compte() {
   const user = useStore((state) => state.user)
   const updateProvider = useStore((state) => state.updateProvider)
   const updateDeliver = useStore((state) => state.updateDeliver)
+  const updateLatitude = useStore((state) => state.updateLatitude)
+  const updateLongitude = useStore((state) => state.updateLongitude)
+  const latitude = useStore((state) => state.latitude)
+  const longitude = useStore((state) => state.longitude)
 
   const cloudName = 'disyacex9'
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      console.log('location not supproted')
+    } else {
+      console.log('locating...')
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          updateLatitude(position.coords.latitude)
+          updateLongitude(position.coords.longitude)
+        },
+        () => {
+          console.log('enabled to retrieve location')
+        }
+      )
+    }
+  }
 
   useEffect(() => {
     const getCategories = async () => {
@@ -39,6 +60,7 @@ function Compte() {
     }
 
     getCategories()
+    getLocation()
   })
 
   const options = categories.map((categorie) => {
@@ -83,6 +105,7 @@ function Compte() {
   const handleSelect = (data) => {
     setCategory(data)
   }
+
   const handleclick = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -92,7 +115,17 @@ function Compte() {
       await uploadImage()
       const response = await axios.patch(
         `https://uty-ti30.onrender.com/api/auth/updateCount/${data_user._id}`,
-        { username, email, phone, url, select, selectTwo, category }
+        {
+          username,
+          email,
+          phone,
+          url,
+          select,
+          selectTwo,
+          category,
+          latitude,
+          longitude,
+        }
       )
       updateUser(response.data)
       localStorage.setItem('currentUser', JSON.stringify(response.data))
