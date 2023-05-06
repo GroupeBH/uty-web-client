@@ -3,16 +3,15 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 import { Rings } from 'react-loader-spinner'
-import { initPay } from '../helpers/Payments'
 import { usePayStore } from '../utils/payStore'
-// import axios from 'axios'
 
 function BuyingModal({ setIsBuying, selectedOffer }) {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const getToken = usePayStore((state) => state.fetchToken)
   const token = usePayStore((state) => state.token)
-  const [initData, setInitData] = useState()
+  const initData = usePayStore((state) => state.initData)
+  const initPay = usePayStore((state) => state.fetchInitData)
   const urlSuccess = encodeURI('https://uty.life/Categories')
   const urlDecline = encodeURI('https://uty.life/Requetes')
   const login = ''
@@ -48,7 +47,7 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
   const handleClick = async () => {
     setLoading(true)
     try {
-      initPay(headerObject, bodyObject, setInitData)
+      initPay(headerObject, bodyObject)
       if (initData) {
         navigate(
           `http://flashint.cfc-rdc.com:3000/flashpay/auth/${initData.urlTransaction}`
