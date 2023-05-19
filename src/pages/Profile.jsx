@@ -33,8 +33,8 @@ function Profile() {
           </div>
         ) : null}
         {data.isDeliver ? (
-          <div className="statut">
-            <p>Livreur</p>
+          <div className="item">
+            <FaSquare className="deliver__icon" /> <p>Livreur</p>
           </div>
         ) : null}
       </div>
@@ -75,6 +75,9 @@ const Container = styled.div`
       svg {
         color: orange;
         margin-right: 1.5vw;
+      }
+      .deliver__icon {
+        color: green;
       }
     }
   }

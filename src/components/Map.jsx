@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
@@ -9,7 +10,7 @@ import polyline from '@mapbox/polyline'
 
 // mapboxgl.workerClass =
 //   require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
-
+mapboxgl.workerClass = MapboxWorker
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
