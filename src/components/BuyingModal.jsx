@@ -106,7 +106,6 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
             <img src={utyLogo} />
             <div className="offer__detail">
               <p>Total à payer: {price} fc</p>
-              <p>Vendeur: </p>
             </div>
             <button onClick={handleClick}>
               {loading ? (

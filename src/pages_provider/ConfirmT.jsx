@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Map from '../components/Map'
 import axios from 'axios'
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useStore } from '../utils/Store'
-// import { useShipmentStore } from '../utils/shipmentStore'
+import { useShipmentStore } from '../utils/shipmentStore'
 
 function ConfirmT() {
   const [pickUpCoord, setPickUpCoord] = useState()
   const [dropOffCoord, setDropOffCoord] = useState()
-  // const updateOrder = useShipmentStore((state) => state.updateOrder)
-  // const order = useShipmentStore((state) => state.order)
+  const updateOrder = useShipmentStore((state) => state.updateOrder)
+  const order = useShipmentStore((state) => state.order)
   const pickUp = 'Kintambo magasin'
   const dropOff = 'Kinshasa, Masanga-mbila'
   const rideDistance = useStore((state) => state.rideDistance)
-  // const params = useParams()
+  const params = useParams()
   console.log(rideDistance)
   const getPickUppoint = async () => {
     try {
@@ -55,8 +55,8 @@ function ConfirmT() {
   }
 
   useEffect(() => {
-    // updateOrder(params.id)
-    // console.log(order)
+    updateOrder(params.id)
+    console.log(order)
     getPickUppoint()
     getDropOffpoint()
   }, [])

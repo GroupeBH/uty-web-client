@@ -30,7 +30,6 @@ function App() {
           <Route exact path="/Order" element={<Order />} />
           <Route exact path="/Offer" element={<Offer />} />
           <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
-          <Route exact path="/ConfirmT" element={<ConfirmT />} />
           <Route exact path="/ConfirmT/:id" element={<ConfirmT />} />
           <Route exact path="/Location" element={<Location />} />
           <Route exact path="/Categories" element={<Categories />} />
