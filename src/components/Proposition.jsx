@@ -223,22 +223,22 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
 const Container = styled.div`
   .body__back {
     background-color: rgba(0, 0, 0, 0.5);
-    width: 100vw;
     position: fixed;
     z-index: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: translate(-0%, -100%);
-    margin-left: -75vw;
     top: 100vh;
+    left: 0vw;
+    right: 1vw;
+    overflow-y: scroll;
     .centered {
       margin-top: 25vh;
       margin-bottom: 1.5vh;
       padding-top: 15vh;
       width: 90vw;
       height: 95vh;
-      overflow-y: scroll;
       .proposition__body {
         display: flex;
         flex-direction: column;
