@@ -107,7 +107,7 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
               <div className="preOrder__details">
                 {preOrder.wanted.media ? (
                   <img
-                    src={preOrder.wanted.image}
+                    src={preOrder.wanted.media}
                     className="preOrder__image"
                   />
                 ) : (
@@ -230,7 +230,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     transform: translate(-0%, -100%);
-    margin-left: -100vw;
+    margin-left: -75vw;
     top: 100vh;
     .centered {
       margin-top: 25vh;

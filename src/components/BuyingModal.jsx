@@ -76,11 +76,14 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
   const handleClick = async () => {
     setLoading(true)
     try {
-      await axios.patch('http://localhost:5200/api/order/confirmOrder', {
-        orderId: selectedOffer._id,
-        status: 'confirmed',
-        price: price,
-      })
+      await axios.patch(
+        'https://uty-ti30.onrender.com/api/order/confirmOrder',
+        {
+          orderId: selectedOffer._id,
+          status: 'confirmed',
+          price: price,
+        }
+      )
       initPay(headerObject, bodyObject)
       if (initData) {
         await axios.get(

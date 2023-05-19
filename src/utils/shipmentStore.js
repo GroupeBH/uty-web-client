@@ -41,7 +41,9 @@ export const useShipmentStore = create((set) => ({
   updatePickUpCoord: async (order) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/auth/getProvider/${order.provider}`)
+        .get(
+          `https://uty-ti30.onrender.com/api/auth/getProvider/${order.provider}`
+        )
         .then((response) => {
           console.log(response.data)
           set({ pickUpCoord: response.data.user.coords })
@@ -53,7 +55,7 @@ export const useShipmentStore = create((set) => ({
   updateOrder: async (id) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/order/getorder/${id}`)
+        .get(`https://uty-ti30.onrender.com/api/order/getorder/${id}`)
         .then((response) => {
           console.log(response.data)
           set({ order: response.data })
