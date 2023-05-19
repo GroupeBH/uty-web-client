@@ -134,14 +134,14 @@ function Dashboard() {
           className="commande__link"
           onClick={() => {
             localStorage.setItem('currentLocation', location)
-            navigate('/DeliveryOne')
+            navigate('/ConfirmT')
           }}
         >
           <div
             className="box__description"
             onClick={async () => {
               localStorage.setItem('currentLocation')
-              navigate('/DeliveryOne')
+              navigate('/ConfirmT')
             }}
           >
             Traçage

@@ -70,7 +70,7 @@ function Proposition({ setIsClick, preOrder, setOpen }) {
   const handleClick = async (e) => {
     e.preventDefault()
     setLoading(true)
-    const data = await JSON.parse(localStorage.getItem('currentUser'))
+    const data = await JSON.parse(localStorage.getItem('currentProvider'))
     try {
       await uploadImage()
       await axios

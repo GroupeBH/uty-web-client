@@ -51,16 +51,18 @@ function Map({ pickUpCoord, dropOffCoord, coords, updtatePrice }) {
     console.log(geometrie)
 
     var myGeoJSON = polyline.toGeoJSON(geometrie)
-    if (coords.length > 0) {
-      map.on('load', () => {
-        map.resize()
-        map.flyTo({
-          center: [coords[1], coords[0]],
-          essential: true,
-          zoom: 17,
+    if (coords) {
+      if (coords.length > 0) {
+        map.on('load', () => {
+          map.resize()
+          map.flyTo({
+            center: [coords[1], coords[0]],
+            essential: true,
+            zoom: 17,
+          })
+          addMarkerToMap(map, [coords[1], coords[0]])
         })
-        addMarkerToMap(map, [coords[1], coords[0]])
-      })
+      }
     }
     if (
       pickUpCoord &&
