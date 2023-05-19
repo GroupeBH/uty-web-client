@@ -230,7 +230,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     transform: translate(-0%, -100%);
-    margin-left: -75vw;
+    margin-left: -100vw;
     top: 100vh;
     .centered {
       margin-top: 25vh;

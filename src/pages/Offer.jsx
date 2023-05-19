@@ -7,6 +7,7 @@ import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
 import ConfirmAdress from '../components/ConfirmAdress'
 import BuyingModal from '../components/BuyingModal'
+import { useStore } from '../utils/Store'
 
 function Offer() {
   const [offers, setOffers] = useState([])
@@ -14,7 +15,8 @@ function Offer() {
   const [isClick, setIsClick] = useState(false)
   const [isConfirm, setIsConfirm] = useState(false)
   const [isBuying, setIsBuying] = useState(false)
-  const [coords, setCoords] = useState([])
+  const updateCoords = useStore((state) => state.updateCoords)
+  const coords = useStore((state) => state.coords)
   const [loading, setLoading] = useState(true)
   const data = JSON.parse(localStorage.getItem('currentUser'))
 
@@ -26,23 +28,27 @@ function Offer() {
         console.log('locating...')
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            setCoords([position.coords.latitude, position.coords.longitude])
+            updateCoords([position.coords.latitude, position.coords.longitude])
+            console.log(coords)
           },
           () => {
             console.log('enabled to retrieve location')
           }
         )
       }
+      console.log(coords)
       const response = await axios.patch(
-        `https://uty-ti30.onrender.com/api/auth/updateCoords/${data._id}`,
-        coords
+        `https://uty-ti30.onrender.com/api/auth/updateAdress/${data._id}`,
+        { coords }
       )
-      console.log(response)
+      console.log(response.data)
     }
+
+    getLocation()
+  }, [coords])
+
+  useEffect(() => {
     const getOffers = async () => {
-      // const response = await axios.get(
-      //   `https://uty-ti30.onrender.com/api/preOrder/getprop/${data._id}`
-      // )
       const resp = await axios.get(
         `https://uty-ti30.onrender.com/api/order/getprop/${data._id}`
       )
@@ -52,7 +58,6 @@ function Offer() {
       console.log(offers)
     }
     getOffers()
-    getLocation()
     console.log(coords)
   }, [])
 

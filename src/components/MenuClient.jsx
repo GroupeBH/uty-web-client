@@ -67,7 +67,7 @@ export default function BasicMenu() {
           <p></p>
         )}
         {currentUser.isDeliver !== null && currentUser.isDeliver !== false ? (
-          <MenuItem onClick={() => navigate('/Compte')}>
+          <MenuItem onClick={() => navigate('/Profile')}>
             <p
               style={{
                 fontSize: '130%',
@@ -78,10 +78,8 @@ export default function BasicMenu() {
               My courses
             </p>
           </MenuItem>
-        ) : (
-          <p></p>
-        )}
-        <MenuItem onClick={() => navigate('/Compte')}>
+        ) : null}
+        <MenuItem onClick={() => navigate('/Profile')}>
           <p
             style={{
               fontSize: '130%',

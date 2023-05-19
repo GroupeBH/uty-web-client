@@ -5,11 +5,17 @@ import axios from 'axios'
 import { useStore } from '../utils/Store'
 import polyline from '@mapbox/polyline'
 
+// /* eslint import/no-webpack-loader-syntax: off */
+
+// mapboxgl.workerClass =
+//   require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
+
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
-function Map({ pickUpCoord, dropOffCoord, coords }) {
+function Map({ pickUpCoord, dropOffCoord, coords, updtatePrice }) {
   const mapContainer = useRef(null)
+  const prix = useStore((state) => state.prix)
   const geometrie = useStore((state) => state.geometrie)
   const updateGeometrie = useStore((state) => state.updateGeometrie)
   const addMarkerToMap = (map, coordinates) => {
@@ -27,6 +33,7 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
       )
       console.log(response)
       updateGeometrie(response.data.trips[0].geometry)
+      updtatePrice(prix, response.data.trips[0].distance)
       console.log(geometrie)
     }
     getMatrix()

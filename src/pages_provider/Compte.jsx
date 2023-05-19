@@ -131,6 +131,7 @@ function Compte() {
       localStorage.setItem('currentUser', JSON.stringify(response.data))
       console.log(user)
       setLoading(false)
+      navigate('/Profile')
     } catch (error) {
       console.log(error)
     }

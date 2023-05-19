@@ -1,34 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 import { Rings } from 'react-loader-spinner'
 import { usePayStore } from '../utils/payStore'
+import { useShipmentStore } from '../utils/shipmentStore'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
+// import optimizedTrip from '../helpers/Mapbox'
 
 function BuyingModal({ setIsBuying, selectedOffer }) {
-  const navigate = useNavigate()
+  console.log(selectedOffer)
+  // const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const price = useShipmentStore((state) => state.price)
+  const updatePrice = useShipmentStore((state) => state.updatePrice)
   const getToken = usePayStore((state) => state.fetchToken)
   const token = usePayStore((state) => state.token)
   const initData = usePayStore((state) => state.initData)
   const initPay = usePayStore((state) => state.fetchInitData)
+  const provider = useShipmentStore((state) => state.provider)
+  const updateProvider = useShipmentStore((state) => state.updateProvider)
+  const updatePickUpCoord = useShipmentStore((state) => state.updatePickUpCoord)
+  const pickUpCoord = useShipmentStore((state) => state.pickUpCoord)
+  const distance = useShipmentStore((state) => state.distance)
+  const updateDistance = useShipmentStore((state) => state.updateDistance)
   const urlSuccess = encodeURI('https://uty.life/Categories')
   const urlDecline = encodeURI('https://uty.life/Requetes')
-  const login = ''
-  const pwd = ''
-  const pin = ''
+  const login = 'bjxbosuku@gmail.com'
+  const pwd = 'Etumb@99'
+  const pin = '130586'
+  const transactionId = uuidv4()
 
   const bodyObject = {
-    montant: selectedOffer.price,
+    montant: price,
     deviseiso: 'CDF',
     commentaire: 'Vous avez effectué un achat avec uty.life',
     urlSuccess: urlSuccess,
     urlDecline: urlDecline,
     motif: 'Paiement de course sur uty.life',
     fpid: 'FP0752',
-    transactionId: '',
+    transactionId: transactionId,
     nomMarchand: '',
-    pin: '',
+    pin: '130586',
   }
 
   const headerObject = {
@@ -37,27 +51,48 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
     pwd: pwd,
     pin: pin,
   }
-  console.log(selectedOffer)
 
   useEffect(() => {
     getToken(login, pwd, pin)
     console.log(token)
-  }, [token])
+  }, [])
+
+  const getShipPrice = async () => {
+    await updatePickUpCoord(selectedOffer)
+    await updateProvider(selectedOffer.provider.user)
+    await updateDistance([-4.3054403, 15.3065331], [-4.30555503, 15.30667331])
+    console.log(distance, 'pickup at', pickUpCoord)
+    updatePrice(selectedOffer.price, distance)
+  }
+
+  useEffect(() => {
+    getShipPrice()
+    console.log(provider)
+    console.log(selectedOffer.customer.coords)
+    console.log(provider)
+    console.log(price)
+  }, [price])
 
   const handleClick = async () => {
     setLoading(true)
     try {
+      await axios.patch('http://localhost:5200/api/order/confirmOrder', {
+        orderId: selectedOffer._id,
+        status: 'confirmed',
+        price: price,
+      })
       initPay(headerObject, bodyObject)
       if (initData) {
-        navigate(
+        await axios.get(
           `http://flashint.cfc-rdc.com:3000/flashpay/auth/${initData.urlTransaction}`
         )
       }
     } catch (error) {
-      console.error(error)
+      console.log(error)
+      setIsBuying(false)
     }
-    setIsBuying(false)
-    navigate('/Categories')
+    // setIsBuying(false)
+    // navigate('/Categories')
   }
 
   return (
@@ -67,8 +102,8 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
           <div className="modal__body">
             <img src={utyLogo} />
             <div className="offer__detail">
-              <p>Vendeur: {}</p>
-              <p>{}</p>
+              <p>Total à payer: {price} fc</p>
+              <p>Vendeur: </p>
             </div>
             <button onClick={handleClick}>
               {loading ? (

@@ -5,12 +5,16 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Map from './Map'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
+// import { useShipmentStore } from '../utils/shipmentStore'
 import { Rings } from 'react-loader-spinner'
+import { useShipmentStore } from '../utils/shipmentStore'
 
 function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const updateAdress = useStore((state) => state.updateAdress)
   const adress = useStore((state) => state.adress)
+  // const price = useShipmentStore((state) => state.price)
+  const updatePrice = useShipmentStore((state) => state.updatePrice)
   const [loading, setLoading] = useState(false)
   // const [adress, setAdress] = useState()
   console.log(coords)
@@ -59,7 +63,7 @@ function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
         <div className="centered">
           <div className="confirm__body">
             <div className="map__side">
-              <Map coords={coords} />
+              <Map coords={coords} updatePrice={updatePrice} />
             </div>
             <div className="adress__container">
               <IoLocation className="adress__icon" />

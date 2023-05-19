@@ -10,8 +10,12 @@ export const useStore = create((set) => ({
   user: [],
   geometrie: '',
   adress: '',
+  prix: 0,
   rideDistance: 0,
   rideDuration: 0,
+  updatePrix: (newPrix) => {
+    set({ prix: newPrix })
+  },
   updateUsername: (newUsername) => {
     set({ username: newUsername })
   },

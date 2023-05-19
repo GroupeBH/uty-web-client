@@ -14,6 +14,7 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import ConfirmT from './pages_provider/ConfirmT'
 import Location from './pages/Location'
 import Categories from './pages/Categories'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -30,8 +31,10 @@ function App() {
           <Route exact path="/Offer" element={<Offer />} />
           <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
           <Route exact path="/ConfirmT" element={<ConfirmT />} />
+          <Route exact path="/ConfirmT/:id" element={<ConfirmT />} />
           <Route exact path="/Location" element={<Location />} />
           <Route exact path="/Categories" element={<Categories />} />
+          <Route exact path="/Profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>

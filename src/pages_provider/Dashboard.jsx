@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { io } from 'socket.io-client'
+// import { io } from 'socket.io-client'
 import Nav from '../components/Nav'
 import commande from '../assets/Affaires concl.png'
 import vendus from '../assets/Articles vendus.png'
@@ -16,8 +16,8 @@ function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [provider, setProvider] = useState()
-  const socket = useRef()
-  const [notifications, setNotifications] = useState([])
+  // const socket = useRef()
+  // const [notifications, setNotifications] = useState([])
   const [location, setLocation] = useState()
   const latitude = useStore((state) => state.latitude)
   const updateLatitude = useStore((state) => state.updateLatitude)
@@ -61,32 +61,31 @@ function Dashboard() {
         `https://uty-ti30.onrender.com/api/auth/getProvider/${currentUser._id}`
       )
       setProvider(response.data)
+      localStorage.setItem('currentProvider', JSON.stringify(response.data))
       console.log(provider)
     }
 
     getProvider()
 
-    socket.current = io('https://uty-ti30.onrender.com')
+    // socket.current = io('')
     // socket.current.emit('add-user', currentUser._id, currentUser.username)
-  }, [currentUser])
+  }, [currentUser, latitude, longitude])
 
   // console.log(latitude)
 
-  useEffect(() => {
-    socket.current.on('provider_notif', (sender) => {
-      setNotifications((prev) => [...prev, sender])
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.current.on('provider_notif', (sender) => {
+  //     setNotifications((prev) => [...prev, sender])
+  //   })
+  // }, [socket])
 
-  console.log(notifications)
+  // console.log(notifications)
 
   return (
     <Container>
-      <div className="navbar">
-        <Nav />
-      </div>
-      <h3 className="provider__accroche">Pénètre ton marché différement</h3>
+      <Nav />
       <div className="list__post">
+        <h3 className="provider__accroche">Pénètre ton marché différement</h3>
         <div
           className="commande__link"
           onClick={() => {
@@ -103,8 +102,20 @@ function Dashboard() {
           </div>
           <img src={vendus} alt="" />
         </div>
-        <div className="commande__link">
-          <div className="box__description">Ventes</div>
+        <div
+          className="commande__link"
+          onClick={() => {
+            navigate('/Command')
+          }}
+        >
+          <div
+            className="box__description"
+            onClick={() => {
+              navigate('/Command')
+            }}
+          >
+            Ventes
+          </div>
           <img src={commande} alt="" />
         </div>
         <div className="commande__link">
@@ -143,13 +154,8 @@ function Dashboard() {
 }
 
 const Container = styled.div`
-  padding-left: 5vw;
-  padding-right: 5vw;
   display: flex;
   flex-direction: column;
-  .navbar {
-    width: 100%;
-  }
   h3 {
     text-align: center;
     font-size: 125%;
@@ -158,7 +164,7 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 1vh 2vw;
+    padding: 1vh 7.5vw;
     .commande__link {
       border-color: silver 1px;
       height: 20vh;

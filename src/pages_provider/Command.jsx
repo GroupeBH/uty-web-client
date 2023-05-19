@@ -1,67 +1,92 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { IoNotifications, IoMenu } from 'react-icons/io5'
-import utyLogo from '../assets/logo-uty.png'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Nav from '../components/Nav'
+import axios from 'axios'
+import moment from 'moment'
+import loader from '../assets/loader.gif'
 
 function Command() {
-  let navigate = useNavigate()
+  const data = JSON.parse(localStorage.getItem('currentProvider'))
+  const [commands, setCommands] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const getCommands = async () => {
+      try {
+        const response = await axios.get(
+          `https://uty-ti30.onrender.com/api/order/getMyCommands/${data._id}`
+        )
+        setCommands(response.data)
+        console.log(response.data)
+        setLoading(false)
+      } catch (e) {
+        console.log(e)
+        setLoading(false)
+      }
+    }
+    getCommands()
+  }, [])
   return (
-    <Container>
-      <div className="navbar">
-        <div className="page__title" onClick={() => navigate('/Dashboard')}>
-          <img src={utyLogo} alt="" className="uty__logo" />
-        </div>
-        <IoNotifications className="notification__icon" />
-        <button>
-          <IoMenu className="menu__icon" />
-        </button>
-      </div>
-    </Container>
+    <>
+      {loading ? (
+        <ContainerL>
+          <img src={loader} alt="loader" className="loader" />
+        </ContainerL>
+      ) : (
+        <Container>
+          <Nav />
+          <div className="command__list">
+            {commands.map((command) => {
+              return (
+                <div className="command" key={command._id}>
+                  <StyledLink to={'/ConfirmT/' + command._id}>
+                    <p>La commande de : {command.customer.username}</p>
+                    <p className="">
+                      <span>{command.price}</span>
+                      <span>
+                        {moment(Date.now()).format('MMM Do YY') ===
+                        moment(command.createdAt).format('MMM Do YY')
+                          ? moment(Date.now()).format('h') ===
+                            moment(command.createdAt).format('h')
+                            ? moment(command.createdAt).fromNow()
+                            : moment(Date.now()).format('h:s')
+                          : moment(command.createdAt).format('DD/MM/YYYY  h:s')}
+                      </span>
+                    </p>
+                  </StyledLink>
+                </div>
+              )
+            })}
+          </div>
+        </Container>
+      )}
+    </>
   )
 }
 
-const Container = styled.div`
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: -5vw;
-    margin-left: -5vw;
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-    padding: 1vh 5vw;
-    margin-bottom: 2.5vh;
-    .user__profil {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #020664;
-      background-color: white;
-      border-radius: 2rem;
-      padding-left: 2vw;
-      padding-right: 2vw;
-      svg {
-        font-size: 150%;
-        cursor: pointer;
-      }
-    }
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 
-    .page__title {
+const ContainerL = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 45vh;
+  img {
+    height: 10vh;
+  }
+`
+
+const Container = styled.div`
+  .command__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh 1vw;
+    .command {
       display: flex;
-      justify-content: center;
-      padding-top: 1vh;
-      .uty__logo {
-        height: 8vh;
-        width: 12.5vw;
-      }
-    }
-    .notification__icon {
-      font-size: 260%;
-    }
-    .menu__icon {
-      align-self: center;
-      font-size: 260%;
-      margin-right: 1vh;
+      flex-direction: column;
     }
   }
 `

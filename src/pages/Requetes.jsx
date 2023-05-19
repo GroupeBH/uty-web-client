@@ -6,11 +6,7 @@ import Modal from '../components/Modal'
 import axios from 'axios'
 import { io } from 'socket.io-client'
 import { Rings } from 'react-loader-spinner'
-import {
-  IoArrowBackSharp,
-  IoPhonePortraitOutline,
-  IoAddSharp,
-} from 'react-icons/io5'
+import { IoArrowBackSharp, IoAddSharp } from 'react-icons/io5'
 import { useStore } from '../utils/Store'
 import ModalError from '../components/ModalError'
 
@@ -68,8 +64,6 @@ function Requetes() {
     e.preventDefault()
     setLoad(true)
     const data = await JSON.parse(localStorage.getItem('currentUser'))
-    console.log(data.username)
-    console.log(data._id)
     try {
       await uploadImage()
 
@@ -131,10 +125,9 @@ function Requetes() {
               )}
             </div>
             <div className="phone">
-              <IoPhonePortraitOutline />
               <input
-                type="number"
-                placeholder="Entrez votre numéro de téléphone"
+                type="text"
+                placeholder="Ajouter d'autres details"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />

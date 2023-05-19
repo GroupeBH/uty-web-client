@@ -99,7 +99,7 @@ export default function Register() {
             <img src="" alt="" />
           </div>
           <form action="" onSubmit={(event) => handleSubmit(event)}>
-            <IoArrowBackOutline onClick={() => navigate('/HomePage')} />
+            <IoArrowBackOutline onClick={() => navigate('/')} />
             <img src={utyLogo} alt="" />
             <h3>
               Inscrivez vous à <span className="uty__name">uty</span>
