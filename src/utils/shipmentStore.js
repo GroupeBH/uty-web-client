@@ -6,6 +6,7 @@ export const useShipmentStore = create((set) => ({
   provider: 0,
   pickUpCoord: [],
   distance: 0,
+  duration: 0,
   order: {},
 
   updatePrice: async (newPrice, distance) => {
@@ -33,29 +34,29 @@ export const useShipmentStore = create((set) => ({
               'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
           })
       )
-      set({ distance: response.data.trips[0].distance })
+      console.log(response)
+      set({ distance: Math.round(response.data.trips[0].distance) })
+      set({ duration: Math.round(response.data.trips[0].duration) })
     } catch (e) {
       console.log(e)
     }
   },
-  updatePickUpCoord: async (order) => {
+  updatePickUpCoord: async (provider) => {
     try {
       await axios
-        .get(
-          `https://uty-ti30.onrender.com/api/auth/getProvider/${order.provider}`
-        )
+        .get(`http://localhost:5200/api/auth/getProvider/${provider}`)
         .then((response) => {
-          console.log(response.data)
-          set({ pickUpCoord: response.data.user.coords })
+          console.log(response.data.user)
+          set({ pickUpCoord: response.data.user.adress })
         })
     } catch (e) {
       console.log(e)
     }
   },
-  updateOrder: async (id) => {
+  updateOrder: async (orderId) => {
     try {
       await axios
-        .get(`https://uty-ti30.onrender.com/api/order/getorder/${id}`)
+        .get(`http://localhost:5200/api/order/getorder/${orderId}`)
         .then((response) => {
           console.log(response.data)
           set({ order: response.data })
