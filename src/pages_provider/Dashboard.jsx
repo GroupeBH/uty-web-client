@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 // import { io } from 'socket.io-client'
@@ -11,65 +11,51 @@ import pubPrice from '../assets/Dépenses Pub.png'
 import map from '../assets/map.png'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
+import ModalCoords from '../components/ModalCoords'
 
 function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-  const [provider, setProvider] = useState()
+  const [open, setOpen] = useState(false)
+  // const [provider, setProvider] = useState()
   // const socket = useRef()
   // const [notifications, setNotifications] = useState([])
-  const [location, setLocation] = useState()
-  const latitude = useStore((state) => state.latitude)
-  const updateLatitude = useStore((state) => state.updateLatitude)
-  const longitude = useStore((state) => state.longitude)
-  const updateLongitude = useStore((state) => state.updateLongitude)
-
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      console.log('location not supproted')
-    } else {
-      console.log('locating...')
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          updateLatitude(position.coords.latitude)
-          updateLongitude(position.coords.longitude)
-        },
-        () => {
-          console.log('enabled to retrieve location')
-        }
-      )
-    }
-  }
+  const coords = useStore((state) => state.coords)
+  const updateCoords = useStore((state) => state.updateCoords)
 
   useEffect(() => {
-    getLocation()
-    setLocation()
-    // updateLatitude(coords.latitude)
-    console.log(latitude)
-    console.log(longitude)
-    const updateCoords = async () => {
-      const response = await axios.patch(
-        `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentUser._id}`,
-        { latitude, longitude }
-      )
-      setLocation(response.data)
-    }
     updateCoords()
 
-    const getProvider = async () => {
-      const response = await axios.get(
-        `https://uty-ti30.onrender.com/api/auth/getProvider/${currentUser._id}`
-      )
-      setProvider(response.data)
-      localStorage.setItem('currentProvider', JSON.stringify(response.data))
-      console.log(provider)
+    const update = async () => {
+      await axios
+        .patch(
+          `http://localhost:5200/api/auth/updateCoords/${currentUser._id}`,
+          {
+            coords,
+          }
+        )
+        .then((response) => console.log(response))
+    }
+    if (coords.length > 0) {
+      update()
+    } else {
+      setOpen(true)
     }
 
-    getProvider()
+    // const getProvider = async () => {
+    //   // const response = await axios.get(
+    //   //   `https://uty-ti30.onrender.com/api/auth/getProvider/${currentUser._id}`
+    //   // )
+    //   // setProvider(response.data)
+    //   // localStorage.setItem('currentProvider', JSON.stringify(response.data))
+    //   // console.log(provider)
+    // }
 
+    // getProvider()
+    console.log(coords)
     // socket.current = io('')
     // socket.current.emit('add-user', currentUser._id, currentUser.username)
-  }, [currentUser, latitude, longitude])
+  }, [coords])
 
   // console.log(latitude)
 
@@ -149,6 +135,7 @@ function Dashboard() {
           <img src={map} alt="" />
         </div>
       </div>
+      {open && <ModalCoords setOpen={setOpen} />}
     </Container>
   )
 }

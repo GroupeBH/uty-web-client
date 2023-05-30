@@ -95,6 +95,7 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
         )
       })
     }
+    console.log(pickUpCoord, dropOffCoord)
   }, [pickUpCoord, dropOffCoord, geometrie])
 
   return (
