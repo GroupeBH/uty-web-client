@@ -5,9 +5,11 @@ export const useShipmentStore = create((set) => ({
   price: 0,
   provider: 0,
   pickUpCoord: [],
+  dropOffCoord: [],
   distance: 0,
   duration: 0,
   order: {},
+  shipments: [],
 
   updatePrice: async (newPrice, distance) => {
     let constant = 2000 * distance
@@ -35,8 +37,8 @@ export const useShipmentStore = create((set) => ({
           })
       )
       console.log(response)
-      set({ distance: Math.round(response.data.trips[0].distance) })
-      set({ duration: Math.round(response.data.trips[0].duration) })
+      set({ distance: Math.round(response.data.trips[0].distance / 1000) })
+      set({ duration: Math.round(response.data.trips[0].duration / 60) })
     } catch (e) {
       console.log(e)
     }
@@ -47,7 +49,7 @@ export const useShipmentStore = create((set) => ({
         .get(`http://localhost:5200/api/auth/getProvider/${provider}`)
         .then((response) => {
           console.log(response.data.user)
-          set({ pickUpCoord: response.data.user.adress })
+          set({ pickUpCoord: response.data.user.coords })
         })
     } catch (e) {
       console.log(e)
@@ -60,7 +62,17 @@ export const useShipmentStore = create((set) => ({
         .then((response) => {
           console.log(response.data)
           set({ order: response.data })
+          set({ dropOffCoord: response.data.customer.coords })
         })
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  updateShipments: async () => {
+    try {
+      await axios
+        .get('http://localhost:5200/api/shipment/shipments')
+        .then((response) => set({ shipments: response.data }))
     } catch (e) {
       console.log(e)
     }

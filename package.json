@@ -22,6 +22,7 @@
     "flat-carousel": "0.0.1",
     "formik": "^2.2.9",
     "gapi-script": "^1.2.0",
+    "lodash": "^4.17.21",
     "mapbox-gl": "^2.12.0",
     "moment": "^2.29.4",
     "prettier": "^2.7.1",

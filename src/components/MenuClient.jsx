@@ -67,7 +67,7 @@ export default function BasicMenu() {
           <p></p>
         )}
         {currentUser.isDeliver !== null && currentUser.isDeliver !== false ? (
-          <MenuItem onClick={() => navigate('/Profile')}>
+          <MenuItem onClick={() => navigate('/Shipments')}>
             <p
               style={{
                 fontSize: '130%',

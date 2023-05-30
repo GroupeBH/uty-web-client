@@ -15,6 +15,7 @@ import ConfirmT from './pages_provider/ConfirmT'
 import Location from './pages/Location'
 import Categories from './pages/Categories'
 import Profile from './pages/Profile'
+import Shipments from './pages_driver/Shipments'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/Location" element={<Location />} />
           <Route exact path="/Categories" element={<Categories />} />
           <Route exact path="/Profile" element={<Profile />} />
+          <Route exact path="/Shipments" element={<Shipments />} />
         </Routes>
       </BrowserRouter>
     </>
