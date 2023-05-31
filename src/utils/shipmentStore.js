@@ -10,11 +10,14 @@ export const useShipmentStore = create((set) => ({
   duration: 0,
   order: {},
   shipments: [],
+  adress: '',
+  customer: '',
 
   updatePrice: async (newPrice, distance) => {
     let constant = 2000 * distance
     set({ price: newPrice + constant })
   },
+
   updateProvider: async (user) => {
     try {
       await axios
@@ -27,6 +30,7 @@ export const useShipmentStore = create((set) => ({
       console.log(e)
     }
   },
+
   updateDistance: async (pickUpCoord, dropOffCoord) => {
     try {
       const response = await axios.get(
@@ -43,6 +47,7 @@ export const useShipmentStore = create((set) => ({
       console.log(e)
     }
   },
+
   updatePickUpCoord: async (provider) => {
     try {
       await axios
@@ -55,6 +60,7 @@ export const useShipmentStore = create((set) => ({
       console.log(e)
     }
   },
+
   updateOrder: async (orderId) => {
     try {
       await axios
@@ -62,17 +68,38 @@ export const useShipmentStore = create((set) => ({
         .then((response) => {
           console.log(response.data)
           set({ order: response.data })
+          set({ customer: response.data.customer.username })
           set({ dropOffCoord: response.data.customer.coords })
         })
     } catch (e) {
       console.log(e)
     }
   },
+
   updateShipments: async () => {
     try {
       await axios
         .get('http://localhost:5200/api/shipment/shipments')
         .then((response) => set({ shipments: response.data }))
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  updateAdress: async (pickUpCoord) => {
+    try {
+      await axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickUpCoord[0]},${pickUpCoord[1]}.json?` +
+            new URLSearchParams({
+              access_token:
+                'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+              limit: 1,
+            })
+        )
+        .then((response) =>
+          set({ adress: response.data.features[0].place_name })
+        )
     } catch (e) {
       console.log(e)
     }

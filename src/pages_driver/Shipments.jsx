@@ -2,14 +2,26 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Nav from '../components/Nav'
 import _ from 'lodash'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 import { useShipmentStore } from '../utils/shipmentStore'
 
 function Shipments() {
   const updateShipments = useShipmentStore((state) => state.updateShipments)
   const shipments = useShipmentStore((state) => state.shipments)
+
   const updateDistance = useShipmentStore((state) => state.updateDistance)
   const distance = useShipmentStore((state) => state.distance)
   const duration = useShipmentStore((state) => state.duration)
+
+  const updateAdress = useShipmentStore((state) => state.updateAdress)
+  const adressPickup = useShipmentStore((state) => state.adress)
+
+  const updatedropAdress = useShipmentStore((state) => state.updateAdress)
+  const adressDropOff = useShipmentStore((state) => state.adress)
+
+  const updateOrder = useShipmentStore((state) => state.updateOrder)
+  const customer = useShipmentStore((state) => state.customer)
+
   useEffect(() => {
     updateShipments()
   }, [])
@@ -18,19 +30,35 @@ function Shipments() {
     _.forEach(shipments, (shipment) =>
       updateDistance(shipment.pickupLocation, shipment.dropLocation)
     )
+
+    _.forEach(shipments, (shipment) => updateAdress(shipment.pickupLocation))
+    _.forEach(shipments, (shipment) => updatedropAdress(shipment.dropLocation))
+
+    _.forEach(shipments, (shipment) => updateOrder(shipment.order))
   }, [shipments])
 
   return (
     <Container>
       <Nav />
-      <div>
+      <div className="container__list">
         {_.filter(shipments, (ship) => ship.pickupLocation.length > 0).map(
           (shipment) => {
             return (
-              <div key={shipment._id}>
-                <p>{shipment._id}</p>
-                <span>{distance} kilomètres</span>
-                <span>{duration} minutes</span>
+              <div className="ships__item" key={shipment._id}>
+                <div className="command">
+                  <p>
+                    Commande de <span className="customer">{customer}</span>
+                  </p>
+                  <p className="ship__adresses">
+                    <span>{adressPickup}</span>
+                    <IoArrowForwardOutline />
+                    <span>{adressDropOff}</span>
+                  </p>
+                </div>
+                <div className="timeline">
+                  <span>{distance} km</span>
+                  <span>{duration} min</span>
+                </div>
               </div>
             )
           }
@@ -40,6 +68,28 @@ function Shipments() {
   )
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  .container__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+    .ships__item {
+      display: flex;
+      padding: 1vh 5vw;
+      align-items: center;
+      box-shadow: 0px 0px 5px silver;
+      .command {
+        flex-grow: 2;
+        .ship__adresses {
+          display: flex;
+        }
+      }
+      .timeline {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+`
 
 export default Shipments
