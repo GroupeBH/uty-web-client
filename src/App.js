@@ -16,6 +16,7 @@ import Location from './pages/Location'
 import Categories from './pages/Categories'
 import Profile from './pages/Profile'
 import Shipments from './pages_driver/Shipments'
+import { ShipDetails } from './pages_driver/ShipDetails'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/Categories" element={<Categories />} />
           <Route exact path="/Profile" element={<Profile />} />
           <Route exact path="/Shipments" element={<Shipments />} />
+          <Route exact path="/Shipments/:id" element={<ShipDetails />} />
         </Routes>
       </BrowserRouter>
     </>

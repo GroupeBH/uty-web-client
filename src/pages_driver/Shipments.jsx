@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import _ from 'lodash'
 import { IoArrowForwardOutline } from 'react-icons/io5'
@@ -44,7 +45,11 @@ function Shipments() {
         {_.filter(shipments, (ship) => ship.pickupLocation.length > 0).map(
           (shipment) => {
             return (
-              <div className="ships__item" key={shipment._id}>
+              <StyledLink
+                to={'/shipments/' + shipment._id}
+                className="ships__item"
+                key={shipment._id}
+              >
                 <div className="command">
                   <p>
                     Commande de <span className="customer">{customer}</span>
@@ -59,7 +64,7 @@ function Shipments() {
                   <span>{distance} km</span>
                   <span>{duration} min</span>
                 </div>
-              </div>
+              </StyledLink>
             )
           }
         )}
@@ -68,6 +73,9 @@ function Shipments() {
   )
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 const Container = styled.div`
   .container__list {
     display: flex;

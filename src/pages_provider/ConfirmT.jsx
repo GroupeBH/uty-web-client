@@ -8,8 +8,7 @@ import { Rings } from 'react-loader-spinner'
 
 function ConfirmT() {
   const [load, setLoad] = useState(false)
-  // const [pickUpCoord, setPickUpCoord] = useState()
-  // const [dropOffCoord, setDropOffCoord] = useState()
+
   const updateOrder = useShipmentStore((state) => state.updateOrder)
   const updateDistance = useShipmentStore((state) => state.updateDistance)
   const distance = useShipmentStore((state) => state.distance)
@@ -18,61 +17,15 @@ function ConfirmT() {
   const updatePickUpCoord = useShipmentStore((state) => state.updatePickUpCoord)
   const pickUpLocation = useShipmentStore((state) => state.pickUpCoord)
   const dropOffLocation = useShipmentStore((state) => state.dropOffCoord)
-  // const pickUp = 'Kintambo magasin'
-  // const dropOff = 'Kinshasa, Masanga-mbila'
 
   const params = useParams()
 
-  // const getPickUppoint = async () => {
-  //   try {
-  //     await axios
-  //       .get(
-  //         `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickUp}.json?` +
-  //           new URLSearchParams({
-  //             access_token:
-  //               'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
-  //             limit: 1,
-  //           })
-  //       )
-  //       .then((response) => {
-  //         setPickUpCoord(response.data.features[0].center)
-  //       })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // const getDropOffpoint = async () => {
-  //   try {
-  //     await axios
-  //       .get(
-  //         `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropOff}.json?` +
-  //           new URLSearchParams({
-  //             access_token:
-  //               'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
-  //             limit: 1,
-  //           })
-  //       )
-  //       .then((response) => {
-  //         setDropOffCoord(response.data.features[0].center)
-  //       })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   useEffect(() => {
-    // updateOrder(params.id)
     updateOrder(params.id)
-    console.log('drop:', dropOffLocation)
-    console.log(order)
   }, [params.id])
 
   useEffect(() => {
-    // getPickUppoint()
-    // getDropOffpoint()
     updatePickUpCoord(order.provider)
-    console.log('pick:', pickUpLocation)
   }, [order.provider])
 
   useEffect(() => {
@@ -82,9 +35,6 @@ function ConfirmT() {
   const handleClick = async () => {
     setLoad(true)
     try {
-      console.log('pickup', pickUpLocation)
-      console.log('dropoff :', dropOffLocation)
-      console.log(order._id)
       await axios
         .post('http://localhost:5200/api/shipment/addShipment', {
           orderId: order._id,

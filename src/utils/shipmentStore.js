@@ -10,6 +10,7 @@ export const useShipmentStore = create((set) => ({
   duration: 0,
   order: {},
   shipments: [],
+  shipment: {},
   adress: '',
   customer: '',
 
@@ -66,7 +67,6 @@ export const useShipmentStore = create((set) => ({
       await axios
         .get(`http://localhost:5200/api/order/getorder/${orderId}`)
         .then((response) => {
-          console.log(response.data)
           set({ order: response.data })
           set({ customer: response.data.customer.username })
           set({ dropOffCoord: response.data.customer.coords })
@@ -100,6 +100,16 @@ export const useShipmentStore = create((set) => ({
         .then((response) =>
           set({ adress: response.data.features[0].place_name })
         )
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  updateShipment: async (shipId) => {
+    try {
+      await axios
+        .get(`http://localhost:5200/api/shipment/shipment/${shipId}`)
+        .then((response) => set({ shipment: response.data }))
     } catch (e) {
       console.log(e)
     }
