@@ -27,31 +27,13 @@ function Compte() {
   const user = useStore((state) => state.user)
   const updateProvider = useStore((state) => state.updateProvider)
   const updateDeliver = useStore((state) => state.updateDeliver)
-  const updateLatitude = useStore((state) => state.updateLatitude)
-  const updateLongitude = useStore((state) => state.updateLongitude)
-  const latitude = useStore((state) => state.latitude)
-  const longitude = useStore((state) => state.longitude)
+  const updateCoords = useStore((state) => state.updateCoords)
+  const coords = useStore((state) => state.coords)
 
   const cloudName = 'disyacex9'
 
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      console.log('location not supproted')
-    } else {
-      console.log('locating...')
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          updateLatitude(position.coords.latitude)
-          updateLongitude(position.coords.longitude)
-        },
-        () => {
-          console.log('enabled to retrieve location')
-        }
-      )
-    }
-  }
-
   useEffect(() => {
+    updateCoords()
     const getCategories = async () => {
       const response = await axios.get(
         'https://uty-ti30.onrender.com/api/category/getCategories'
@@ -60,7 +42,6 @@ function Compte() {
     }
 
     getCategories()
-    getLocation()
   })
 
   const options = categories.map((categorie) => {
@@ -123,8 +104,7 @@ function Compte() {
           select,
           selectTwo,
           category,
-          latitude,
-          longitude,
+          coords,
         }
       )
       updateUser(response.data)
@@ -165,7 +145,7 @@ function Compte() {
           <label htmlFor="">Phone</label>
           <input
             type="text"
-            value={user.phone}
+            value={user?.phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
