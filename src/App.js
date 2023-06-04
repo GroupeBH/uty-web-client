@@ -17,6 +17,7 @@ import Categories from './pages/Categories'
 import Profile from './pages/Profile'
 import Shipments from './pages_driver/Shipments'
 import { ShipDetails } from './pages_driver/ShipDetails'
+import ProviderSignUp from './pages_provider/ProviderSignUp'
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Redirect />} />
+          <Route exact path="/Home" element={<Redirect />} />
           <Route exact path="/SignParticular" element={<SignParticular />} />
+          <Route exact path="/Provider-sign-up" element={<ProviderSignUp />} />
           <Route exact path="/Requetes/:id" element={<Requetes />} />
           <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route exact path="/Command" element={<Command />} />

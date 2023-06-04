@@ -90,7 +90,7 @@ export default function BasicMenu() {
             Profile
           </p>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => navigate('/Provider-sign-up')}>
           <p
             style={{
               fontSize: '130%',
@@ -98,7 +98,7 @@ export default function BasicMenu() {
               marginBottom: '-1.5vh',
             }}
           >
-            Historique
+            devenir provider
           </p>
         </MenuItem>
 

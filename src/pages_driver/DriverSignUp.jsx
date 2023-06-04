@@ -9,13 +9,13 @@ import utyLogo from '../assets/logo-uty.png'
 import ModalSign from '../components/ModalSign'
 import ModalConnect from './ModalConnect'
 import { Rings } from 'react-loader-spinner'
+import Select from 'react-select'
 
-export default function Register() {
+export default function DriverSignUp() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isLoad, setIsLoad] = useState(false)
-  const [myName, setMyName] = useState()
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -86,7 +86,6 @@ export default function Register() {
       }
       if (data.status === true) {
         setIsLoad(false)
-        setMyName(data.user.username)
         localStorage.setItem('currentUser', JSON.stringify(data.user))
         setOpen(true)
       }
@@ -101,60 +100,115 @@ export default function Register() {
             <img src="" alt="" />
           </div>
           <form action="" onSubmit={(event) => handleSubmit(event)}>
-            <IoArrowBackOutline onClick={() => navigate('/')} />
-            <img src={utyLogo} alt="" />
-            <h3>
-              Inscrivez vous à <span className="uty__name">uty</span>
-            </h3>
-            <input
-              type="text"
-              placeholder="Username"
-              name="username"
-              onChange={(e) => handleChange(e)}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              onChange={(e) => handleChange(e)}
-            />
-            <input
-              type="text"
-              placeholder="Téléphone"
-              name="phone"
-              onChange={(e) => handleChange(e)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={(e) => handleChange(e)}
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              onChange={(e) => handleChange(e)}
-            />
-            <button type="submit">
-              {isLoad ? (
-                <>
-                  <div
-                    className="loader"
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginTop: '-2vh',
-                    }}
-                  >
-                    <Rings height="80" width="80" color="white" />
-                  </div>
-                </>
-              ) : (
-                <>Enregistrement</>
-              )}
-            </button>
+            <div className="form__header">
+              <IoArrowBackOutline onClick={() => navigate('/')} />
+              <img src={utyLogo} alt="" />
+              <h3>
+                Devenez un marchand sur <span className="uty__name">uty</span>
+              </h3>
+              <h4>
+                Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
+                si vous avez un compte
+              </h4>
+            </div>
+            <div className="form__body">
+              <div className="form__field">
+                <label>Nom de l enseigne(facultatif)</label>
+                <input
+                  type="text"
+                  placeholder="store-name"
+                  name="store-name"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="form__field">
+                <label>Nom de la marque</label>
+                <input
+                  type="email"
+                  placeholder="sokin"
+                  name="email"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="form__field">
+                <label htmlFor="">Types de business</label>
+                <Select
+                //   options={options}
+                //   value={category}
+                //   onChange={handleSelect}
+                //     className="select"
+                //     isMulti
+                />
+              </div>
+              <div className="form__field">
+                <div className="name__field">
+                  <label htmlFor="">Nom de famille</label>
+                  <input
+                    type="text"
+                    placeholder="Téléphone"
+                    name="phone"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+                <div className="name__field">
+                  <label htmlFor="">Prénom</label>
+                  <input
+                    type="text"
+                    placeholder="Téléphone"
+                    name="phone"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="form__field">
+                <label htmlFor="">Numéro de téléphone</label>
+                <input
+                  type="text"
+                  placeholder="Téléphone"
+                  name="phone"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="form__field">
+                <div className="password__field">
+                  <label htmlFor="">Mot de passe</label>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+                <div className="password__field">
+                  <label htmlFor="">Confirmation de mot de passe</label>
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+              </div>
+              <button type="submit">
+                {isLoad ? (
+                  <>
+                    <div
+                      className="loader"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '-2vh',
+                      }}
+                    >
+                      <Rings height="80" width="80" color="white" />
+                    </div>
+                  </>
+                ) : (
+                  <>Soumettre</>
+                )}
+              </button>
+            </div>
             <p>
               Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
               si vous avez un compte
@@ -162,7 +216,7 @@ export default function Register() {
           </form>
         </div>
       </FormContainer>
-      {open && <ModalSign username={myName} path="/Categories" />}
+      {open && <ModalSign />}
       {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       <ToastContainer />
     </>
@@ -259,70 +313,4 @@ const FormContainer = styled.div`
       }
     }
   }
-  /* height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  background-color: silver;
-  .register__page {
-    display: flex;
-    background-color: white;
-    align-items: center;
-    border-radius: 1rem;
-    .image__side {
-      img {
-        height: 50vh;
-        width: 40vw;
-      }
-    }
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    background-color: white;
-    border-radius: 2rem;
-    padding: 3rem 5rem;
-    text-align: center;
-  }
-  input {
-    background-color: transparent;
-    padding: 1rem;
-    border: 0.1rem solid silver;
-    border-radius: 0.4rem;
-    color: #2b2828;
-    width: 100%;
-    font-size: 1rem;
-    &:focus {
-      border: 0.1rem solid #997af0;
-      outline: none;
-    }
-  }
-  button {
-    background-color: #4e0eff;
-    color: white;
-    padding: 1rem 2rem;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 0.4rem;
-    font-size: 1rem;
-    text-transform: uppercase;
-    &:hover {
-      background-color: #4e0eff;
-    }
-  }
-  span {
-    color: black;
-    text-transform: uppercase;
-    a {
-      color: #4e0eff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  } */
 `
