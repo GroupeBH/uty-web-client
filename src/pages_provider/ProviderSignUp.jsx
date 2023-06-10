@@ -7,9 +7,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
 import ModalSign from '../components/ModalSign'
-import ModalConnect from '../pages/ModalConnect'
 import { Rings } from 'react-loader-spinner'
 import Select from 'react-select'
+import ProviderLogin from './ProviderLogin'
 
 export default function ProviderSignUp() {
   const navigate = useNavigate()
@@ -30,6 +30,7 @@ export default function ProviderSignUp() {
     lastName: '',
     firstName: '',
     phone: '',
+    email: '',
     password: '',
     confirmPassword: '',
   })
@@ -69,8 +70,15 @@ export default function ProviderSignUp() {
     event.preventDefault()
     setIsLoad(true)
     if (handleValidation()) {
-      const { storeName, businessBrand, lastName, firstName, phone, password } =
-        values
+      const {
+        storeName,
+        businessBrand,
+        lastName,
+        firstName,
+        phone,
+        email,
+        password,
+      } = values
       const { data } = await axios.post(
         'http://localhost:5200/api/provider/register',
         {
@@ -79,6 +87,7 @@ export default function ProviderSignUp() {
           lastName,
           firstName,
           phone,
+          email,
           password,
         }
       )
@@ -105,7 +114,7 @@ export default function ProviderSignUp() {
           </div>
           <form action="" onSubmit={(event) => handleSubmit(event)}>
             <div className="form__header">
-              <IoArrowBackOutline onClick={() => navigate('/')} />
+              <IoArrowBackOutline onClick={() => navigate('/Home')} />
               <img src={utyLogo} alt="" />
               <h3>
                 Devenez un marchand sur <span className="uty__name">uty</span>
@@ -135,15 +144,26 @@ export default function ProviderSignUp() {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              <div className="form__field">
-                <label htmlFor="">Types de business</label>
-                <Select
-                //   options={options}
-                //   value={category}
-                //   onChange={handleSelect}
-                //     className="select"
-                //     isMulti
-                />
+              <div className="field">
+                <div className="name__field">
+                  <label htmlFor="">Types de business</label>
+                  <Select
+                  //   options={options}
+                  //   value={category}
+                  //   onChange={handleSelect}
+                  //     className="select"
+                  //     isMulti
+                  />
+                </div>
+                <div className="name__field">
+                  <label htmlFor="">Adresse mail</label>
+                  <input
+                    type="email"
+                    placeholder="default@example.com"
+                    name="email"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
               </div>
               <div className="field">
                 <div className="name__field">
@@ -218,7 +238,7 @@ export default function ProviderSignUp() {
         </div>
       </FormContainer>
       {open && <ModalSign username={store} path="/Dashboard" />}
-      {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
+      {isOpen && <ProviderLogin setIsOpen={setIsOpen} />}
       <ToastContainer />
     </>
   )

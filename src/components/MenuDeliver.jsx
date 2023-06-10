@@ -3,10 +3,9 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { IoMenu } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 export default function BasicMenu() {
-  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -48,20 +47,9 @@ export default function BasicMenu() {
             A propos
           </p>
         </MenuItem>
-        <MenuItem onClick={() => navigate('/deliver-sign-up')}>
+        <MenuItem onClick={handleClose}>
           <p style={{ fontSize: '130%', fontWeight: 'bold' }}>
             Dévenir livreur
-          </p>
-        </MenuItem>
-        <MenuItem onClick={() => navigate('/provider-sign-up')}>
-          <p
-            style={{
-              fontSize: '130%',
-              fontWeight: 'bold',
-              marginTop: '-5vh',
-            }}
-          >
-            Dévenir marchand
           </p>
         </MenuItem>
         <MenuItem onClick={handleClose}>

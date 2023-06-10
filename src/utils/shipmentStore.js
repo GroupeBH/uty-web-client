@@ -13,6 +13,8 @@ export const useShipmentStore = create((set) => ({
   shipment: {},
   adress: '',
   customer: '',
+  productWanted: '',
+  productWantedDesc: '',
 
   updatePrice: async (newPrice, distance) => {
     let constant = 2000 * distance
@@ -22,7 +24,7 @@ export const useShipmentStore = create((set) => ({
   updateProvider: async (user) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/auth/getProvider/${user}`)
+        .get(`http://localhost:5200/api/provider/getProvider/${user}`)
         .then((response) => {
           console.log(response.data)
           set({ provider: response.data.user })
@@ -70,6 +72,8 @@ export const useShipmentStore = create((set) => ({
           set({ order: response.data })
           set({ customer: response.data.customer.username })
           set({ dropOffCoord: response.data.customer.coords })
+          set({ productWanted: response.data.wanted.media })
+          set({ productWantedDesc: response.data.wanted.text })
         })
     } catch (e) {
       console.log(e)

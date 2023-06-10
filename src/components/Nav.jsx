@@ -3,14 +3,18 @@ import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import MenuClient from './MenuClient'
 
-function Nav() {
+function Nav({ isProvider, isDeliver, isCustomer }) {
   return (
     <Container>
       <div className="page__title">
         <img src={utyLogo} alt="" className="uty__logo" />{' '}
       </div>
       <div className="count__container">
-        <MenuClient />
+        <MenuClient
+          isCustomer={isCustomer}
+          isProvider={isProvider}
+          isDeliver={isDeliver}
+        />
       </div>
     </Container>
   )
@@ -20,7 +24,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  background-color: white;
   padding: 1vh 5vw;
   margin-bottom: 2.5vh;
   .user__profil {

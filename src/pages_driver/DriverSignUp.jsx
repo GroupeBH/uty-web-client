@@ -5,17 +5,19 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
+// import { FaBicycle, FaWalking, FaShippingFast, FaSkiing } from 'react-icons/fa'
 import utyLogo from '../assets/logo-uty.png'
 import ModalSign from '../components/ModalSign'
-import ModalConnect from './ModalConnect'
+import ModalConnect from '../pages/ModalConnect'
 import { Rings } from 'react-loader-spinner'
-import Select from 'react-select'
 
 export default function DriverSignUp() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isLoad, setIsLoad] = useState(false)
+  const [store, setStore] = useState()
+  const [transport, setTransport] = useState()
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -24,30 +26,26 @@ export default function DriverSignUp() {
     theme: 'dark',
   }
   const [values, setValues] = useState({
-    username: '',
-    email: '',
+    transport,
+    lastName: '',
+    firstName: '',
     phone: '',
+    email: '',
     password: '',
     confirmPassword: '',
   })
-
-  // useEffect(() => {
-  //   if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-  //     navigate('/Login');
-  //   }
-  // }, []);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value })
   }
 
   const handleValidation = () => {
-    const { password, confirmPassword, username, email, phone } = values
+    const { password, confirmPassword, phone } = values
     if (password !== confirmPassword) {
       toast.error('Password and confirm password should be same.', toastOptions)
       setIsLoad(false)
       return false
-    } else if (username.length < 3) {
+    } else if (phone.length < 3) {
       toast.error('Username should be greater than 3 characters.', toastOptions)
       setIsLoad(false)
       return false
@@ -56,9 +54,6 @@ export default function DriverSignUp() {
         'Password should be equal or greater than 8 characters.',
         toastOptions
       )
-      return false
-    } else if (email === '' && phone === '') {
-      toast.error('Email or phone is required.', toastOptions)
       return false
     }
 
@@ -69,13 +64,15 @@ export default function DriverSignUp() {
     event.preventDefault()
     setIsLoad(true)
     if (handleValidation()) {
-      const { email, username, phone, password } = values
+      const { transport, lastName, firstName, phone, email, password } = values
       const { data } = await axios.post(
-        'https://uty-ti30.onrender.com/api/auth/register',
+        'http://localhost:5200/api/deliver/register',
         {
-          username,
-          email,
+          transport,
+          lastName,
+          firstName,
           phone,
+          email,
           password,
         }
       )
@@ -86,7 +83,8 @@ export default function DriverSignUp() {
       }
       if (data.status === true) {
         setIsLoad(false)
-        localStorage.setItem('currentUser', JSON.stringify(data.user))
+        setStore(data.user.username)
+        localStorage.setItem('currentDeliver', JSON.stringify(data.deliver))
         setOpen(true)
       }
     }
@@ -104,49 +102,36 @@ export default function DriverSignUp() {
               <IoArrowBackOutline onClick={() => navigate('/')} />
               <img src={utyLogo} alt="" />
               <h3>
-                Devenez un marchand sur <span className="uty__name">uty</span>
+                Devenez un livreur sur <span className="uty__name">uty</span>
               </h3>
               <h4>
                 Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
-                si vous avez un compte
+                si vous avez dejà un compte
               </h4>
             </div>
+            <hr />
             <div className="form__body">
-              <div className="form__field">
-                <label>Nom de l enseigne(facultatif)</label>
-                <input
-                  type="text"
-                  placeholder="store-name"
-                  name="store-name"
-                  onChange={(e) => handleChange(e)}
-                />
+              <div className="field">
+                <div className="name__field">
+                  <label htmlFor="">Mode de livraison preferé</label>
+                  <select
+                    value={transport}
+                    onChange={(e) => setTransport(e.target.value)}
+                  >
+                    <option value="A pied">A pied</option>
+                    <option value="En moto">En moto</option>
+                    <option value="En voiture">En voiture</option>
+                    <option value="All mode">All mode</option>
+                  </select>
+                </div>
               </div>
-              <div className="form__field">
-                <label>Nom de la marque</label>
-                <input
-                  type="email"
-                  placeholder="sokin"
-                  name="email"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-              <div className="form__field">
-                <label htmlFor="">Types de business</label>
-                <Select
-                //   options={options}
-                //   value={category}
-                //   onChange={handleSelect}
-                //     className="select"
-                //     isMulti
-                />
-              </div>
-              <div className="form__field">
+              <div className="field">
                 <div className="name__field">
                   <label htmlFor="">Nom de famille</label>
                   <input
                     type="text"
-                    placeholder="Téléphone"
-                    name="phone"
+                    placeholder="Bosuku"
+                    name="lastName"
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
@@ -154,23 +139,32 @@ export default function DriverSignUp() {
                   <label htmlFor="">Prénom</label>
                   <input
                     type="text"
-                    placeholder="Téléphone"
-                    name="phone"
+                    placeholder="Eugène"
+                    name="firstName"
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
               </div>
               <div className="form__field">
-                <label htmlFor="">Numéro de téléphone</label>
+                <label htmlFor="">Adresse mail</label>
                 <input
-                  type="text"
-                  placeholder="Téléphone"
-                  name="phone"
+                  type="email"
+                  placeholder="default@example.com"
+                  name="email"
                   onChange={(e) => handleChange(e)}
                 />
               </div>
               <div className="form__field">
-                <div className="password__field">
+                <label htmlFor="">Numéro de téléphone</label>
+                <input
+                  type="text"
+                  placeholder="0998899000"
+                  name="phone"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="field">
+                <div className="name__field">
                   <label htmlFor="">Mot de passe</label>
                   <input
                     type="password"
@@ -179,8 +173,8 @@ export default function DriverSignUp() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                <div className="password__field">
-                  <label htmlFor="">Confirmation de mot de passe</label>
+                <div className="name__field">
+                  <label htmlFor="">Confirmer mot de passe</label>
                   <input
                     type="password"
                     placeholder="Confirm Password"
@@ -209,14 +203,10 @@ export default function DriverSignUp() {
                 )}
               </button>
             </div>
-            <p>
-              Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
-              si vous avez un compte
-            </p>
           </form>
         </div>
       </FormContainer>
-      {open && <ModalSign />}
+      {open && <ModalSign username={store} path="/Shipments" />}
       {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       <ToastContainer />
     </>
@@ -225,14 +215,7 @@ export default function DriverSignUp() {
 
 const FormContainer = styled.div`
   @media only screen and (max-width: 800px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
     .register__page {
-      height: 100vh;
-      width: 100vw;
       display: flex;
       background-color: white;
       align-items: center;
@@ -244,71 +227,116 @@ const FormContainer = styled.div`
           width: 40vw;
         }
       }
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
-      background-color: white;
-      padding: 3rem 5rem;
-      text-align: center;
-      svg {
-        font-size: 250%;
-      }
-      img {
-        height: 12.5vh;
-        width: 20vw;
-        align-self: center;
-      }
-      h3 {
-        font-weight: bold;
-        font-size: 150%;
-        margin-bottom: -1vh;
-        margin-top: -1vh;
-        .uty__name {
-          color: #fa5343;
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: white;
+        padding: 0.5vh 5vw;
+        text-align: center;
+        .form__header {
+          display: flex;
+          flex-direction: column;
+          svg {
+            font-size: 250%;
+            margin-top: 1vh;
+          }
+          img {
+            height: 12.5vh;
+            width: 20vw;
+            align-self: center;
+            margin-top: 1vh;
+            margin-bottom: 2.5vh;
+          }
+          h3 {
+            font-size: 140%;
+            margin-bottom: -1vh;
+            margin-top: -1vh;
+            color: #a6a2a2;
+            .uty__name {
+              color: orange;
+              font-weight: bold;
+            }
+          }
+          h4 {
+            font-weight: medium;
+            font-size: 105%;
+            color: #a6a2a2;
+            span {
+              color: orange;
+              margin-right: 1vw;
+            }
+          }
+        }
+        .form__body {
+          display: flex;
+          flex-direction: column;
+          .form__field {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vh 1vw;
+            align-items: flex-start;
+            margin-bottom: 2.5vh;
+            label {
+              margin-bottom: 1.5vh;
+            }
+          }
+          .field {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5vh;
+            /* margin-left: -4.5vw; */
+            .name__field {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              label {
+                text-align: start;
+                margin-bottom: 3vh;
+              }
+              input {
+                width: 34.5vw;
+              }
+              select {
+                width: 90vw;
+                height: 7.5vh;
+                border-radius: 0.5rem;
+                background-color: white;
+                border-color: silver;
+                margin-top: -1vh;
+                padding-left: 2.5vw;
+              }
+            }
+          }
+        }
+        input {
+          background-color: transparent;
+          padding: 1rem;
+          border: 0.1rem solid silver;
+          border-radius: 0.4rem;
+          color: #2b2828;
+          width: 80vw;
+          height: 2vh;
+          font-size: 1rem;
+          margin-top: -2vh;
+          &:focus {
+            border: 0.1rem solid #997af0;
+            outline: none;
+          }
+        }
+        button {
+          background-color: #040154;
+          color: white;
+          height: 7.5vh;
+          border: none;
           font-weight: bold;
-        }
-      }
-      input {
-        background-color: transparent;
-        padding: 1rem;
-        border: 0.1rem solid silver;
-        border-radius: 0.4rem;
-        color: #2b2828;
-        width: 80vw;
-        height: 2vh;
-        font-size: 1rem;
-        margin-top: -2vh;
-        &:focus {
-          border: 0.1rem solid #997af0;
-          outline: none;
-        }
-      }
-      button {
-        background-color: #040154;
-        color: white;
-        height: 7.5vh;
-        border: none;
-        font-weight: bold;
-        margin-top: -1vh;
-        cursor: pointer;
-        border-radius: 0.4rem;
-        font-size: 1rem;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-      p {
-        color: black;
-        margin-bottom: 2.5vh;
-        margin-top: -2.5vh;
-        font-size: 105%;
-        span {
-          color: red;
-          font-weight: semi-bold;
-          margin-right: 1vw;
+          /* margin-top: -1vh; */
+          cursor: pointer;
+          border-radius: 0.4rem;
+          font-size: 1rem;
+          text-transform: uppercase;
+          font-weight: bold;
+          margin-bottom: 2.5vh;
         }
       }
     }

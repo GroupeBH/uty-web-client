@@ -7,6 +7,7 @@ export const useStore = create((set) => ({
   user: {},
   geometrie: '',
   adress: '',
+  tokenFirebase: '',
 
   updateCoords: () => {
     if (!navigator.geolocation) {
@@ -41,5 +42,9 @@ export const useStore = create((set) => ({
 
   updateUser: (newUser) => {
     set({ user: newUser })
+  },
+
+  getTokenFirebase: (newToken) => {
+    set({ tokenFirebase: newToken })
   },
 }))

@@ -12,16 +12,27 @@ import map from '../assets/map.png'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
 import ModalCoords from '../components/ModalCoords'
+import ProviderLogin from './ProviderLogin'
 
 function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
   const [open, setOpen] = useState(false)
+  const [connect, setConnect] = useState(false)
+  const [isProvider, setIsProvider] = useState(false)
   // const [provider, setProvider] = useState()
   // const socket = useRef()
   // const [notifications, setNotifications] = useState([])
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
+
+  useEffect(() => {
+    if (!currentProvider) {
+      setConnect(true)
+    }
+    setIsProvider(true)
+  })
 
   useEffect(() => {
     updateCoords()
@@ -69,7 +80,7 @@ function Dashboard() {
 
   return (
     <Container>
-      <Nav />
+      <Nav isProvider={isProvider} />
       <div className="list__post">
         <h3 className="provider__accroche">Pénètre ton marché différement</h3>
         <div
@@ -136,6 +147,7 @@ function Dashboard() {
         </div>
       </div>
       {open && <ModalCoords setOpen={setOpen} />}
+      {connect && <ProviderLogin setConnect={setConnect} />}
     </Container>
   )
 }

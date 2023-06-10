@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import loader from '../assets/loader.gif'
+// import loader from '../assets/loader.gif'
+import { InfinitySpin } from 'react-loader-spinner'
 import Nav from '../components/Nav'
 import { Link, useNavigate } from 'react-router-dom'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
@@ -10,15 +11,16 @@ function Categories() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [isCustomer, setIsCustomer] = useState(false)
   const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!currentUser) {
-      navigate('/')
+      navigate('/SignParticular')
     }
     //👉🏻Logs the device token to the console
-    getTokenFromFirebase()
+    getTokenFromFirebase(currentUser._id)
 
     //👉🏻Listen and logs the push messages from the server.
     onMessageListener()
@@ -34,6 +36,7 @@ function Categories() {
     if (!location) {
       navigate('/Location')
     }
+    setIsCustomer(true)
   })
 
   useEffect(() => {
@@ -52,12 +55,13 @@ function Categories() {
     <>
       {loading ? (
         <ContainerL>
-          <img src={loader} alt="loader" className="loader" />
+          {/* <img src={loader} alt="loader" className="loader" /> */}
+          <InfinitySpin width="200" color="orange" />
         </ContainerL>
       ) : (
         <Container>
           <div className="navbar">
-            <Nav />
+            <Nav isCustomer={isCustomer} />
           </div>
           <div className="categories__body">
             <div className="categories__accroche">

@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import axios from 'axios'
 import moment from 'moment'
 import OfferDetail from '../components/OfferDetail'
-import loader from '../assets/loader.gif'
+// import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
 import ConfirmAdress from '../components/ConfirmAdress'
 import BuyingModal from '../components/BuyingModal'
 import { useStore } from '../utils/Store'
+import { InfinitySpin } from 'react-loader-spinner'
 
 function Offer() {
   const [offers, setOffers] = useState([])
@@ -15,6 +16,7 @@ function Offer() {
   const [isClick, setIsClick] = useState(false)
   const [isConfirm, setIsConfirm] = useState(false)
   const [isBuying, setIsBuying] = useState(false)
+  const [isCustomer, setIsCustomer] = useState(false)
   const updateCoords = useStore((state) => state.updateCoords)
   const coords = useStore((state) => state.coords)
   const [loading, setLoading] = useState(true)
@@ -22,23 +24,9 @@ function Offer() {
 
   useEffect(() => {
     const getLocation = async () => {
-      if (!navigator.geolocation) {
-        console.log('location not supproted')
-      } else {
-        console.log('locating...')
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            updateCoords([position.coords.latitude, position.coords.longitude])
-            console.log(coords)
-          },
-          () => {
-            console.log('enabled to retrieve location')
-          }
-        )
-      }
-      console.log(coords)
+      updateCoords()
       const response = await axios.patch(
-        `https://uty-ti30.onrender.com/api/auth/updateAdress/${data._id}`,
+        `http://localhost:5200/api/auth/updateCoords/${data._id}`,
         { coords }
       )
       console.log(response.data)
@@ -48,6 +36,7 @@ function Offer() {
   }, [coords])
 
   useEffect(() => {
+    setIsCustomer(true)
     const getOffers = async () => {
       const resp = await axios.get(
         `https://uty-ti30.onrender.com/api/order/getprop/${data._id}`
@@ -65,11 +54,12 @@ function Offer() {
     <>
       {loading ? (
         <ContainerL>
-          <img src={loader} alt="loader" className="loader" />
+          {/* <img src={loader} alt="loader" className="loader" /> */}
+          <InfinitySpin width="200" color="orange" />
         </ContainerL>
       ) : (
         <Container>
-          <Nav />
+          <Nav isCustomer={isCustomer} />
           <div className="offer__list">
             {offers.length == 0 && (
               <div className="offer__empty">

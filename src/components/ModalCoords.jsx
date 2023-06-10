@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { IoLocation } from 'react-icons/io5'
 import { useStore } from '../utils/Store'
 import axios from 'axios'
+import { Rings } from 'react-loader-spinner'
 
 function ModalCoords({ setOpen }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
@@ -10,13 +11,19 @@ function ModalCoords({ setOpen }) {
   const updateCoords = useStore((state) => state.updateCoords)
   const coords = useStore((state) => state.coords)
 
+  const [isLoad, setIsLoad] = useState(false)
+
   const handleClick = async () => {
     updateCoords()
+    setIsLoad(true)
     await axios
       .patch(`http://localhost:5200/api/auth/updateCoords/${currentUser._id}`, {
         coords,
       })
-      .then(() => setOpen(false))
+      .then(() => {
+        setIsLoad(false)
+        setOpen(false)
+      })
   }
   return (
     <Container>
@@ -25,7 +32,25 @@ function ModalCoords({ setOpen }) {
           <div className="modal__body">
             <IoLocation />
             <p>Désolé nous ne parvenons pas à acceder à votre localisation</p>
-            <button onClick={handleClick}>Autoriser ma localisation</button>
+            <button onClick={handleClick}>
+              {isLoad ? (
+                <>
+                  <div
+                    className="loader"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: '-2vh',
+                    }}
+                  >
+                    <Rings height="80" width="80" color="white" />
+                  </div>
+                </>
+              ) : (
+                <>Autoriser ma localisation</>
+              )}
+            </button>
           </div>
         </div>
       </div>

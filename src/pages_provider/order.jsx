@@ -3,21 +3,27 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useState } from 'react'
 import Commande from '../assets/Articles vendus.png'
-import Proposition from '../components/Proposition'
+// import Proposition from './Proposition'
 import moment from 'moment'
 import ModalError from '../components/ModalError'
-import loader from '../assets/loader.gif'
+// import loader from '../assets/loader.gif'
 import Nav from '../components/Nav'
+// import BigImage from './BigImage'
+import { Link } from 'react-router-dom'
+import { InfinitySpin } from 'react-loader-spinner'
 
 function Order() {
+  // const [picClick, setPicClick] = useState(false)
   const [preCommand, setPreCommand] = useState([])
-  const [isClick, setIsClick] = useState(false)
-  const [selectedId, setSelectedId] = useState('')
+  // const [isClick, setIsClick] = useState(false)
+  // const [selectedId, setSelectedId] = useState('')
   const [open, setOpen] = useState('')
   const [loading, setLoading] = useState(true)
+  const [isCustomer, setIsCustomer] = useState(false)
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
+    setIsCustomer(true)
     const getPreOrders = async () => {
       const response = await axios.get(
         'https://uty-ti30.onrender.com/api/order/getOrder'
@@ -41,15 +47,20 @@ function Order() {
     <>
       {loading ? (
         <ContainerL>
-          <img src={loader} alt="loader" className="loader" />
+          {/* <img src={loader} alt="loader" className="loader" /> */}
+          <InfinitySpin width="200" color="orange" />
         </ContainerL>
       ) : (
         <Container>
-          <Nav />
+          <Nav isCustomer={isCustomer} />
           <div className="order__page">
             {preCommand.map((preCom) => {
               return (
-                <div className="normal" key={preCom._id}>
+                <StyledLink
+                  className="normal"
+                  to={'/Order/' + preCom._id}
+                  key={preCom._id}
+                >
                   <div className="image__precommand">
                     {preCom.wanted.media ? (
                       <img
@@ -58,7 +69,11 @@ function Order() {
                         className="preOrder__image"
                       />
                     ) : (
-                      <img src={Commande} alt="default-image" />
+                      <img
+                        className="default__image"
+                        src={Commande}
+                        alt="default-image"
+                      />
                     )}
                   </div>
 
@@ -80,24 +95,25 @@ function Order() {
                       </span>
                     </p>
                   </div>
-                  <button
+                  {/* <button
                     onClick={() => {
-                      setIsClick(true)
-                      setSelectedId(preCom)
+                      // setIsClick(true)
+                      // setSelectedId(preCom)
                     }}
                   >
                     Répondre
-                  </button>
-                </div>
+                  </button> */}
+                </StyledLink>
               )
             })}
-            {isClick && (
+            {/* {isClick && (
               <Proposition
                 preOrder={selectedId}
                 setIsClick={setIsClick}
                 setOpen={setOpen}
+                setPicClick={setPicClick}
               />
-            )}
+            )} */}
             {open && <ModalError setOpen={setOpen} />}
           </div>
         </Container>
@@ -105,7 +121,9 @@ function Order() {
     </>
   )
 }
-
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 const ContainerL = styled.div`
   display: flex;
   justify-content: center;
@@ -120,56 +138,57 @@ const Container = styled.div`
   flex-direction: column;
   .order__page {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    gap: 5vh 5vw;
+    gap: 2.5vh 1vw;
     .normal {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       box-shadow: 0px 0px 5px silver;
       border-radius: 0.5rem;
-      height: 25vh;
-      width: 45vw;
+      height: 15vh;
       box-sizing: border-box;
-      padding-top: 1vh;
-      padding-bottom: 1vh;
       box-sizing: content-box;
       .image__precommand {
         display: flex;
         justify-content: center;
         align-items: center;
         box-shadow: 0px 0px 5px silver;
-        width: 80%;
-        flex-grow: 2;
-        padding: 2vh 1vw;
+        .default__image {
+          height: 15vh;
+          width: 30vw;
+        }
         .preOrder__image {
-          height: 10vh;
-          width: 20vw;
+          height: 15vh;
+          width: 30vw;
         }
       }
       .preOrder__description {
         display: flex;
         flex-direction: column;
+        flex-grow: 2;
+        padding: 2vh 3vw;
         .preOrder__desc {
           display: flex;
           flex-direction: column;
+          justify-content: center;
           width: 90%;
-          margin-top: -5vh;
           .first {
             color: #020664;
           }
           .second {
-            height: 2vh;
-            overflow: clip;
-            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 60vw;
+            margin-top: -3.5vh;
           }
         }
         .preOrder__date {
           display: flex;
-          color: #fb2f17;
-          margin-top: -2vh;
+          color: orange;
+          margin-top: -1vh;
         }
       }
 
@@ -177,8 +196,8 @@ const Container = styled.div`
         display: none;
       }
     }
-    .normal:hover {
-      background-color: blue;
+    /* .normal:hover {
+      background-color: white;
       cursor: pointer;
       .image__precommand {
         display: none;
@@ -188,14 +207,17 @@ const Container = styled.div`
       }
       button {
         display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 1vh 1vw;
-        border-radius: 0.5rem;
+        border-radius: 0.25rem;
         background-color: #ffc000;
         border: none;
-        width: 30vw;
-        height: 5vh;
+        width: 50vw;
+        height: 7.5vh;
+        font-size: 120%;
       }
-    }
+    } */
   }
 `
 

@@ -3,10 +3,15 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import _ from 'lodash'
+import { useNavigate } from 'react-router-dom'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { useShipmentStore } from '../utils/shipmentStore'
+import { useState } from 'react'
 
 function Shipments() {
+  const navigate = useNavigate()
+  const currentDeliver = JSON.parse(localStorage.getItem('currentDeliver'))
+  const [isDeliver, setIsDeliver] = useState(false)
   const updateShipments = useShipmentStore((state) => state.updateShipments)
   const shipments = useShipmentStore((state) => state.shipments)
 
@@ -24,7 +29,12 @@ function Shipments() {
   const customer = useShipmentStore((state) => state.customer)
 
   useEffect(() => {
-    updateShipments()
+    if (!currentDeliver) {
+      navigate('/Deliver-sign-up')
+    } else {
+      setIsDeliver(true)
+      updateShipments()
+    }
   }, [])
 
   useEffect(() => {
@@ -40,7 +50,7 @@ function Shipments() {
 
   return (
     <Container>
-      <Nav />
+      <Nav isDeliver={isDeliver} />
       <div className="container__list">
         {_.filter(shipments, (ship) => ship.pickupLocation.length > 0).map(
           (shipment) => {

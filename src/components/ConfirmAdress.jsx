@@ -48,8 +48,8 @@ function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
     console.log(adress)
     setIsBuying(true)
     const response = await axios.patch(
-      `http://localhost:5200/api/auth/updateAdress/${currentUser._id}`,
-      { adress, coords }
+      `http://localhost:5200/api/auth/updateCoords/${currentUser._id}`,
+      { coords }
     )
     setIsConfirm(false)
     setLoading(false)

@@ -14,10 +14,13 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import ConfirmT from './pages_provider/ConfirmT'
 import Location from './pages/Location'
 import Categories from './pages/Categories'
+import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Shipments from './pages_driver/Shipments'
 import { ShipDetails } from './pages_driver/ShipDetails'
 import ProviderSignUp from './pages_provider/ProviderSignUp'
+import DriverSignUp from './pages_driver/DriverSignUp'
+import Proposition from './pages_provider/Proposition'
 
 function App() {
   return (
@@ -25,14 +28,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Redirect />} />
-          <Route exact path="/Home" element={<Redirect />} />
+          <Route exact path="/Home" element={<Home />} />
           <Route exact path="/SignParticular" element={<SignParticular />} />
           <Route exact path="/Provider-sign-up" element={<ProviderSignUp />} />
+          <Route exact path="/deliver-sign-up" element={<DriverSignUp />} />
           <Route exact path="/Requetes/:id" element={<Requetes />} />
           <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route exact path="/Command" element={<Command />} />
           <Route exact path="/Compte" element={<Compte />} />
           <Route exact path="/Order" element={<Order />} />
+          <Route exact path="/Order/:id" element={<Proposition />} />
           <Route exact path="/Offer" element={<Offer />} />
           <Route exact path="/DeliveryOne" element={<DeliveryOne />} />
           <Route exact path="/ConfirmT/:id" element={<ConfirmT />} />

@@ -3,12 +3,11 @@ import styled from 'styled-components'
 import { IoClose } from 'react-icons/io5'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import CarrousselOffer from './CarrouselOffer'
-import { useStore } from '../utils/Store'
+// import { useStore } from '../utils/Store'
 
 function OfferDetail({ selectedOffer, setIsClick, setIsConfirm }) {
-  const updatePrix = useStore((state) => state.updatePrix)
   const handleClick = () => {
-    updatePrix(selectedOffer.price)
+    // updatePrix(selectedOffer.price)
     setIsClick(false)
     setIsConfirm(true)
   }
