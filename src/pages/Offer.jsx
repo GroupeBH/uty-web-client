@@ -26,7 +26,7 @@ function Offer() {
     const getLocation = async () => {
       updateCoords()
       const response = await axios.patch(
-        `http://localhost:5200/api/auth/updateCoords/${data._id}`,
+        `https://uty-ti30.onrender.com/api/auth/updateCoords/${data._id}`,
         { coords }
       )
       console.log(response.data)

@@ -17,9 +17,12 @@ function ModalCoords({ setOpen }) {
     updateCoords()
     setIsLoad(true)
     await axios
-      .patch(`http://localhost:5200/api/auth/updateCoords/${currentUser._id}`, {
-        coords,
-      })
+      .patch(
+        `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentUser._id}`,
+        {
+          coords,
+        }
+      )
       .then(() => {
         setIsLoad(false)
         setOpen(false)

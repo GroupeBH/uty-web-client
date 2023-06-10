@@ -24,7 +24,7 @@ export const useShipmentStore = create((set) => ({
   updateProvider: async (user) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/provider/getProvider/${user}`)
+        .get(`https://uty-ti30.onrender.com/api/provider/getProvider/${user}`)
         .then((response) => {
           console.log(response.data)
           set({ provider: response.data.user })
@@ -54,7 +54,7 @@ export const useShipmentStore = create((set) => ({
   updatePickUpCoord: async (provider) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/auth/getProvider/${provider}`)
+        .get(`https://uty-ti30.onrender.com/api/auth/getProvider/${provider}`)
         .then((response) => {
           console.log(response.data.user)
           set({ pickUpCoord: response.data.user.coords })
@@ -67,7 +67,7 @@ export const useShipmentStore = create((set) => ({
   updateOrder: async (orderId) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/order/getorder/${orderId}`)
+        .get(`https://uty-ti30.onrender.com/api/order/getorder/${orderId}`)
         .then((response) => {
           set({ order: response.data })
           set({ customer: response.data.customer.username })
@@ -83,7 +83,7 @@ export const useShipmentStore = create((set) => ({
   updateShipments: async () => {
     try {
       await axios
-        .get('http://localhost:5200/api/shipment/shipments')
+        .get('https://uty-ti30.onrender.com/api/shipment/shipments')
         .then((response) => set({ shipments: response.data }))
     } catch (e) {
       console.log(e)
@@ -112,7 +112,7 @@ export const useShipmentStore = create((set) => ({
   updateShipment: async (shipId) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/shipment/shipment/${shipId}`)
+        .get(`https://uty-ti30.onrender.com/api/shipment/shipment/${shipId}`)
         .then((response) => set({ shipment: response.data }))
     } catch (e) {
       console.log(e)

@@ -66,7 +66,7 @@ export default function DriverSignUp() {
     if (handleValidation()) {
       const { transport, lastName, firstName, phone, email, password } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/deliver/register',
+        'https://uty-ti30.onrender.com/api/deliver/register',
         {
           transport,
           lastName,

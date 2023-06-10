@@ -36,7 +36,7 @@ function ConfirmT() {
     setLoad(true)
     try {
       await axios
-        .post('http://localhost:5200/api/shipment/addShipment', {
+        .post('https://uty-ti30.onrender.com/api/shipment/addShipment', {
           orderId: order._id,
           pickUp: pickUpLocation,
           dropOff: dropOffLocation,

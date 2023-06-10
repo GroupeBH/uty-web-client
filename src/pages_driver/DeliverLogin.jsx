@@ -50,7 +50,7 @@ function DeliverLogin({ setIsOpen }) {
     if (validateForm()) {
       const { phone, password } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/deliver/login',
+        'https://uty-ti30.onrender.com/api/deliver/login',
         {
           phone,
           password,

@@ -40,7 +40,7 @@ function Dashboard() {
     const update = async () => {
       await axios
         .patch(
-          `http://localhost:5200/api/auth/updateCoords/${currentUser._id}`,
+          `https://uty-ti30.onrender.com/api/provider/updateCoords/${currentUser._id}`,
           {
             coords,
           }
