@@ -103,7 +103,7 @@ function Proposition() {
           <div className="image__add__header">
             <h4 className="image__add__sec__title">Proposez un produit</h4>
           </div>
-          <h6 className="price__title">Renseignez le prix du produit</h6>
+          <h6 className="price__title">Renseignez le prix de votre produit</h6>
           <input
             type="number"
             className="price__input"
