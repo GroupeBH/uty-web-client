@@ -15,6 +15,7 @@ export default function Register() {
   const [open, setOpen] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isLoad, setIsLoad] = useState(false)
+  const [myName, setMyName] = useState()
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
@@ -85,6 +86,7 @@ export default function Register() {
       }
       if (data.status === true) {
         setIsLoad(false)
+        setMyName(data.user.username)
         localStorage.setItem('currentUser', JSON.stringify(data.user))
         setOpen(true)
       }
@@ -160,7 +162,7 @@ export default function Register() {
           </form>
         </div>
       </FormContainer>
-      {open && <ModalSign />}
+      {open && <ModalSign username={myName} path="/Categories" />}
       {isOpen && <ModalConnect setIsOpen={setIsOpen} />}
       <ToastContainer />
     </>

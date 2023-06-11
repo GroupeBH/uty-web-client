@@ -12,11 +12,15 @@ import map from '../assets/map.png'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
 import ModalCoords from '../components/ModalCoords'
+import ProviderLogin from './ProviderLogin'
 
 function Dashboard() {
   let navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
   const [open, setOpen] = useState(false)
+  const [connect, setConnect] = useState(false)
+  const [isProvider, setIsProvider] = useState(false)
   // const [provider, setProvider] = useState()
   // const socket = useRef()
   // const [notifications, setNotifications] = useState([])
@@ -24,12 +28,19 @@ function Dashboard() {
   const updateCoords = useStore((state) => state.updateCoords)
 
   useEffect(() => {
+    if (!currentProvider) {
+      setConnect(true)
+    }
+    setIsProvider(true)
+  })
+
+  useEffect(() => {
     updateCoords()
 
     const update = async () => {
       await axios
         .patch(
-          `http://localhost:5200/api/auth/updateCoords/${currentUser._id}`,
+          `https://uty-ti30.onrender.com/api/provider/updateCoords/${currentUser._id}`,
           {
             coords,
           }
@@ -69,7 +80,7 @@ function Dashboard() {
 
   return (
     <Container>
-      <Nav />
+      <Nav isProvider={isProvider} />
       <div className="list__post">
         <h3 className="provider__accroche">Pénètre ton marché différement</h3>
         <div
@@ -136,6 +147,7 @@ function Dashboard() {
         </div>
       </div>
       {open && <ModalCoords setOpen={setOpen} />}
+      {connect && <ProviderLogin setConnect={setConnect} />}
     </Container>
   )
 }

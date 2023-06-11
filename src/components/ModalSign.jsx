@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 
-function ModalSign() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+function ModalSign({ username, path }) {
+  // const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
   return (
     <Container>
@@ -13,10 +13,10 @@ function ModalSign() {
           <div className="modal__body">
             <img src={utyLogo} alt="logo of uty" />
             <p>
-              Salut <span>{currentUser.username}</span>, nous vous souhaitons le
-              bienvenu sur uty
+              Salut <span>{username}</span>, nous vous souhaitons le bienvenu
+              sur uty
             </p>
-            <button onClick={() => navigate('/Categories')}>Commencer</button>
+            <button onClick={() => navigate(path)}>Commencer</button>
           </div>
         </div>
       </div>

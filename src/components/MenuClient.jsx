@@ -6,7 +6,7 @@ import { IoMenu } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 // import { useStore } from '../utils/Store'
 
-export default function BasicMenu() {
+export default function BasicMenu({ isCustomer, isProvider }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   // const user = useStore((state) => state.user)
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -17,6 +17,16 @@ export default function BasicMenu() {
   // console.log(user)
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleLogOut = () => {
+    if (isCustomer) {
+      localStorage.removeItem('currentUser')
+      navigate('/Home')
+    } else if (isProvider) {
+      localStorage.removeItem('currentProvider')
+      navigate('/Home')
+    }
   }
   let navigate = useNavigate()
   return (
@@ -40,7 +50,7 @@ export default function BasicMenu() {
         }}
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
-        <MenuItem onClick={() => navigate('/')}>
+        <MenuItem onClick={() => navigate('/Home')}>
           <p
             style={{
               fontSize: '130%',
@@ -51,8 +61,10 @@ export default function BasicMenu() {
             Accueil
           </p>
         </MenuItem>
-        {currentUser.isProvider !== null && currentUser.isProvider !== false ? (
-          <MenuItem onClick={() => navigate('/Dashboard')}>
+
+        {/* provider side */}
+        {isProvider && (
+          <MenuItem onClick={handleClose}>
             <p
               style={{
                 fontSize: '130%',
@@ -60,11 +72,9 @@ export default function BasicMenu() {
                 marginBottom: '-1.5vh',
               }}
             >
-              My dashboard
+              A propos
             </p>
           </MenuItem>
-        ) : (
-          <p></p>
         )}
         {currentUser.isDeliver !== null && currentUser.isDeliver !== false ? (
           <MenuItem onClick={() => navigate('/Shipments')}>
@@ -90,41 +100,37 @@ export default function BasicMenu() {
             Profile
           </p>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <p
-            style={{
-              fontSize: '130%',
-              fontWeight: 'bold',
-              marginBottom: '-1.5vh',
-            }}
-          >
-            Historique
-          </p>
-        </MenuItem>
 
-        <MenuItem onClick={() => navigate('/Offer')}>
-          <p
-            style={{
-              fontSize: '130%',
-              fontWeight: 'bold',
-              marginBottom: '-1.5vh',
-            }}
-          >
-            Offres
-          </p>
-        </MenuItem>
+        {/* //customer side */}
 
-        <MenuItem onClick={handleClose}>
-          <p
-            style={{
-              fontSize: '130%',
-              fontWeight: 'bold',
-              marginBottom: '2.5vh',
-            }}
-          >
-            Suivre ma livraison
-          </p>
-        </MenuItem>
+        {isCustomer && (
+          <MenuItem onClick={() => navigate('/Offer')}>
+            <p
+              style={{
+                fontSize: '130%',
+                fontWeight: 'bold',
+                marginBottom: '-1.5vh',
+              }}
+            >
+              Offres
+            </p>
+          </MenuItem>
+        )}
+
+        {isCustomer && (
+          <MenuItem onClick={handleClose}>
+            <p
+              style={{
+                fontSize: '130%',
+                fontWeight: 'bold',
+                marginBottom: '2.5vh',
+              }}
+            >
+              Suivre ma livraison
+            </p>
+          </MenuItem>
+        )}
+
         <MenuItem onClick={handleClose}>
           <button
             style={{
@@ -136,10 +142,7 @@ export default function BasicMenu() {
               fontSize: '135%',
               marginBottom: '2.5vh',
             }}
-            onClick={() => {
-              localStorage.removeItem('currentUser')
-              navigate('/')
-            }}
+            onClick={handleLogOut}
           >
             Se deconnecter
           </button>

@@ -24,7 +24,7 @@ function Requetes() {
   const [load, setLoad] = useState(false)
   const username = useStore((state) => state.username)
 
-  const cloudName = 'disyacex9'
+  // const cloudName = 'disyacex9'
   const params = useParams()
 
   useEffect(() => {
@@ -34,39 +34,26 @@ function Requetes() {
   }, [username, currentUser])
 
   useEffect(() => {
-    socket.current = io('http://localhost:5200')
+    socket.current = io('https://uty-ti30.onrender.com')
     socket.current.emit('add-user', currentUser._id)
   }, [currentUser])
 
   useEffect(() => {
     if (selectedImg) {
       setPicUrl(URL.createObjectURL(selectedImg))
+      const reader = new FileReader()
+      reader.readAsDataURL(selectedImg)
+      reader.onloadend = () => {
+        setUrl(reader.result)
+      }
     }
   }, [selectedImg])
-
-  const uploadImage = async () => {
-    const picData = new FormData()
-    picData.append('file', selectedImg)
-    picData.append('upload_preset', 'utyweb')
-    try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-        picData
-      )
-      setUrl(response.data.secure_url)
-      console.log(url)
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoad(true)
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     try {
-      await uploadImage()
-
       await axios.post('https://uty-ti30.onrender.com/api/order/addOrder', {
         description: description,
         image: url,
