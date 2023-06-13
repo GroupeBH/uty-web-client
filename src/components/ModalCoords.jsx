@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Rings } from 'react-loader-spinner'
 
 function ModalCoords({ setOpen }) {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
 
   const updateCoords = useStore((state) => state.updateCoords)
   const coords = useStore((state) => state.coords)
@@ -18,9 +18,9 @@ function ModalCoords({ setOpen }) {
     setIsLoad(true)
     await axios
       .patch(
-        `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentUser._id}`,
+        `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentProvider.user._id}`,
         {
-          coords,
+          coords: coords,
         }
       )
       .then(() => {

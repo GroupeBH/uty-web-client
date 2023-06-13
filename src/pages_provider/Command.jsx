@@ -4,14 +4,19 @@ import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import axios from 'axios'
 import moment from 'moment'
-import loader from '../assets/loader.gif'
+// import loader from '../assets/loader.gif'
+import { InfinitySpin } from 'react-loader-spinner'
+import { useStore } from '../utils/Store'
 
 function Command() {
   const data = JSON.parse(localStorage.getItem('currentProvider'))
   const [commands, setCommands] = useState([])
   const [loading, setLoading] = useState(true)
+  const updateCoords = useStore((state) => state.updateCoords)
+  const coords = useStore((state) => state.coords)
 
   useEffect(() => {
+    updateCoords()
     const getCommands = async () => {
       try {
         const response = await axios.get(
@@ -20,6 +25,16 @@ function Command() {
         setCommands(response.data)
         console.log(response.data)
         setLoading(false)
+        await axios
+          .patch(
+            `https://uty-ti30.onrender.com/api/auth/updateCoords/${data.user}`,
+            {
+              coords,
+            }
+          )
+          .then((response) => {
+            console.log(response)
+          })
       } catch (e) {
         console.log(e)
         setLoading(false)
@@ -31,7 +46,8 @@ function Command() {
     <>
       {loading ? (
         <ContainerL>
-          <img src={loader} alt="loader" className="loader" />
+          {/* <img src={loader} alt="loader" className="loader" /> */}
+          <InfinitySpin width="200" color="orange" />
         </ContainerL>
       ) : (
         <Container>

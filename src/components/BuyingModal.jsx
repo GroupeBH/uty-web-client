@@ -7,7 +7,7 @@ import { useShipmentStore } from '../utils/shipmentStore'
 import axios from 'axios'
 // import optimizedTrip from '../helpers/Mapbox'
 
-function BuyingModal({ setIsBuying, selectedOffer }) {
+function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
   console.log(selectedOffer)
   // const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -15,24 +15,23 @@ function BuyingModal({ setIsBuying, selectedOffer }) {
   const updatePrice = useShipmentStore((state) => state.updatePrice)
   const provider = useShipmentStore((state) => state.provider)
   const updateProvider = useShipmentStore((state) => state.updateProvider)
-  const updatePickUpCoord = useShipmentStore((state) => state.updatePickUpCoord)
-  const pickUpCoord = useShipmentStore((state) => state.pickUpCoord)
+  // const updatePickUpCoord = useShipmentStore((state) => state.updatePickUpCoord)
+  const pickUp = useShipmentStore((state) => state.pickUp)
   const distance = useShipmentStore((state) => state.distance)
   const updateDistance = useShipmentStore((state) => state.updateDistance)
 
-  const getShipPrice = async () => {
-    await updatePickUpCoord(selectedOffer)
-    await updateProvider(selectedOffer.provider.user)
-    await updateDistance(pickUpCoord, [-4.30555503, 15.30667331])
-    console.log(distance, 'pickup at', pickUpCoord)
-    updatePrice(selectedOffer.price, distance)
-  }
+  useEffect(() => {
+    updateProvider(selectedOffer.provider.user)
+    console.log(distance, 'pickup at', pickUp)
+    console.log(distance, 'dropoff at', dropOffCoord)
+  }, [selectedOffer])
 
   useEffect(() => {
-    getShipPrice()
+    updateDistance(pickUp, dropOffCoord)
+    updatePrice(selectedOffer.price, distance)
     console.log(provider)
     console.log(selectedOffer.customer.coords)
-    console.log(provider)
+    console.log('pick:', pickUp)
     console.log(price)
   }, [])
 
