@@ -28,7 +28,10 @@ function Home() {
             <div className="cards">
               <div className="customer">
                 <p>Recherche, trouve, paie, et fait toi livrer</p>
-                <span>Alimentation, mode, cosmétique, quincaillerie...</span>
+                <span>
+                  Meuble et déco, quincaillerie, services étatiques, services
+                  privés
+                </span>
                 <button onClick={() => navigate('/Categories')}>
                   Trouver et commander
                 </button>

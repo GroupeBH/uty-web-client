@@ -5,6 +5,7 @@ export const useShipmentStore = create((set) => ({
   price: 0,
   provider: 0,
   pickUpCoord: [],
+  pickUp: [],
   dropOffCoord: [],
   distance: 0,
   duration: 0,
@@ -26,8 +27,9 @@ export const useShipmentStore = create((set) => ({
       await axios
         .get(`https://uty-ti30.onrender.com/api/provider/getProvider/${user}`)
         .then((response) => {
-          console.log(response.data)
-          set({ provider: response.data.user })
+          console.log(response.data.user.coords)
+          set({ provider: response.data._id })
+          set({ pickUp: response.data.user.coords })
         })
     } catch (e) {
       console.log(e)

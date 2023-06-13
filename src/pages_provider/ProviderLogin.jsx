@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Rings } from 'react-loader-spinner'
 // import { useStore } from '../utils/Store'
 
-function ProviderLogin({ setIsOpen }) {
+function ProviderLogin({ setConnect }) {
   const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
   const [values, setValues] = useState({ phone: '', password: '' })
@@ -62,10 +62,10 @@ function ProviderLogin({ setIsOpen }) {
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
-        localStorage.setItem('currentUser', JSON.stringify(data.provider.user))
-        navigate('/Categories')
+        localStorage.setItem('currentProvider', JSON.stringify(data.provider))
+        navigate('/Dashboard')
         setLoading(false)
-        setIsOpen(false)
+        setConnect(false)
       }
     }
   }
@@ -80,7 +80,7 @@ function ProviderLogin({ setIsOpen }) {
                 className="close__icon"
                 onClick={() => {
                   // setConnect(false)
-                  setIsOpen(false)
+                  setConnect(false)
                 }}
               />
               <div className="image__side">

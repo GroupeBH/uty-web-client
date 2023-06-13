@@ -27,7 +27,7 @@ function Offer() {
       updateCoords()
       const response = await axios.patch(
         `https://uty-ti30.onrender.com/api/auth/updateCoords/${data._id}`,
-        { coords }
+        { coords: coords }
       )
       console.log(response.data)
     }
@@ -116,6 +116,7 @@ function Offer() {
               <BuyingModal
                 setIsBuying={setIsBuying}
                 selectedOffer={selectedOffer}
+                dropOffCoord={coords}
               />
             )}
           </div>
