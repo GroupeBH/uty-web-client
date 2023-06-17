@@ -5,7 +5,7 @@ import first from '../assets/deskOne.png'
 import ModalConnect from './ModalConnect'
 import decoback from '../assets/decoback.jpg'
 import HomeBody from '../components/HomeBody'
-import Nav from '../components/Nav'
+import MenuHome from '../components/MenuHome'
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,7 +15,8 @@ function Home() {
       <div className="sub__container">
         <div className="sub__container__body">
           <div className="navbar">
-            <Nav />
+            <img src={utyLogo} alt="uty-logo" />
+            <MenuHome />
           </div>
           <div className="home__body">
             <div className="cards">
@@ -96,8 +97,20 @@ const Container = styled.div`
         bottom: 0vh;
         height: 100vh;
         .navbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 7.5vh;
+          padding: 2vh 5vw;
           position: sticky;
           top: 0vh;
+          background-color: white;
+          img {
+            height: 7.5vh;
+            width: 12.5vw;
+            align-self: center;
+            margin-left: 5vw;
+          }
         }
         .home__body {
           display: flex;
