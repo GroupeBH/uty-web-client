@@ -34,7 +34,10 @@ function ModalCoords({ setOpen }) {
         <div className="centered">
           <div className="modal__body">
             <IoLocation />
-            <p>Désolé nous ne parvenons pas à acceder à votre localisation</p>
+            <p>
+              Veuillez mettre à jour votre localisation pour vendre des produits
+              sur uty
+            </p>
             <button onClick={handleClick}>
               {isLoad ? (
                 <>
@@ -51,7 +54,7 @@ function ModalCoords({ setOpen }) {
                   </div>
                 </>
               ) : (
-                <>Autoriser ma localisation</>
+                <>Mis à jour ma localisation</>
               )}
             </button>
           </div>
@@ -92,7 +95,7 @@ const Container = styled.div`
         padding-top: 2.5vh;
         svg {
           font-size: 600%;
-          color: red;
+          color: orange;
         }
         p {
           font-size: 120%;
