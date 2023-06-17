@@ -61,6 +61,7 @@ function Proposition() {
         .then((response) => console.log(response.data))
 
       setLoading(false)
+      navigate('/Order')
     } catch (error) {
       console.log(error)
       setLoading(false)

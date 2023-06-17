@@ -1,59 +1,25 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import first from '../assets/deskOne.png'
 import ModalConnect from './ModalConnect'
-// import SearchLocation from '../components/SearchLocation'
-import MenuHome from '../components/MenuHome'
 import decoback from '../assets/decoback.jpg'
+import HomeBody from '../components/HomeBody'
+import Nav from '../components/Nav'
 
 function Home() {
-  // const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Container>
       <div className="sub__container">
         <div className="sub__container__body">
-          <div className="uty__logo">
-            <img src={utyLogo} alt="uty-logo" />
-            <MenuHome />
+          <div className="navbar">
+            <Nav />
           </div>
           <div className="home__body">
-            {/* <div className="search__side" onClick={() => navigate('/Location')}>
-              <SearchLocation />
-            </div> */}
             <div className="cards">
-              <div className="customer">
-                <p>Recherche, trouve, paie, et fait toi livrer</p>
-                <span>
-                  Meuble et déco, quincaillerie, services étatiques, services
-                  privés
-                </span>
-                <button onClick={() => navigate('/Categories')}>
-                  Trouver et commander
-                </button>
-              </div>
-              <div className="deliver__provider">
-                <div className="provider">
-                  <p>Aggrandissez votre business avec uty</p>
-                  <span>Apportez vos produits directement chez le client</span>
-                  <button onClick={() => navigate('/Dashboard')}>
-                    Vendre avec uty
-                  </button>
-                </div>
-                <div className="deliver">
-                  <p>Gagner de l argent en livrant avec uty </p>
-                  <span>
-                    Accedez au plus grand reseau de livraison de Kinshasa
-                  </span>
-                  <button onClick={() => navigate('/Shipments')}>
-                    Devenir livreur
-                  </button>
-                </div>
-              </div>
+              <HomeBody />
             </div>
           </div>
         </div>
@@ -116,111 +82,35 @@ const Container = styled.div`
   @media all and (max-width: 800px) {
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
     .desktop__display {
       display: none;
     }
     .sub__container {
-      display: flex;
-      flex-direction: column;
       .sub__container__body {
         display: flex;
         flex-direction: column;
-        border-radius: 1rem;
         background-image: url(${decoback});
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        bottom: 0vh;
+        height: 100vh;
+        .navbar {
+          position: sticky;
+          top: 0vh;
+        }
         .home__body {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           padding: 1vh 3.5vw;
-          margin-top: 10vh;
           .cards {
             display: flex;
             flex-direction: column;
             margin-bottom: 5vh;
-            margin-top: 10vh;
+            margin-top: 2.5vh;
             gap: 2.5vh 1vw;
-            .deliver__provider {
-              display: flex;
-              justify-content: space-between;
-              opacity: 90.5%;
-              .provider {
-                display: flex;
-                flex-direction: column;
-                background-color: white;
-                border-radius: 0.5rem;
-                width: 35vw;
-                padding: 1vh 5vw;
-                margin-right: 1vw;
-                p {
-                  font-size: 120%;
-                }
-                button {
-                  background-color: orange;
-                  color: white;
-                  border: none;
-                  border-radius: 0.5rem;
-                  height: 7.5vh;
-                  font-size: 115%;
-                  width: 97.5%;
-                  font-weight: bold;
-                  margin-top: 2vh;
-                  margin-bottom: 2vh;
-                }
-              }
-              .deliver {
-                display: flex;
-                flex-direction: column;
-                background-color: white;
-                border-radius: 0.5rem;
-                width: 35vw;
-                padding: 1vh 5vw;
-                margin-left: 1vh;
-                p {
-                  font-size: 120%;
-                }
-                button {
-                  background-color: orange;
-                  color: white;
-                  border: none;
-                  border-radius: 0.5rem;
-                  height: 7.5vh;
-                  font-size: 115%;
-                  width: 97.5%;
-                  font-weight: bold;
-                  margin-top: 2vh;
-                  margin-bottom: 2vh;
-                }
-              }
-            }
-            .customer {
-              display: flex;
-              flex-direction: column;
-              background-color: white;
-              padding: 1vh 5vw;
-              border-radius: 0.5rem;
-              margin-top: -5vh;
-              opacity: 90.5%;
-              span {
-                margin-top: -1vh;
-              }
-              button {
-                background-color: orange;
-                color: white;
-                border: none;
-                border-radius: 0.5rem;
-                height: 7.5vh;
-                font-size: 120%;
-                font-weight: bold;
-                margin-top: 2vh;
-                margin-bottom: 2vh;
-              }
-            }
           }
         }
         .uty__logo {
