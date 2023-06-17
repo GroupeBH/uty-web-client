@@ -11,6 +11,7 @@
     "@mapbox/polyline": "^1.2.0",
     "@mui/material": "^5.10.15",
     "@mui/styled-engine-sc": "^5.10.14",
+    "@novu/notification-center": "^0.16.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
     "@trendyol-js/react-carousel": "^3.0.0",

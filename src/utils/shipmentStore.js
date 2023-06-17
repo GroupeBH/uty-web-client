@@ -45,7 +45,7 @@ export const useShipmentStore = create((set) => ({
               'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
           })
       )
-      console.log(response)
+      console.log(response.data.trips[0].distance)
       set({ distance: Math.round(response.data.trips[0].distance / 1000) })
       set({ duration: Math.round(response.data.trips[0].duration / 60) })
     } catch (e) {

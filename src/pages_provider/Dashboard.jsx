@@ -10,6 +10,7 @@ import { useStore } from '../utils/Store'
 import ModalCoords from '../components/ModalCoords'
 import ProviderLogin from './ProviderLogin'
 import DashCards from '../components/DashCards'
+import { getTokenFromFirebase, onMessageListener } from '../firebase'
 
 function Dashboard() {
   const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
@@ -19,7 +20,7 @@ function Dashboard() {
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
 
-  const update = async () => {
+  const update = async (coords) => {
     await axios.patch(
       `http://localhost:5200/api/auth/updateCoords/${currentProvider.user._id}`,
       {
@@ -32,11 +33,21 @@ function Dashboard() {
     if (!currentProvider) {
       setConnect(true)
     }
+    //👉🏻Logs the device token to the console
+    getTokenFromFirebase(currentProvider._id)
+
+    //👉🏻Listen and logs the push messages from the server.
+    onMessageListener()
+      .then((payload) => {
+        console.log('From Message', payload)
+      })
+      .catch((err) => console.log('failed: ', err))
+
     setIsProvider(true)
   })
 
   useEffect(() => {
-    updateCoords()
+    updateCoords(coords)
     if (coords.length > 0) {
       update()
     } else {

@@ -54,6 +54,11 @@ function Order() {
         <Container>
           <Nav isCustomer={isCustomer} />
           <div className="order__page">
+            {preCommand.length == 0 && (
+              <div className="empty">
+                Il n{"'"}ya aucune commande en attente
+              </div>
+            )}
             {preCommand.map((preCom) => {
               return (
                 <StyledLink
@@ -141,6 +146,15 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 2.5vh 1vw;
+    .empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #484747;
+      font-size: 125%;
+      margin-top: 20vh;
+    }
     .normal {
       display: flex;
       align-items: center;

@@ -53,6 +53,11 @@ function Command() {
         <Container>
           <Nav />
           <div className="command__list">
+            {commands.length == 0 && (
+              <div className="empty">
+                Pas de commandes en attente de livraison
+              </div>
+            )}
             {commands.map((command) => {
               return (
                 <div className="command" key={command._id}>
@@ -100,6 +105,16 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1vh 1vw;
+    .empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #484747;
+      font-size: 125%;
+      margin-top: 20vh;
+      text-align: center;
+    }
     .command {
       display: flex;
       flex-direction: column;
