@@ -25,7 +25,7 @@ export default function HomeBody() {
           }}
         >
           <FaShoppingCart />
-          <span>Commander avec uty</span>
+          <span>Acheter avec uty</span>
         </div>
         <div
           className="sidebar__item"
@@ -36,7 +36,7 @@ export default function HomeBody() {
           }}
         >
           <FaShippingFast />
-          <span>livrer avec uty</span>
+          <span>Livrer avec uty</span>
         </div>
         <div
           className="sidebar__item"
@@ -111,6 +111,7 @@ const Container = styled.div`
       }
       span {
         font-size: 130%;
+        width: 80%;
       }
     }
   }

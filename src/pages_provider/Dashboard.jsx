@@ -73,12 +73,12 @@ function Dashboard() {
         <DashCards
           imgSrc={recettes}
           title={'Historique des ventes'}
-          path="/Command"
+          path="/Dashboard"
         />
         <DashCards
           imgSrc={map}
           title={'Commandes en livraison'}
-          path="/ConfirmT"
+          path="/Dashboard"
         />
       </div>
       {open && <ModalCoords setOpen={setOpen} />}
