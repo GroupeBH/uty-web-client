@@ -13,37 +13,50 @@ export default function HomeBody() {
   const [forProvider, setForProvider] = useState(false)
   const [forDeliver, setForDeliver] = useState(false)
 
+  const [rideStyle, setRideStyle] = useState(false)
+  const [style, setStyle] = useState(true)
+  const [pStyle, setPstyle] = useState(false)
+
   return (
     <Container>
       <div className="sidebar">
         <div
-          className="sidebar__item"
+          className={style ? 'side__clicked' : 'sidebar__item'}
           onClick={() => {
             setForCustomer(true)
             setForDeliver(false)
             setForProvider(false)
+            setStyle(true)
+            setPstyle(false)
+            setRideStyle(false)
           }}
         >
           <FaShoppingCart />
           <span>Acheter avec uty</span>
         </div>
         <div
-          className="sidebar__item"
+          className={rideStyle ? 'side__clicked' : 'sidebar__item'}
           onClick={() => {
             setForCustomer(false)
             setForDeliver(true)
             setForProvider(false)
+            setRideStyle(true)
+            setStyle(false)
+            setPstyle(false)
           }}
         >
           <FaShippingFast />
           <span>Livrer avec uty</span>
         </div>
         <div
-          className="sidebar__item"
+          className={pStyle ? 'side__clicked' : 'sidebar__item'}
           onClick={() => {
             setForCustomer(false)
             setForDeliver(false)
             setForProvider(true)
+            setPstyle(true)
+            setStyle(false)
+            setRideStyle(false)
           }}
         >
           <FaHandHoldingUsd />
@@ -99,6 +112,26 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 1vh 3vw;
+    .side__clicked {
+      background-color: orange;
+      text-align: center;
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1vh;
+      padding-bottom: 1vh;
+      gap: 1.5vh 1vw;
+      cursor: pointer;
+      color: white;
+      svg {
+        font-size: 200%;
+      }
+      span {
+        font-size: 130%;
+        width: 80%;
+      }
+    }
     .sidebar__item {
       text-align: center;
       width: 35%;
@@ -106,6 +139,9 @@ const Container = styled.div`
       flex-direction: column;
       align-items: center;
       gap: 1.5vh 1vw;
+      padding-top: 1vh;
+      padding-bottom: 1vh;
+      cursor: pointer;
       svg {
         font-size: 200%;
       }
