@@ -70,7 +70,7 @@ function Proposition() {
 
   useEffect(() => {
     getOrder(params.id)
-  }, [params.id])
+  }, [])
   return (
     <Container>
       <div className="proposition__body">

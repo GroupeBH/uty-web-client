@@ -22,15 +22,17 @@ function ConfirmT() {
 
   useEffect(() => {
     updateOrder(params.id)
+    console.log('la commande à :', order.provider)
   }, [params.id])
 
   useEffect(() => {
     updatePickUpCoord(order.provider)
-  }, [order.provider])
+    console.log('point de quete', pickUpLocation)
+  }, [order])
 
   useEffect(() => {
     updateDistance(pickUpLocation, dropOffLocation)
-  }, [pickUpLocation, dropOffLocation])
+  }, [dropOffLocation, pickUpLocation])
 
   const handleClick = async () => {
     setLoad(true)

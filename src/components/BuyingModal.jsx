@@ -22,15 +22,14 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
 
   useEffect(() => {
     updateProvider(selectedOffer.provider.user)
-    updateDistance(pickUp, dropOffCoord)
     console.log(distance, 'dropoff at', dropOffCoord)
+    console.log(distance, 'pickup at', pickUp)
   }, [])
 
   useEffect(() => {
     updatePrice(selectedOffer.price, distance)
+    updateDistance(pickUp, dropOffCoord)
     console.log(provider)
-    console.log(selectedOffer.customer.coords)
-    console.log(distance, 'pickup at', pickUp)
     console.log(price)
   }, [distance])
 
@@ -45,6 +44,8 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
           price: price,
         }
       )
+      setLoading(false)
+      setIsBuying(false)
     } catch (error) {
       console.log(error)
       setLoading(false)

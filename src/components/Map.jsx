@@ -17,6 +17,7 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
   }
 
   useEffect(() => {
+    console.log(pickUpCoord, dropOffCoord)
     const getMatrix = async () => {
       const response = await axios.get(
         `https://api.mapbox.com/optimized-trips/v1/mapbox/driving-traffic/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
@@ -39,6 +40,9 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
     })
 
     var myGeoJSON = polyline.toGeoJSON(geometrie)
+    // if(!coords) {
+    //   map.on('click', ())
+    // }
     if (coords) {
       if (coords.length > 0) {
         map.on('load', () => {
