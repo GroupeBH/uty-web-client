@@ -42,7 +42,7 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
         {
           orderId: selectedOffer._id,
           status: 'confirmed',
-          price: price,
+          price: price + price * 0.1,
         }
       )
       setLoading(false)
@@ -63,7 +63,7 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
           <div className="modal__body">
             <img src={utyLogo} />
             <div className="offer__detail">
-              <p>Total à payer: {price} fc</p>
+              <p>Total à payer: {price + price * 0.1} fc</p>
             </div>
             <button onClick={handleClick}>
               {loading ? (
