@@ -22,7 +22,7 @@ function Dashboard() {
 
   const update = async (coords, user) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateCoords/${user}`, {
+      .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
         coords: coords,
       })
       .then((response) => console.log(response))

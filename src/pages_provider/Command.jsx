@@ -21,7 +21,7 @@ function Command() {
     const getCommands = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5200/api/order/getMyCommands/${data._id}`
+          `https://uty-ti30.onrender.com/api/order/getMyCommands/${data._id}`
         )
         setCommands(response.data)
         console.log(response.data)

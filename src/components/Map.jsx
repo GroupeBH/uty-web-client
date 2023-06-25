@@ -4,31 +4,43 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
 import polyline from '@mapbox/polyline'
+import { useState } from 'react'
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
-function Map({ pickUpCoord, dropOffCoord, coords }) {
+function Map({ pickUpCoord, dropOffCoord, coords, user, myCoord }) {
   const mapContainer = useRef(null)
   const geometrie = useStore((state) => state.geometrie)
   const updateGeometrie = useStore((state) => state.updateGeometrie)
+  const [location, setLocation] = useState(myCoord)
+
+  // const update = async (user, coords) => {
+  //   await axios
+  //     .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
+  //       coords: coords,
+  //     })
+  //     .then((response) => console.log(response))
+  // }
   const addMarkerToMap = (map, coordinates) => {
     new mapboxgl.Marker().setLngLat(coordinates).addTo(map)
   }
 
   useEffect(() => {
-    console.log(pickUpCoord, dropOffCoord)
-    const getMatrix = async () => {
-      const response = await axios.get(
-        `https://api.mapbox.com/optimized-trips/v1/mapbox/driving-traffic/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
-          new URLSearchParams({
-            access_token:
-              'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
-          })
-      )
-      updateGeometrie(response.data.trips[0].geometry)
+    if (pickUpCoord && dropOffCoord) {
+      console.log(pickUpCoord, dropOffCoord)
+      const getMatrix = async () => {
+        const response = await axios.get(
+          `https://api.mapbox.com/optimized-trips/v1/mapbox/driving-traffic/${pickUpCoord[0]},${pickUpCoord[1]};${dropOffCoord[0]},${dropOffCoord[1]}?` +
+            new URLSearchParams({
+              access_token:
+                'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag',
+            })
+        )
+        updateGeometrie(response.data.trips[0].geometry)
+      }
+      getMatrix()
     }
-    getMatrix()
   })
 
   useEffect(() => {
@@ -40,9 +52,26 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
     })
 
     var myGeoJSON = polyline.toGeoJSON(geometrie)
-    // if(!coords) {
-    //   map.on('click', ())
-    // }
+
+    if (user) {
+      map.on('load', () => {
+        map.flyTo({
+          center: [location[0], location[1]],
+          zoom: 17,
+        })
+        addMarkerToMap(map, [location[0], location[1]])
+        map.on('click', (e) => {
+          console.log(e.lngLat)
+          setLocation([e.lngLat.lat, e.lngLat.lng])
+          map.flyTo({
+            center: location,
+            zoom: 17,
+          })
+          addMarkerToMap(map, location)
+        })
+      })
+    }
+
     if (coords) {
       if (coords.length > 0) {
         map.on('load', () => {
@@ -99,7 +128,6 @@ function Map({ pickUpCoord, dropOffCoord, coords }) {
         )
       })
     }
-    console.log(pickUpCoord, dropOffCoord)
   }, [pickUpCoord, dropOffCoord, geometrie])
 
   return (

@@ -69,7 +69,7 @@ export const useShipmentStore = create((set) => ({
   updateOrder: async (orderId) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/order/getorder/${orderId}`)
+        .get(`https://uty-ti30.onrender.com/api/order/getorder/${orderId}`)
         .then((response) => {
           console.log(response.data)
           set({ order: response.data })
