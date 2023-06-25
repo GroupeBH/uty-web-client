@@ -90,10 +90,11 @@ const Container = styled.div`
       .sub__container__body {
         display: flex;
         flex-direction: column;
-        background-image: url(${decoback});
+        /* background-image: url(${decoback});
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat; */
+        background-image: linear-gradient(to top, #e0e8f9 0%, #dbe8fa 100%);
         bottom: 0vh;
         height: 100vh;
         .navbar {
