@@ -17,6 +17,7 @@ function Command() {
 
   useEffect(() => {
     updateCoords()
+    console.log('current provider', data.user)
     const getCommands = async () => {
       try {
         const response = await axios.get(
@@ -27,7 +28,7 @@ function Command() {
         setLoading(false)
         await axios
           .patch(
-            `https://uty-ti30.onrender.com/api/auth/updateCoords/${data.user}`,
+            `https://uty-ti30.onrender.com/api/auth/updateCoords/${data.user._id}`,
             {
               coords,
             }
@@ -62,9 +63,8 @@ function Command() {
               return (
                 <div className="command" key={command._id}>
                   <StyledLink to={'/ConfirmT/' + command._id}>
-                    <p>La commande de : {command.customer.username}</p>
+                    <p>La commande de {command?.customer.username}</p>
                     <p className="">
-                      <span>{command.price}</span>
                       <span>
                         {moment(Date.now()).format('MMM Do YY') ===
                         moment(command.createdAt).format('MMM Do YY')
@@ -118,6 +118,8 @@ const Container = styled.div`
     .command {
       display: flex;
       flex-direction: column;
+      box-shadow: 0px 0px 5px silver;
+      padding: 1vh 2vw;
     }
   }
 `

@@ -20,46 +20,46 @@ function Dashboard() {
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
 
-  const update = async (coords) => {
-    await axios.patch(
-      `http://localhost:5200/api/auth/updateCoords/${currentProvider.user._id}`,
-      {
+  const update = async (coords, user) => {
+    await axios
+      .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
         coords: coords,
-      }
-    )
+      })
+      .then((response) => console.log(response))
   }
 
   useEffect(() => {
     if (!currentProvider) {
       setConnect(true)
+    } else {
+      //👉🏻Logs the device token to the console
+      getTokenFromFirebase(currentProvider._id)
+
+      //👉🏻Listen and logs the push messages from the server.
+      onMessageListener()
+        .then((payload) => {
+          console.log('From Message', payload)
+        })
+        .catch((err) => console.log('failed: ', err))
+
+      setIsProvider(true)
     }
-    //👉🏻Logs the device token to the console
-    getTokenFromFirebase(currentProvider._id)
-
-    //👉🏻Listen and logs the push messages from the server.
-    onMessageListener()
-      .then((payload) => {
-        console.log('From Message', payload)
-      })
-      .catch((err) => console.log('failed: ', err))
-
-    setIsProvider(true)
   })
 
   useEffect(() => {
-    updateCoords(coords)
-    if (coords.length > 0) {
-      update()
-    } else {
-      setOpen(true)
-    }
+    updateCoords()
+    update(coords, currentProvider.user._id)
   }, [coords])
 
   return (
     <Container>
       <Nav isProvider={isProvider} />
       <div className="list__post">
-        <h3 className="provider__accroche">Pénètre ton marché différement</h3>
+        <h3 className="provider__accroche">
+          Pénètre ton marché différement. Avec uty vend et fait livrer tes
+          produits en toute tranquilité
+          <hr />
+        </h3>
         <DashCards
           imgSrc={vendus}
           title={'Commandes en attente'}

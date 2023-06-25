@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 // import loader from '../assets/loader.gif'
 import { InfinitySpin } from 'react-loader-spinner'
+import ModalConnect from './ModalConnect'
 import Nav from '../components/Nav'
 import { Link, useNavigate } from 'react-router-dom'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
@@ -12,24 +13,26 @@ function Categories() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [isCustomer, setIsCustomer] = useState(false)
+  const [notConnected, setNotConnected] = useState(false)
   const location = localStorage.getItem('currentLocation')
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!currentUser) {
-      navigate('/SignParticular')
+      setNotConnected(true)
+    } else {
+      //👉🏻Logs the device token to the console
+      getTokenFromFirebase(currentUser._id)
+
+      //👉🏻Listen and logs the push messages from the server.
+      onMessageListener()
+        .then((payload) => {
+          console.log('From Message', payload)
+        })
+        .catch((err) => console.log('failed: ', err))
+
+      //....socket.io listeners
     }
-    //👉🏻Logs the device token to the console
-    getTokenFromFirebase(currentUser._id)
-
-    //👉🏻Listen and logs the push messages from the server.
-    onMessageListener()
-      .then((payload) => {
-        console.log('From Message', payload)
-      })
-      .catch((err) => console.log('failed: ', err))
-
-    //....socket.io listeners
   })
 
   useEffect(() => {
@@ -66,7 +69,7 @@ function Categories() {
           <div className="categories__body">
             <div className="categories__accroche">
               <p>
-                Hey <span>{currentUser.username}</span>
+                Hey <span>{currentUser?.username}</span>
                 Renseignez ce dont vous avez besoin selon les catégories
                 suivants
               </p>
@@ -90,6 +93,7 @@ function Categories() {
               })}
             </div>
           </div>
+          {notConnected && <ModalConnect setIsOpen={setNotConnected} />}
         </Container>
       )}
     </>

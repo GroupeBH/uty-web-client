@@ -27,7 +27,7 @@ export const useShipmentStore = create((set) => ({
       await axios
         .get(`https://uty-ti30.onrender.com/api/provider/getProvider/${user}`)
         .then((response) => {
-          console.log(response.data.user.coords)
+          console.log('pick', response.data.user.coords)
           set({ provider: response.data._id })
           set({ pickUp: response.data.user.coords })
         })
@@ -71,6 +71,7 @@ export const useShipmentStore = create((set) => ({
       await axios
         .get(`https://uty-ti30.onrender.com/api/order/getorder/${orderId}`)
         .then((response) => {
+          console.log(response.data)
           set({ order: response.data })
           set({ customer: response.data.customer.username })
           set({ dropOffCoord: response.data.customer.coords })

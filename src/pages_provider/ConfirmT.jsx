@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Map from '../components/Map'
+import ChangeCoord from '../components/ChangeCoord'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useShipmentStore } from '../utils/shipmentStore'
 import { Rings } from 'react-loader-spinner'
 
 function ConfirmT() {
+  const data = JSON.parse(localStorage.getItem('currentProvider'))
   const [load, setLoad] = useState(false)
+  const [changeCoords, setChangeCoords] = useState(false)
 
   const updateOrder = useShipmentStore((state) => state.updateOrder)
   const updateDistance = useShipmentStore((state) => state.updateDistance)
@@ -22,15 +25,17 @@ function ConfirmT() {
 
   useEffect(() => {
     updateOrder(params.id)
+    console.log('la commande à :', order.provider)
   }, [params.id])
 
   useEffect(() => {
     updatePickUpCoord(order.provider)
-  }, [order.provider])
+    console.log('point de quete', pickUpLocation)
+  }, [order])
 
   useEffect(() => {
     updateDistance(pickUpLocation, dropOffLocation)
-  }, [pickUpLocation, dropOffLocation])
+  }, [distance])
 
   const handleClick = async () => {
     setLoad(true)
@@ -55,6 +60,7 @@ function ConfirmT() {
     <Container>
       <Map pickUpCoord={pickUpLocation} dropOffCoord={dropOffLocation} />
       <div className="ship__details">
+        {/* <p onClick={() => setChangeCoords(true)}>Modifier ma position</p> */}
         <div className="ride__details">
           <div className="item">
             <span>Cout</span>
@@ -86,6 +92,13 @@ function ConfirmT() {
           )}
         </button>
       </div>
+      {changeCoords && (
+        <ChangeCoord
+          setChangeCoords={setChangeCoords}
+          user={data.user._id}
+          myCoord={pickUpLocation}
+        />
+      )}
     </Container>
   )
 }

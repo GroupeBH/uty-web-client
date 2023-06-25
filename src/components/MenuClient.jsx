@@ -6,8 +6,8 @@ import { IoMenu } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 // import { useStore } from '../utils/Store'
 
-export default function BasicMenu({ isCustomer, isProvider }) {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+export default function BasicMenu({ isCustomer, isProvider, isDeliver }) {
+  // const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   // const user = useStore((state) => state.user)
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -76,7 +76,7 @@ export default function BasicMenu({ isCustomer, isProvider }) {
             </p>
           </MenuItem>
         )}
-        {currentUser.isDeliver !== null && currentUser.isDeliver !== false ? (
+        {isDeliver !== null && isDeliver !== false ? (
           <MenuItem onClick={() => navigate('/Shipments')}>
             <p
               style={{
