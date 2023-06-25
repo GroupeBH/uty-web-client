@@ -32,6 +32,11 @@ function Dashboard() {
     if (!currentProvider) {
       setConnect(true)
     } else {
+      updateCoords()
+      update(coords, currentProvider.user._id)
+      if (!currentProvider.user._id) {
+        update(coords, currentProvider.user)
+      }
       //👉🏻Logs the device token to the console
       getTokenFromFirebase(currentProvider._id)
 
@@ -46,10 +51,12 @@ function Dashboard() {
     }
   })
 
-  useEffect(() => {
-    updateCoords()
-    update(coords, currentProvider.user._id)
-  }, [coords])
+  // useEffect(() => {
+  //   if (currentProvider) {
+  //     updateCoords()
+  //     update(coords, currentProvider.user._id)
+  //   }
+  // }, [coords])
 
   return (
     <Container>
