@@ -27,11 +27,12 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
   }, [])
 
   useEffect(() => {
-    updatePrice(selectedOffer.price, distance)
+    console.log(pickUp, dropOffCoord)
     updateDistance(pickUp, dropOffCoord)
+    updatePrice(selectedOffer.price, distance)
     console.log(provider)
     console.log(price)
-  }, [distance])
+  }, [pickUp, dropOffCoord])
 
   const handleClick = async () => {
     setLoading(true)
