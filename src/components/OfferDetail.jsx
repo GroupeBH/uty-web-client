@@ -3,11 +3,9 @@ import styled from 'styled-components'
 import { IoClose } from 'react-icons/io5'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import CarrousselOffer from './CarrouselOffer'
-// import { useStore } from '../utils/Store'
 
 function OfferDetail({ selectedOffer, setIsClick, setIsConfirm }) {
   const handleClick = () => {
-    // updatePrix(selectedOffer.price)
     setIsClick(false)
     setIsConfirm(true)
   }
@@ -15,13 +13,13 @@ function OfferDetail({ selectedOffer, setIsClick, setIsConfirm }) {
     <Container>
       <div className="body__back">
         <div className="centered">
+          <IoClose onClick={() => setIsClick(false)} />
           <div className="carousel">
-            <IoClose onClick={() => setIsClick(false)} />
             <CarrousselOffer selectedOffer={selectedOffer} />
           </div>
           <div className="comm">
-            Commentaire:
-            {selectedOffer.finded.text}
+            <p> Commentaire</p>
+            <span>{selectedOffer.finded.text}</span>
           </div>
           <button className="confirm__command" onClick={handleClick}>
             Continuer
@@ -49,29 +47,43 @@ const Container = styled.div`
     .centered {
       display: flex;
       flex-direction: column;
-      margin-top: 5vh;
+      padding: 2vh 3.5vw;
       height: 88.5vh;
       background-color: white;
-      width: 80vw;
+      width: 90vw;
+      svg {
+        font-size: 175%;
+      }
       .carousel {
-        width: 70vw;
-        height: 55vh;
-        padding-left: 3.5vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        height: 50vh;
       }
       .comm {
-        margin-top: 5vh;
-        padding: 5vh 3.5vw;
+        display: flex;
+        flex-direction: column;
+        padding: 3.5vh 3vw;
         font-size: 125%;
+        box-shadow: 0px 0px 5px silver;
+        margin-bottom: 5vh;
+        p {
+          font-weight: bold;
+        }
+        span {
+          margin-top: -2vh;
+        }
       }
       .confirm__command {
         background-color: #020664;
         color: white;
         border-radius: 0.5rem;
         border: none;
-        margin-left: 3.5vw;
         font-size: 125%;
-        width: 90%;
-        height: 7.5vh;
+        width: 100%;
+        height: 8.5vh;
       }
     }
   }

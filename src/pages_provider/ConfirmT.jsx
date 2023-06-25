@@ -35,7 +35,7 @@ function ConfirmT() {
 
   useEffect(() => {
     updateDistance(pickUpLocation, dropOffLocation)
-  }, [dropOffLocation, pickUpLocation])
+  }, [distance])
 
   const handleClick = async () => {
     setLoad(true)
@@ -60,7 +60,7 @@ function ConfirmT() {
     <Container>
       <Map pickUpCoord={pickUpLocation} dropOffCoord={dropOffLocation} />
       <div className="ship__details">
-        <p onClick={() => setChangeCoords(true)}>Modifier ma position</p>
+        {/* <p onClick={() => setChangeCoords(true)}>Modifier ma position</p> */}
         <div className="ride__details">
           <div className="item">
             <span>Cout</span>

@@ -7,47 +7,25 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 function CarrousselOffer({ selectedOffer }) {
   console.log(selectedOffer)
   return (
-    <Container>
+    <div>
       <Carousel autoPlay infiniteLoop showThumbs={false}>
         {selectedOffer.finded.medias.map((image) => (
-          <div className="item" key={selectedOffer._id}>
+          <Container className="item" key={selectedOffer._id}>
             <img src={image} alt="" />
-          </div>
+          </Container>
         ))}
-        {/* <div style={{ marginTop: '5vh' }}>
-          {selectedOffer.imageOne ? (
-            <img src={selectedOffer.imageOne} alt="First product image" />
-          ) : (
-            <img src={utyLogo} alt="first_product_image" />
-          )}
-        </div>
-        <div>
-          {selectedOffer.imageTwo ? (
-            <img src={selectedOffer.imageTwo} alt="First product image" />
-          ) : (
-            <img
-              src={utyLogo}
-              alt="first_product_image"
-              style={{ width: '60vw' }}
-            />
-          )}
-        </div>
-        <div>
-          {selectedOffer.imageThree ? (
-            <img src={selectedOffer.imageThree} alt="First product image" />
-          ) : (
-            <img
-              src={utyLogo}
-              alt="first_product_image"
-              style={{ width: '60vw' }}
-            />
-          )}
-        </div> */}
       </Carousel>
-    </Container>
+    </div>
   )
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 30vw;
+  }
+`
 
 export default CarrousselOffer

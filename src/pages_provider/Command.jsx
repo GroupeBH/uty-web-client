@@ -63,9 +63,8 @@ function Command() {
               return (
                 <div className="command" key={command._id}>
                   <StyledLink to={'/ConfirmT/' + command._id}>
-                    <p>La commande de : {command?.customer.username}</p>
+                    <p>La commande de {command?.customer.username}</p>
                     <p className="">
-                      <span>{command.price}</span>
                       <span>
                         {moment(Date.now()).format('MMM Do YY') ===
                         moment(command.createdAt).format('MMM Do YY')
@@ -119,6 +118,8 @@ const Container = styled.div`
     .command {
       display: flex;
       flex-direction: column;
+      box-shadow: 0px 0px 5px silver;
+      padding: 1vh 2vw;
     }
   }
 `
