@@ -47,8 +47,10 @@ function Dashboard() {
   })
 
   useEffect(() => {
-    updateCoords()
-    update(coords, currentProvider.user._id)
+    if (currentProvider) {
+      updateCoords()
+      update(coords, currentProvider.user._id)
+    }
   }, [coords])
 
   return (

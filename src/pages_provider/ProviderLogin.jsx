@@ -50,7 +50,7 @@ function ProviderLogin({ setConnect }) {
     if (validateForm()) {
       const { phone, password } = values
       const { data } = await axios.post(
-        'https://uty-ti30.onrender.com/api/provider/login',
+        'http://localhost:5200/api/provider/login',
         {
           phone,
           password,

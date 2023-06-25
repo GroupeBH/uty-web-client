@@ -238,7 +238,7 @@ export default function ProviderSignUp() {
         </div>
       </FormContainer>
       {open && <ModalSign username={store} path="/Dashboard" />}
-      {isOpen && <ProviderLogin setIsOpen={setIsOpen} />}
+      {isOpen && <ProviderLogin setConnect={setIsOpen} />}
       <ToastContainer />
     </>
   )
