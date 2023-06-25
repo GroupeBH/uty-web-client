@@ -19,6 +19,7 @@ export const useShipmentStore = create((set) => ({
 
   updatePrice: async (newPrice, distance) => {
     let constant = 2000 * distance
+    console.log(distance)
     set({ price: newPrice + constant })
   },
 
