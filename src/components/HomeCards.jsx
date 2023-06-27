@@ -37,7 +37,7 @@ const Container = styled.div`
       color: white;
       border: none;
       border-radius: 0.5rem;
-      height: 7.5vh;
+      height: 9vh;
       font-size: 120%;
       font-weight: bold;
       margin-top: 2vh;
