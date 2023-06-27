@@ -5,7 +5,7 @@ import axios from 'axios'
 import { InfinitySpin } from 'react-loader-spinner'
 import ModalConnect from './ModalConnect'
 import Nav from '../components/Nav'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
 
 function Categories() {
@@ -14,8 +14,6 @@ function Categories() {
   const [loading, setLoading] = useState(true)
   const [isCustomer, setIsCustomer] = useState(false)
   const [notConnected, setNotConnected] = useState(false)
-  const location = localStorage.getItem('currentLocation')
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (!currentUser) {
@@ -32,14 +30,8 @@ function Categories() {
         .catch((err) => console.log('failed: ', err))
 
       //....socket.io listeners
+      setIsCustomer(true)
     }
-  })
-
-  useEffect(() => {
-    if (!location) {
-      navigate('/Location')
-    }
-    setIsCustomer(true)
   })
 
   useEffect(() => {
