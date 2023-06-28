@@ -187,6 +187,60 @@ const Container = styled.div`
       }
     }
   }
+
+  //for desktop
+  @media all and (min-width: 992px) {
+    .categories__body {
+      .categories__list {
+        .card {
+          width: 20vw;
+          .card__icon {
+            img {
+              width: 10vw;
+            }
+          }
+          .card__title {
+            color: orange;
+            font-weight: bold;
+            font-size: 150%;
+            p {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //for tablets
+  @media all and (765px <= width < 992px) {
+    .categories__body {
+      .categories__list {
+        .card {
+          width: 20vw;
+          .card__icon {
+            img {
+              width: 10vw;
+            }
+          }
+          .card__title {
+            color: orange;
+            font-weight: bold;
+            font-size: 150%;
+            p {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
 `
 
 export default Categories

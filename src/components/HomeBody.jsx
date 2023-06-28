@@ -102,6 +102,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
   .separator__container {
     hr .separator {
       border: 1px solid silver;
@@ -150,5 +152,16 @@ const Container = styled.div`
         width: 80%;
       }
     }
+  }
+
+  //desktop
+  @media all and (min-width: 992px) {
+    height: 70vh;
+    width: 40vw;
+  }
+
+  @media all and (765px <= width < 992px) {
+    height: 70vh;
+    width: 70vw;
   }
 `

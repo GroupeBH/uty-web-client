@@ -26,6 +26,9 @@ export default function BasicMenu({ isCustomer, isProvider, isDeliver }) {
     } else if (isProvider) {
       localStorage.removeItem('currentProvider')
       navigate('/Home')
+    } else if (isDeliver) {
+      localStorage.removeItem('currentDeliver')
+      navigate('/Home')
     }
   }
   let navigate = useNavigate()

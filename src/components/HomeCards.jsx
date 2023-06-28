@@ -19,14 +19,14 @@ const Container = styled.div`
   .card__body {
     display: flex;
     flex-direction: column;
-    padding: 1vh 5vw;
+    padding: 1vh 2.5vw;
     border-radius: 0.5rem;
     opacity: 90.5%;
     margin-top: -7.5vh;
     p {
       font-weight: bold;
       font-size: 150%;
-      margin-top: 5vh;
+      margin-top: 7.5vh;
       color: #020664;
     }
     span {
