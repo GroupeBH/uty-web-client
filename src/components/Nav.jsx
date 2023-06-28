@@ -54,6 +54,28 @@ const Container = styled.div`
       font-size: 250%;
     }
   }
+
+  //for desktop
+  @media all and (min-width: 992px) {
+    .page__title {
+      padding-top: 1vh;
+      .uty__logo {
+        height: 10vh;
+        width: 5vw;
+      }
+    }
+  }
+
+  //for tablets
+  @media all and (765px <= width < 992px) {
+    .page__title {
+      padding-top: 1vh;
+      .uty__logo {
+        height: 8vh;
+        width: 7.5vw;
+      }
+    }
+  }
 `
 
 export default Nav

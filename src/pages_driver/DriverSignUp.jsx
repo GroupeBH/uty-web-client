@@ -214,131 +214,131 @@ export default function DriverSignUp() {
 }
 
 const FormContainer = styled.div`
-  @media only screen and (max-width: 800px) {
-    .register__page {
-      display: flex;
-      background-color: white;
-      align-items: center;
-      justify-content: center;
-      .image__side {
-        display: none;
-        img {
-          height: 50vh;
-          width: 40vw;
-        }
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background-color: white;
-        padding: 0.5vh 5vw;
-        text-align: center;
-        .form__header {
-          display: flex;
-          flex-direction: column;
-          svg {
-            font-size: 250%;
-            margin-top: 1vh;
-          }
-          img {
-            height: 12.5vh;
-            width: 20vw;
-            align-self: center;
-            margin-top: 1vh;
-            margin-bottom: 2.5vh;
-          }
-          h3 {
-            font-size: 140%;
-            margin-bottom: -1vh;
-            margin-top: -1vh;
-            color: #a6a2a2;
-            .uty__name {
-              color: orange;
-              font-weight: bold;
-            }
-          }
-          h4 {
-            font-weight: medium;
-            font-size: 105%;
-            color: #a6a2a2;
-            span {
-              color: orange;
-              margin-right: 1vw;
-            }
-          }
-        }
-        .form__body {
-          display: flex;
-          flex-direction: column;
-          .form__field {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5vh 1vw;
-            align-items: flex-start;
-            margin-bottom: 2.5vh;
-            label {
-              margin-bottom: 1.5vh;
-            }
-          }
-          .field {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2.5vh;
-            /* margin-left: -4.5vw; */
-            .name__field {
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              label {
-                text-align: start;
-                margin-bottom: 3vh;
-              }
-              input {
-                width: 34.5vw;
-              }
-              select {
-                width: 90vw;
-                height: 7.5vh;
-                border-radius: 0.5rem;
-                background-color: white;
-                border-color: silver;
-                margin-top: -1vh;
-                padding-left: 2.5vw;
-              }
-            }
-          }
-        }
-        input {
-          background-color: transparent;
-          padding: 1rem;
-          border: 0.1rem solid silver;
-          border-radius: 0.4rem;
-          color: #2b2828;
-          width: 80vw;
-          height: 2vh;
-          font-size: 1rem;
-          margin-top: -2vh;
-          &:focus {
-            border: 0.1rem solid #997af0;
-            outline: none;
-          }
-        }
-        button {
-          background-color: #040154;
-          color: white;
-          height: 7.5vh;
-          border: none;
-          font-weight: bold;
-          /* margin-top: -1vh; */
-          cursor: pointer;
-          border-radius: 0.4rem;
-          font-size: 1rem;
-          text-transform: uppercase;
-          font-weight: bold;
-          margin-bottom: 2.5vh;
-        }
+  .register__page {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    .image__side {
+      display: none;
+      img {
+        height: 50vh;
+        width: 40vw;
       }
     }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: white;
+      padding: 0.5vh 5vw;
+      text-align: center;
+      .form__header {
+        display: flex;
+        flex-direction: column;
+        svg {
+          font-size: 250%;
+          margin-top: 1vh;
+        }
+        img {
+          height: 12.5vh;
+          width: 20vw;
+          align-self: center;
+          margin-top: 1vh;
+          margin-bottom: 2.5vh;
+        }
+        h3 {
+          font-size: 140%;
+          margin-bottom: -1vh;
+          margin-top: -1vh;
+          color: #a6a2a2;
+          .uty__name {
+            color: orange;
+            font-weight: bold;
+          }
+        }
+        h4 {
+          font-weight: medium;
+          font-size: 105%;
+          color: #a6a2a2;
+          span {
+            color: orange;
+            margin-right: 1vw;
+          }
+        }
+      }
+      .form__body {
+        display: flex;
+        flex-direction: column;
+        .form__field {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5vh 1vw;
+          align-items: flex-start;
+          margin-bottom: 2.5vh;
+          label {
+            margin-bottom: 1.5vh;
+          }
+        }
+        .field {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2.5vh;
+          /* margin-left: -4.5vw; */
+          .name__field {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            label {
+              text-align: start;
+              margin-bottom: 3vh;
+            }
+            input {
+              width: 34.5vw;
+            }
+            select {
+              width: 90vw;
+              height: 7.5vh;
+              border-radius: 0.5rem;
+              background-color: white;
+              border-color: silver;
+              margin-top: -1vh;
+              padding-left: 2.5vw;
+            }
+          }
+        }
+      }
+      input {
+        background-color: transparent;
+        padding: 1rem;
+        border: 0.1rem solid silver;
+        border-radius: 0.4rem;
+        color: #2b2828;
+        width: 80vw;
+        height: 2vh;
+        font-size: 1rem;
+        margin-top: -2vh;
+        &:focus {
+          border: 0.1rem solid #997af0;
+          outline: none;
+        }
+      }
+      button {
+        background-color: #040154;
+        color: white;
+        height: 7.5vh;
+        border: none;
+        font-weight: bold;
+        /* margin-top: -1vh; */
+        cursor: pointer;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 2.5vh;
+      }
+    }
+  }
+  @media only screen and (max-width: 800px) {
   }
 `
