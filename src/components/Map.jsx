@@ -4,16 +4,17 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
 import polyline from '@mapbox/polyline'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoidXR5LXdlYiIsImEiOiJjbGRtM3EzNTIwNW1yM3FxbDExYml2N244In0.87AOy9jkubot05KERkgQag'
 
-function Map({ pickUpCoord, dropOffCoord, coords, user, myCoord }) {
+function Map({ pickUpCoord, dropOffCoord, coords, user }) {
   const mapContainer = useRef(null)
   const geometrie = useStore((state) => state.geometrie)
   const updateGeometrie = useStore((state) => state.updateGeometrie)
-  const [location, setLocation] = useState(myCoord)
+  const location = useStore((state) => state.location)
+  const setLocation = useStore((state) => state.updateLocation)
 
   // const update = async (user, coords) => {
   //   await axios
@@ -53,35 +54,41 @@ function Map({ pickUpCoord, dropOffCoord, coords, user, myCoord }) {
 
     var myGeoJSON = polyline.toGeoJSON(geometrie)
 
-    if (user) {
-      map.on('load', () => {
-        map.flyTo({
-          center: [location[0], location[1]],
-          zoom: 17,
-        })
-        addMarkerToMap(map, [location[0], location[1]])
-        map.on('click', (e) => {
-          console.log(e.lngLat)
-          setLocation([e.lngLat.lat, e.lngLat.lng])
-          map.flyTo({
-            center: location,
-            zoom: 17,
-          })
-          addMarkerToMap(map, location)
-        })
-      })
-    }
+    // if (user) {
+    //   map.on('load', () => {
+    //     map.on('click', (e) => {
+    //       console.log(e.lngLat)
+    //       setLocation([e.lngLat.lat, e.lngLat.lng])
+    //       console.log(location)
+    //       map.flyTo({
+    //         center: location,
+    //         zoom: 17,
+    //       })
+    //       addMarkerToMap(map, [location[0], location[1]])
+    //     })
+    //   })
+    // }
 
-    if (coords) {
+    if (coords || user) {
       if (coords.length > 0) {
         map.on('load', () => {
+          setLocation(coords)
           map.resize()
           map.flyTo({
-            center: [coords[1], coords[0]],
+            center: [location[1], location[0]],
             essential: true,
             zoom: 17,
           })
-          addMarkerToMap(map, [coords[1], coords[0]])
+          map.on('click', (e) => {
+            console.log(e.lngLat)
+            setLocation([e.lngLat.lat, e.lngLat.lng])
+            console.log(location)
+            // map.flyTo({
+            //   center: [location[1], location[0]],
+            //   zoom: 17,
+            // })
+          })
+          addMarkerToMap(map, [location[1], location[0]])
         })
       }
     }

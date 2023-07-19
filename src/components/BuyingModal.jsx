@@ -1,38 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-// import { useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
 import { Rings } from 'react-loader-spinner'
 import { useShipmentStore } from '../utils/shipmentStore'
 import axios from 'axios'
-// import optimizedTrip from '../helpers/Mapbox'
+import PayModal from './PayModal'
 
 function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
-  console.log(selectedOffer)
-  // const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const price = useShipmentStore((state) => state.price)
   const updatePrice = useShipmentStore((state) => state.updatePrice)
-  const provider = useShipmentStore((state) => state.provider)
+  // const provider = useShipmentStore((state) => state.provider)
   const updateProvider = useShipmentStore((state) => state.updateProvider)
-  // const updatePickUpCoord = useShipmentStore((state) => state.updatePickUpCoord)
+
   const pickUp = useShipmentStore((state) => state.pickUp)
   const distance = useShipmentStore((state) => state.distance)
   const updateDistance = useShipmentStore((state) => state.updateDistance)
 
+  // const payProduct = async () => {
+  //   await axios.post('http://ip:port/api/rest/v1/paymentService', {
+
+  //   })
+  // }
+
   useEffect(() => {
     updateProvider(selectedOffer.provider.user)
-    console.log(distance, 'dropoff at', dropOffCoord)
-    console.log(distance, 'pickup at', pickUp)
   }, [])
 
   useEffect(() => {
     console.log(pickUp, dropOffCoord)
     updateDistance(pickUp, dropOffCoord)
     updatePrice(selectedOffer.price, distance)
-    console.log(provider)
-    console.log(price)
   }, [pickUp, dropOffCoord])
+
+  const payOrder = async (price) => {
+    try {
+      await axios
+        .post('https://beta-cardpayment.flexpay.cd/v1.1/pay', {
+          authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJcL2xvZ2luIiwicm9sZXMiOlsiTUVSQ0hBTlQiXSwiZXhwIjoxNzUwNTg2MDA2LCJzdWIiOiIxOTRiOTlhYjcwODQ4NjgxNjZiZDhhZDNmOTMzMTkzYyJ9.vJQnO5Nt8Hj2DOx2jKMd_iiPGn6Myur7D0iTPhgCTcs',
+          merchant: 'GBHOLDING',
+          reference: 'TEST0014521',
+          amount: `${price}`,
+          currency: 'CDF',
+          description: 'Tests de paiement',
+          callback_url: 'http://localhost:3000',
+          approve_url: 'http://localhost:3000/Categories',
+          cancel_url: 'http://localhost:3000/Home',
+          decline_url: 'http://localhost:3000/Offer',
+        })
+        .then((response) => console.log(response.data))
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const handleClick = async () => {
     setLoading(true)
@@ -45,15 +66,13 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
           price: price + price * 0.1,
         }
       )
+      payOrder(price + price * 0.1)
       setLoading(false)
       setIsBuying(false)
     } catch (error) {
-      console.log(error)
       setLoading(false)
       setIsBuying(false)
     }
-    // setIsBuying(false)
-    // navigate('/Categories')
   }
 
   return (
@@ -64,6 +83,7 @@ function BuyingModal({ setIsBuying, selectedOffer, dropOffCoord }) {
             <img src={utyLogo} />
             <div className="offer__detail">
               <p>Total à payer: {price + price * 0.1} fc</p>
+              <PayModal price={price + price * 0.1} />
             </div>
             <button onClick={handleClick}>
               {loading ? (

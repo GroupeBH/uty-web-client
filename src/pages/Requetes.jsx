@@ -34,7 +34,7 @@ function Requetes() {
   }, [username, currentUser])
 
   useEffect(() => {
-    socket.current = io('https://uty-ti30.onrender.com')
+    socket.current = io('http://localhost:5200')
     socket.current.emit('add-user', currentUser._id)
   }, [currentUser])
 
@@ -54,6 +54,11 @@ function Requetes() {
     setLoad(true)
     const data = await JSON.parse(localStorage.getItem('currentUser'))
     try {
+      socket.current.emit('send-preOrder', {
+        image: url,
+        wanted: description,
+      })
+
       await axios.post('https://uty-ti30.onrender.com/api/order/addOrder', {
         description: description,
         image: url,
