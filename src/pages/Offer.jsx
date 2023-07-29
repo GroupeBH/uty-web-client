@@ -107,6 +107,7 @@ function Offer() {
             )}
             {isConfirm && (
               <ConfirmAdress
+                selectedOffer={selectedOffer}
                 coords={coords}
                 setIsConfirm={setIsConfirm}
                 setIsBuying={setIsBuying}

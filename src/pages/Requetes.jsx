@@ -63,7 +63,7 @@ function Requetes() {
         description: description,
         image: url,
         sender: data._id,
-        category: params._id,
+        category: params.id,
       })
 
       setDescription('')
