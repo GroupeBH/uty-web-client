@@ -19,6 +19,8 @@ import { ShipDetails } from './pages_driver/ShipDetails'
 import ProviderSignUp from './pages_provider/ProviderSignUp'
 import DriverSignUp from './pages_driver/DriverSignUp'
 import Proposition from './pages_provider/Proposition'
+import BuyingModal from './components/BuyingModal'
+import Invoice from './pages/Invoice'
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
           <Route exact path="/Profile" element={<Profile />} />
           <Route exact path="/Shipments" element={<Shipments />} />
           <Route exact path="/Shipments/:id" element={<ShipDetails />} />
+          <Route exact path="/Payment/:id" element={<BuyingModal />} />
+          <Route exact path="/invoice/:id" element={<Invoice />} />
         </Routes>
       </BrowserRouter>
     </>

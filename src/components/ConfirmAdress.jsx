@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { IoClose, IoLocation } from 'react-icons/io5'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Map from './Map'
 import axios from 'axios'
 import { useStore } from '../utils/Store'
+import { Link } from 'react-router-dom'
 // import { useShipmentStore } from '../utils/shipmentStore'
-import { Rings } from 'react-loader-spinner'
-import { useShipmentStore } from '../utils/shipmentStore'
 
-function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
+function ConfirmAdress({ coords, setIsConfirm, selectedOffer }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const updateAdress = useStore((state) => state.updateAdress)
   const adress = useStore((state) => state.adress)
   // const price = useShipmentStore((state) => state.price)
-  const updatePrice = useShipmentStore((state) => state.updatePrice)
-  const [loading, setLoading] = useState(false)
   // const [adress, setAdress] = useState()
   console.log(coords)
   useEffect(() => {
@@ -46,14 +43,11 @@ function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
 
   const handleClick = async () => {
     console.log(adress)
-    setIsBuying(true)
-    const response = await axios.patch(
+    await axios.patch(
       `https://uty-ti30.onrender.com/api/auth/updateCoords/${currentUser._id}`,
       { coords }
     )
     setIsConfirm(false)
-    setLoading(false)
-    console.log(response)
   }
 
   return (
@@ -63,30 +57,16 @@ function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
         <div className="centered">
           <div className="confirm__body">
             <div className="map__side">
-              <Map coords={coords} updatePrice={updatePrice} />
+              <Map coords={coords} user={currentUser?._id} />
             </div>
             <div className="adress__container">
               <IoLocation className="adress__icon" />
               {adress}
             </div>
             <button className="confirm__command" onClick={handleClick}>
-              {loading ? (
-                <>
-                  <div
-                    className="loader"
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginTop: '-2vh',
-                    }}
-                  >
-                    <Rings height="80" width="80" color="white" />
-                  </div>
-                </>
-              ) : (
-                <>Confirmer votre adresse de livraison</>
-              )}
+              <StyledLink to={'/Payment/' + selectedOffer._id}>
+                Confirmer votre adresse de livraison
+              </StyledLink>
             </button>
           </div>
         </div>
@@ -94,6 +74,10 @@ function ConfirmAdress({ coords, setIsConfirm, setIsBuying }) {
     </Container>
   )
 }
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 
 const Container = styled.div`
   display: flex;

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const useShipmentStore = create((set) => ({
   price: 0,
+  providerPrice: 0,
   provider: 0,
   pickUpCoord: [],
   pickUp: [],
@@ -72,12 +73,13 @@ export const useShipmentStore = create((set) => ({
       await axios
         .get(`https://uty-ti30.onrender.com/api/order/getorder/${orderId}`)
         .then((response) => {
-          console.log(response.data)
+          console.log(response.data.customer.coords)
           set({ order: response.data })
           set({ customer: response.data.customer.username })
           set({ dropOffCoord: response.data.customer.coords })
           set({ productWanted: response.data.wanted.media })
           set({ productWantedDesc: response.data.wanted.text })
+          set({ providerPrice: response.data.price })
         })
     } catch (e) {
       console.log(e)

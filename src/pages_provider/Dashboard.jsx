@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
+import { io } from 'socket.io-client'
 import Nav from '../components/Nav'
 import commande from '../assets/Affaires concl.png'
 import vendus from '../assets/Articles vendus.png'
@@ -17,8 +18,10 @@ function Dashboard() {
   const [open, setOpen] = useState(false)
   const [connect, setConnect] = useState(false)
   const [isProvider, setIsProvider] = useState(false)
+  const [notifs, setNotifs] = useState(0)
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
+  const socket = useRef()
 
   const update = async (coords, user) => {
     await axios
@@ -32,6 +35,11 @@ function Dashboard() {
     if (!currentProvider) {
       setConnect(true)
     } else {
+      socket.current = io('http://localhost:5200')
+      socket.current.on('receive-preOrder', () => {
+        setNotifs(notifs + 1)
+        console.log('bien recu')
+      })
       updateCoords()
       update(coords, currentProvider.user._id)
       if (!currentProvider.user._id) {
@@ -64,7 +72,7 @@ function Dashboard() {
       <div className="list__post">
         <h3 className="provider__accroche">
           Pénètre ton marché différement. Avec uty vend et fait livrer tes
-          produits en toute tranquilité
+          produits en toute tranquilité {notifs}
           <hr />
         </h3>
         <DashCards
