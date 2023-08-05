@@ -20,28 +20,27 @@ function Order() {
   const [open, setOpen] = useState('')
   const [loading, setLoading] = useState(true)
   const [isCustomer, setIsCustomer] = useState(false)
-  const [orders, setOrders] = useState([])
 
   useEffect(() => {
     setIsCustomer(true)
     const getPreOrders = async () => {
       const response = await axios.get(
-        'https://uty-ti30.onrender.com/api/order/getOrder'
+        'http://localhost:5200/api/order/getOrder'
       )
       setPreCommand(response.data)
       setLoading(false)
     }
-    const getOrders = async () => {
-      const resp = await axios.get(
-        'https://uty-ti30.onrender.com/api/order/getOrder'
-      )
-      setOrders(resp.data)
-    }
+    // const getOrders = async () => {
+    //   const resp = await axios.get(
+    //     'https://uty-ti30.onrender.com/api/order/getOrder'
+    //   )
+    //   setOrders(resp.data)
+    // }
     getPreOrders()
-    getOrders()
+    // getOrders()
   }, [])
 
-  console.log(orders)
+  // console.log(orders)
 
   return (
     <>
@@ -190,13 +189,14 @@ const Container = styled.div`
           width: 90%;
           .first {
             color: #020664;
+            margin-top: -3.5vh;
           }
           .second {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
             width: 60vw;
-            margin-top: -3.5vh;
+            /* margin-top: -1.5vh; */
           }
         }
         .preOrder__date {

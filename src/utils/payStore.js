@@ -2,59 +2,42 @@ import { create } from 'zustand'
 import axios from 'axios'
 
 export const usePayStore = create((set) => ({
-  token: '',
-  initData: [],
+  orderNumber: '',
+  cardUrl: '',
+  transaction: {},
+  transactions: [],
 
-  fetchToken: async (login, pwd, pin) => {
-    await axios
-      .post('http://flashint.cfc-rdc.com:3000/flashpay/get-token', {
-        login: login,
-        pwd: pwd,
-        pin: pin,
-      })
-      .then((response) => response.json())
-      .then((data) => set({ token: data.token }))
+  updateOrderNumber: (newOrderNumber) => {
+    set({ orderNumber: newOrderNumber })
   },
 
-  fetchInitData: async (headerObject, bodyObject) => {
-    const { token, login, pwd } = headerObject
-    const {
-      montant,
-      deviseiso,
-      commentaire,
-      urlSuccess,
-      urlDecline,
-      motif,
-      fpid,
-      transactionId,
-      nomMarchand,
-      pin,
-    } = bodyObject
-    await axios
-      .post(
-        'http://flashint.cfc-rdc.com:3000/flashpay/init',
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            token: token,
-            login: login,
-            pwd: pwd,
-          },
-        },
-        {
-          montant,
-          deviseiso,
-          commentaire,
-          urlSuccess,
-          urlDecline,
-          motif,
-          fpid,
-          transactionId,
-          nomMarchand,
-          pin,
-        }
-      )
-      .then((response) => response.json())
-      .then((data) => set({ initData: data }))
+  updateCardUrl: (newCardUrl) => {
+    set({ cardUrl: newCardUrl })
+  },
+
+  updateTransaction: async (id) => {
+    try {
+      await axios
+        .get(`http://localhost:5200/api/payment/getTransaction/${id}`)
+        .then((response) => {
+          console.log(response.data)
+          set({ transaction: response.data })
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  updateTransactions: async () => {
+    try {
+      await axios
+        .get('http://localhost:5200/api/payment/getTransactions')
+        .then((response) => {
+          console.log(response.data)
+          set({ transactions: response.data })
+        })
+    } catch (e) {
+      console.log(e)
+    }
   },
 }))

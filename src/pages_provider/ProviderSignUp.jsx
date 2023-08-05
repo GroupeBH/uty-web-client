@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import utyLogo from '../assets/logo-uty.png'
+import signUser from '../assets/signUser.png'
 import ModalSign from '../components/ModalSign'
 import { Rings } from 'react-loader-spinner'
 import Select from 'react-select'
@@ -91,7 +92,7 @@ export default function ProviderSignUp() {
         password,
       } = values
       const { data } = await axios.post(
-        'https://uty-ti30.onrender.com/api/provider/register',
+        'http://localhost:5200/api/provider/register',
         {
           storeName,
           businessBrand,
@@ -126,7 +127,8 @@ export default function ProviderSignUp() {
       <FormContainer>
         <div className="register__page">
           <div className="image__side">
-            <img src="" alt="" />
+            <IoArrowBackOutline onClick={() => navigate('/Home')} />
+            <img src={signUser} alt="" />
           </div>
           <form action="" onSubmit={(event) => handleSubmit(event)}>
             <div className="form__header">
@@ -139,8 +141,8 @@ export default function ProviderSignUp() {
                 Ou <span onClick={() => setIsOpen(true)}>connectez-vous</span>
                 si vous avez un compte
               </h4>
+              <hr />
             </div>
-            <hr />
             <div className="form__body">
               <div className="form__field">
                 <label>Nom de l enseigne(facultatif)</label>
@@ -376,6 +378,22 @@ const FormContainer = styled.div`
       }
     }
   }
+
+  //for desktop
+  @media only screen and (min-width: 992px) {
+    .register__page {
+      form {
+        .form__header {
+          img {
+            height: 12.5vh;
+            width: 20vw;
+          }
+        }
+      }
+    }
+  }
+
+  //for tablets
   @media only screen and (min-width: 765px) {
     .register__page {
       form {

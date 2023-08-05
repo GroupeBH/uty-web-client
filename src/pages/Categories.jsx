@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-// import loader from '../assets/loader.gif'
 import { InfinitySpin } from 'react-loader-spinner'
 import ModalConnect from './ModalConnect'
 import Nav from '../components/Nav'
 import { Link } from 'react-router-dom'
+import { useStore } from '../utils/Store'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
 
 function Categories() {
@@ -15,12 +15,37 @@ function Categories() {
   const [isCustomer, setIsCustomer] = useState(false)
   const [notConnected, setNotConnected] = useState(false)
 
+  let tokenFirebase = useStore((state) => state.tokenFirebase)
+  let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
+
+  const getCategories = async () => {
+    const response = await axios.get(
+      'https://uty-ti30.onrender.com/api/category/getCategories'
+    )
+    setCategories(response.data)
+    setLoading(false)
+  }
+
+  const updateToken = async (user, token) => {
+    await axios
+      .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
+        tokenFirebase: token,
+      })
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
   useEffect(() => {
     if (!currentUser) {
       setNotConnected(true)
     } else {
       //👉🏻Logs the device token to the console
-      getTokenFromFirebase(currentUser._id)
+      getTokenFromFirebase(updateTokenFirebase)
+
+      console.log('firebase token :', tokenFirebase)
+
+      updateToken(currentUser._id, tokenFirebase)
 
       //👉🏻Listen and logs the push messages from the server.
       onMessageListener()
@@ -32,25 +57,15 @@ function Categories() {
       //....socket.io listeners
       setIsCustomer(true)
     }
-  })
+  }, [tokenFirebase])
 
   useEffect(() => {
-    const getCategories = async () => {
-      const response = await axios.get(
-        'https://uty-ti30.onrender.com/api/category/getCategories'
-      )
-      setCategories(response.data)
-      setLoading(false)
-
-      console.log(categories)
-    }
     getCategories()
   })
   return (
     <>
       {loading ? (
         <ContainerL>
-          {/* <img src={loader} alt="loader" className="loader" /> */}
           <InfinitySpin width="200" color="orange" />
         </ContainerL>
       ) : (

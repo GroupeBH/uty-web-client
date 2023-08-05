@@ -1,11 +1,52 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+// import { useStore } from '../utils/Store'
 import utyLogo from '../assets/logo-uty.png'
+// import axios from 'axios'
+// import { getTokenFromFirebase, onMessageListener } from '../firebase'
+// import _ from 'lodash'
 
 function ModalSign({ username, path }) {
   // const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
+  // const [loading, setLoading] = useState()
+  // let tokenFirebase = useStore((state) => state.tokenFirebase)
+  // let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
+
+  // const updateToken = async (user, token) => {
+  //   await axios
+  //     .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
+  //       tokenFirebase: token,
+  //     })
+  //     .then((response) => {
+  //       console.log(response)
+  //     })
+  // }
+
+  // useEffect(() => {
+  //   Notification.requestPermission().then((permission) => {
+  //     // If the user accepts, let's create a notification
+  //     if (permission === 'granted') {
+  //       getTokenFromFirebase(updateTokenFirebase)
+  //     }
+  //   })
+
+  //   if (!_.isEmpty(tokenFirebase)) {
+  //     updateToken(
+  //       currentProvider.user._id
+  //         ? currentProvider.user._id
+  //         : currentProvider.user,
+  //       tokenFirebase
+  //     )
+  //   }
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       console.log('From Message', payload)
+  //     })
+  //     .catch((err) => console.log('failed: ', err))
+  // })
+
   return (
     <Container>
       <div className="modal__back">

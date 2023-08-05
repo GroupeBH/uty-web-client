@@ -4,6 +4,7 @@ export const useStore = create((set) => ({
   isProvider: false,
   isDeliver: false,
   coords: [],
+  location: [],
   user: {},
   geometrie: '',
   adress: '',
@@ -44,7 +45,11 @@ export const useStore = create((set) => ({
     set({ user: newUser })
   },
 
-  getTokenFirebase: (newToken) => {
+  updateLocation: (newLocation) => {
+    set({ location: newLocation })
+  },
+
+  updateTokenFirebase: (newToken) => {
     set({ tokenFirebase: newToken })
   },
 }))
