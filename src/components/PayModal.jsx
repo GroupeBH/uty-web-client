@@ -18,7 +18,7 @@ export default function PayModal({ price, userId }) {
   const payByMobile = async () => {
     try {
       await axios
-        .post('http://localhost:5200/api/payment/pay', {
+        .post('https://uty-ti30.onrender.com/api/payment/pay', {
           merchant: 'GBHOLDING',
           reference: 'TEST0014521',
           phone: phone,
@@ -32,7 +32,7 @@ export default function PayModal({ price, userId }) {
         })
 
       await axios
-        .post('http://localhost:5200/api/payment/checkPay', {
+        .post('https://uty-ti30.onrender.com/api/payment/checkPay', {
           orderNumber: orderNumber,
           user: userId,
         })
@@ -47,7 +47,7 @@ export default function PayModal({ price, userId }) {
   const payByCard = async () => {
     try {
       await axios
-        .post('http://localhost:5200/api/payment/pay', {
+        .post('https://uty-ti30.onrender.com/api/payment/pay', {
           merchant: 'GBHOLDING',
           reference: 'TEST0014521',
           amount: `${price}`,
@@ -67,7 +67,7 @@ export default function PayModal({ price, userId }) {
         })
 
       await axios
-        .post('http://localhost:5200/api/payment/checkPay', {
+        .post('https://uty-ti30.onrender.com/api/payment/checkPay', {
           orderNumber: orderNumber,
           user: userId,
         })

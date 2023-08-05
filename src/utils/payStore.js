@@ -18,7 +18,7 @@ export const usePayStore = create((set) => ({
   updateTransaction: async (id) => {
     try {
       await axios
-        .get(`http://localhost:5200/api/payment/getTransaction/${id}`)
+        .get(`https://uty-ti30.onrender.com/api/payment/getTransaction/${id}`)
         .then((response) => {
           console.log(response.data)
           set({ transaction: response.data })
@@ -31,7 +31,7 @@ export const usePayStore = create((set) => ({
   updateTransactions: async () => {
     try {
       await axios
-        .get('http://localhost:5200/api/payment/getTransactions')
+        .get('https://uty-ti30.onrender.com/api/payment/getTransactions')
         .then((response) => {
           console.log(response.data)
           set({ transactions: response.data })

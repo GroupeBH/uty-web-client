@@ -25,7 +25,7 @@ function Order() {
     setIsCustomer(true)
     const getPreOrders = async () => {
       const response = await axios.get(
-        'http://localhost:5200/api/order/getOrder'
+        'https://uty-ti30.onrender.com/api/order/getOrder'
       )
       setPreCommand(response.data)
       setLoading(false)

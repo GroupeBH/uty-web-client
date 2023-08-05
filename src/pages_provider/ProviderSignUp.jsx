@@ -92,7 +92,7 @@ export default function ProviderSignUp() {
         password,
       } = values
       const { data } = await axios.post(
-        'http://localhost:5200/api/provider/register',
+        'https://uty-ti30.onrender.com/api/provider/register',
         {
           storeName,
           businessBrand,
