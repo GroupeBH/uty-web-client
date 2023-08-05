@@ -1,7 +1,7 @@
 {
   "name": "uty_web",
   "version": "0.1.0",
-  "homepage": "https://uty.life/",
+  "homepage": "https://uty.life/Home",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
