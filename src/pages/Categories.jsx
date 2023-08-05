@@ -28,9 +28,12 @@ function Categories() {
 
   const updateToken = async (user, token) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
-        tokenFirebase: token,
-      })
+      .patch(
+        `https://uty-ti30.onrender.com/api/auth/updateTokenFirebase/${user}`,
+        {
+          tokenFirebase: token,
+        }
+      )
       .then((response) => {
         console.log(response)
       })
