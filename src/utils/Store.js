@@ -49,7 +49,7 @@ export const useStore = create((set) => ({
     set({ location: newLocation })
   },
 
-  getTokenFirebase: (newToken) => {
+  updateTokenFirebase: (newToken) => {
     set({ tokenFirebase: newToken })
   },
 }))

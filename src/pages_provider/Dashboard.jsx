@@ -12,23 +12,40 @@ import ModalCoords from '../components/ModalCoords'
 import ProviderLogin from './ProviderLogin'
 import DashCards from '../components/DashCards'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
+import _ from 'lodash'
 
 function Dashboard() {
   const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
   const [open, setOpen] = useState(false)
   const [connect, setConnect] = useState(false)
   const [isProvider, setIsProvider] = useState(false)
-  const [notifs, setNotifs] = useState(0)
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
   const socket = useRef()
+  let tokenFirebase = useStore((state) => state.tokenFirebase)
+  let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
 
   const update = async (coords, user) => {
     await axios
-      .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
+      .patch(`http://localhost:5200/api/auth/updateCoords/${user}`, {
         coords: coords,
+        tokenFirebase: tokenFirebase,
       })
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response)
+        // localStorage.setItem('currentProvider', JSON.stringify(response.data))
+      })
+  }
+
+  const updateToken = async (user, token) => {
+    await axios
+      .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
+        tokenFirebase: token,
+      })
+      .then((response) => {
+        console.log(response)
+        // localStorage.setItem('currentProvider', JSON.stringify(response.data))
+      })
   }
 
   useEffect(() => {
@@ -36,19 +53,28 @@ function Dashboard() {
       setConnect(true)
     } else {
       socket.current = io('http://localhost:5200')
-      socket.current.on('receive-preOrder', () => {
-        setNotifs(notifs + 1)
-        console.log('bien recu')
-      })
       updateCoords()
-      update(coords, currentProvider.user._id)
       if (!currentProvider.user._id) {
         update(coords, currentProvider.user)
       }
       //👉🏻Logs the device token to the console
-      getTokenFromFirebase(currentProvider._id)
-
+      Notification.requestPermission().then((permission) => {
+        // If the user accepts, let's create a notification
+        console.log('notif: ', permission)
+        if (permission === 'granted') {
+          getTokenFromFirebase(updateTokenFirebase)
+        }
+      })
+      console.log('firebase token : ', tokenFirebase)
       //👉🏻Listen and logs the push messages from the server.
+      if (!_.isEmpty(tokenFirebase)) {
+        updateToken(
+          currentProvider.user._id
+            ? currentProvider.user._id
+            : currentProvider.user,
+          tokenFirebase
+        )
+      }
       onMessageListener()
         .then((payload) => {
           console.log('From Message', payload)
@@ -57,7 +83,7 @@ function Dashboard() {
 
       setIsProvider(true)
     }
-  })
+  }, [tokenFirebase])
 
   // useEffect(() => {
   //   if (currentProvider) {
@@ -72,7 +98,7 @@ function Dashboard() {
       <div className="list__post">
         <h3 className="provider__accroche">
           Pénètre ton marché différement. Avec uty vend et fait livrer tes
-          produits en toute tranquilité {notifs}
+          produits en toute tranquilité
           <hr />
         </h3>
         <DashCards

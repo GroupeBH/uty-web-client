@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
+// Initialisez Firebase avec votre configuration
 // import Redirect from './pages/Redirect'
 import Command from './pages_provider/Command'
 import Requetes from './pages/Requetes'
