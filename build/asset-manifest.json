@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.dee7c776.css",
-    "main.js": "/static/js/main.a4ea889a.js",
-    "static/js/787.ef594bd8.chunk.js": "/static/js/787.ef594bd8.chunk.js",
-    "static/media/decoback.jpg": "/static/media/decoback.076efd4c0a4cab0b52ea.jpg",
-    "static/media/deskOne.png": "/static/media/deskOne.c0d44ef56d222716d44c.png",
-    "static/media/signUser.png": "/static/media/signUser.e09465168075d4b8b436.png",
-    "static/media/logo-uty.png": "/static/media/logo-uty.47a563f1d88707eba886.png",
-    "static/media/blank-profile.png": "/static/media/blank-profile.c3f945216dc12c9498dc.png",
-    "index.html": "/index.html",
-    "static/media/cd.svg": "/static/media/cd.90ed4f9d7140afa6d24c8bd7c7bccf41.svg",
-    "main.dee7c776.css.map": "/static/css/main.dee7c776.css.map",
-    "main.a4ea889a.js.map": "/static/js/main.a4ea889a.js.map",
-    "787.ef594bd8.chunk.js.map": "/static/js/787.ef594bd8.chunk.js.map"
+    "main.css": "/Home/static/css/main.dee7c776.css",
+    "main.js": "/Home/static/js/main.98acb3b4.js",
+    "static/js/787.ef594bd8.chunk.js": "/Home/static/js/787.ef594bd8.chunk.js",
+    "static/media/decoback.jpg": "/Home/static/media/decoback.076efd4c0a4cab0b52ea.jpg",
+    "static/media/deskOne.png": "/Home/static/media/deskOne.c0d44ef56d222716d44c.png",
+    "static/media/signUser.png": "/Home/static/media/signUser.e09465168075d4b8b436.png",
+    "static/media/logo-uty.png": "/Home/static/media/logo-uty.47a563f1d88707eba886.png",
+    "static/media/blank-profile.png": "/Home/static/media/blank-profile.c3f945216dc12c9498dc.png",
+    "index.html": "/Home/index.html",
+    "static/media/cd.svg": "/Home/static/media/cd.90ed4f9d7140afa6d24c8bd7c7bccf41.svg",
+    "main.dee7c776.css.map": "/Home/static/css/main.dee7c776.css.map",
+    "main.98acb3b4.js.map": "/Home/static/js/main.98acb3b4.js.map",
+    "787.ef594bd8.chunk.js.map": "/Home/static/js/787.ef594bd8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dee7c776.css",
-    "static/js/main.a4ea889a.js"
+    "static/js/main.98acb3b4.js"
   ]
 }
