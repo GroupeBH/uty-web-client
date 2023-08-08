@@ -51,7 +51,7 @@ function Proposition() {
     const data = await JSON.parse(localStorage.getItem('currentProvider'))
     try {
       await axios
-        .patch('https://uty-ti30.onrender.com/api/order/addProposition', {
+        .patch('http://localhost:5200/api/order/addProposition', {
           orderId: order._id,
           from: data._id,
           price: price,

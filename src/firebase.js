@@ -21,12 +21,24 @@ const messaging = getMessaging(firebaseApp)
 This function allows us to get your device token from Firebase 
 which is required for sending Push notifications to your device.
 */
-export const getTokenFromFirebase = (updateTokenFirebase) => {
+export const getTokenFromFirebase = (updateTokenFirebase, status) => {
   return getToken(messaging)
     .then((currentToken) => {
       if (currentToken) {
         updateTokenFirebase(currentToken)
         console.log('current token for client: ', currentToken)
+        if (status === 'provider') {
+          localStorage.setItem(
+            'tokenFirebaseProvider',
+            JSON.stringify(currentToken)
+          )
+        }
+        if (status === 'customer') {
+          localStorage.setItem(
+            'tokenFirebaseCustomer',
+            JSON.stringify(currentToken)
+          )
+        }
       } else {
         console.log(
           'No registration token available. Request permission to generate one.'

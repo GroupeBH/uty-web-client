@@ -16,15 +16,20 @@ import _ from 'lodash'
 
 function Dashboard() {
   const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
+  const deviceProviderToken = JSON.parse(
+    localStorage.getItem('tokenFirebaseProvider')
+  )
   const [open, setOpen] = useState(false)
   const [connect, setConnect] = useState(false)
   const [isProvider, setIsProvider] = useState(false)
+
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
   const socket = useRef()
   let tokenFirebase = useStore((state) => state.tokenFirebase)
   let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
-
+  let userStatus = useStore((state) => state.userStatus)
+  let updateUserStatus = useStore((state) => state.updateUserStatus)
   const update = async (coords, user) => {
     await axios
       .patch(`http://localhost:5200/api/auth/updateCoords/${user}`, {
@@ -62,12 +67,13 @@ function Dashboard() {
         // If the user accepts, let's create a notification
         console.log('notif: ', permission)
         if (permission === 'granted') {
-          getTokenFromFirebase(updateTokenFirebase)
+          updateUserStatus('provider')
+          getTokenFromFirebase(updateTokenFirebase, userStatus)
         }
       })
       console.log('firebase token : ', tokenFirebase)
       //👉🏻Listen and logs the push messages from the server.
-      if (!_.isEmpty(tokenFirebase)) {
+      if (!_.isEmpty(deviceProviderToken)) {
         updateToken(
           currentProvider.user._id
             ? currentProvider.user._id
