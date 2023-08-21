@@ -151,8 +151,8 @@ const Container = styled.div`
         color: white;
         font-weight: bold;
         font-size: 115%;
-        background-color: black;
-        padding: 3vh 1vw;
+        background-color: #444343;
+        padding: 2vh 1vw;
       }
     }
   }
@@ -176,11 +176,12 @@ const Container = styled.div`
         position: fixed;
         bottom: 0vh;
         width: 100%;
-        height: 7.5vh;
+        height: 3.5vh;
         color: white;
         font-weight: bold;
         font-size: 115%;
-        background-color: black;
+        background-color: #3c3b3b;
+        padding: -1vh 1vw;
       }
     }
   }
