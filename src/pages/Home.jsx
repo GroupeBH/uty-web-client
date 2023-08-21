@@ -89,7 +89,20 @@ const Container = styled.div`
       }
     }
     .footer {
-      display: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2vh 1vw;
+      position: fixed;
+      bottom: 0vh;
+      width: 100%;
+      /* height: 7.5vh; */
+      color: white;
+      font-weight: bold;
+      font-size: 115%;
+      background-color: black;
+      padding: 3vh 1vw;
     }
   }
 
