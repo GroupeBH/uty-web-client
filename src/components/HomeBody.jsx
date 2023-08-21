@@ -156,7 +156,7 @@ const Container = styled.div`
 
   //desktop
   @media all and (min-width: 992px) {
-    height: 70vh;
+    height: 60vh;
     width: 40vw;
   }
 

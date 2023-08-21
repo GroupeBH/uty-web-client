@@ -6,6 +6,7 @@ import ModalConnect from './ModalConnect'
 import decoback from '../assets/decoback.jpg'
 import HomeBody from '../components/HomeBody'
 import MenuHome from '../components/MenuHome'
+import Medias from '../components/Medias'
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,7 +27,9 @@ function Home() {
           </div>
         </div>
         <div className="footer">
-          <div></div>
+          <div>
+            <Medias />
+          </div>
           <div className="copyright">
             <span>Solution by B-holding sarl</span>
           </div>
@@ -124,16 +127,19 @@ const Container = styled.div`
       }
       .footer {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 2vh 1vw;
         position: fixed;
         bottom: 0vh;
         width: 100%;
-        height: 7.5vh;
+        /* height: 7.5vh; */
         color: white;
         font-weight: bold;
         font-size: 115%;
         background-color: black;
+        padding: 3vh 1vw;
       }
     }
   }

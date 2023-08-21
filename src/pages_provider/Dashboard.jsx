@@ -16,18 +16,23 @@ import _ from 'lodash'
 
 function Dashboard() {
   const currentProvider = JSON.parse(localStorage.getItem('currentProvider'))
+  const deviceProviderToken = JSON.parse(
+    localStorage.getItem('tokenFirebaseProvider')
+  )
   const [open, setOpen] = useState(false)
   const [connect, setConnect] = useState(false)
   const [isProvider, setIsProvider] = useState(false)
+
   const coords = useStore((state) => state.coords)
   const updateCoords = useStore((state) => state.updateCoords)
   const socket = useRef()
   let tokenFirebase = useStore((state) => state.tokenFirebase)
   let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
-
+  let userStatus = useStore((state) => state.userStatus)
+  let updateUserStatus = useStore((state) => state.updateUserStatus)
   const update = async (coords, user) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateCoords/${user}`, {
+      .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
         coords: coords,
         tokenFirebase: tokenFirebase,
       })
@@ -39,9 +44,12 @@ function Dashboard() {
 
   const updateToken = async (user, token) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
-        tokenFirebase: token,
-      })
+      .patch(
+        `https://uty-ti30.onrender.com/api/auth/updateTokenFirebase/${user}`,
+        {
+          tokenFirebase: token,
+        }
+      )
       .then((response) => {
         console.log(response)
         // localStorage.setItem('currentProvider', JSON.stringify(response.data))
@@ -62,12 +70,13 @@ function Dashboard() {
         // If the user accepts, let's create a notification
         console.log('notif: ', permission)
         if (permission === 'granted') {
-          getTokenFromFirebase(updateTokenFirebase)
+          updateUserStatus('provider')
+          getTokenFromFirebase(updateTokenFirebase, userStatus)
         }
       })
       console.log('firebase token : ', tokenFirebase)
       //👉🏻Listen and logs the push messages from the server.
-      if (!_.isEmpty(tokenFirebase)) {
+      if (!_.isEmpty(deviceProviderToken)) {
         updateToken(
           currentProvider.user._id
             ? currentProvider.user._id

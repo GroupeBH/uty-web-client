@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useParams, useNavigate } from 'react-router-dom'
 import utyLogo from '../assets/logo-uty.png'
@@ -7,10 +7,12 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { useShipmentStore } from '../utils/shipmentStore'
 // import axios from 'axios'
 import PayModal from './PayModal'
+import ModalError from './ModalError'
 
 function BuyingModal() {
   // const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const [conn, setConn] = useState(true)
   const order = useShipmentStore((state) => state.order)
   const updateOrder = useShipmentStore((state) => state.updateOrder)
   const providerPrice = useShipmentStore((state) => state.providerPrice)
@@ -72,8 +74,13 @@ function BuyingModal() {
           <span>Total à payer: </span>
           <p>{price + price * 0.1} CDF</p>
         </div>
-        <PayModal price={price + price * 0.1} userId={currentUser._id} />
+        <PayModal
+          price={price + price * 0.1}
+          userId={currentUser._id}
+          setConn={setConn}
+        />
       </div>
+      {!conn && <ModalError setOpen={setConn} />}
     </Container>
   )
 }

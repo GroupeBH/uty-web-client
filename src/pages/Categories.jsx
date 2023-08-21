@@ -5,11 +5,13 @@ import { InfinitySpin } from 'react-loader-spinner'
 import ModalConnect from './ModalConnect'
 import Nav from '../components/Nav'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
 import { useStore } from '../utils/Store'
 import { getTokenFromFirebase, onMessageListener } from '../firebase'
 
 function Categories() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const deviceToken = JSON.parse(localStorage.getItem('tokenFirebaseCustomer'))
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [isCustomer, setIsCustomer] = useState(false)
@@ -17,6 +19,8 @@ function Categories() {
 
   let tokenFirebase = useStore((state) => state.tokenFirebase)
   let updateTokenFirebase = useStore((state) => state.updateTokenFirebase)
+  let userStatus = useStore((state) => state.userStatus)
+  let updateUserStatus = useStore((state) => state.updateUserStatus)
 
   const getCategories = async () => {
     const response = await axios.get(
@@ -44,12 +48,22 @@ function Categories() {
       setNotConnected(true)
     } else {
       //👉🏻Logs the device token to the console
-      getTokenFromFirebase(updateTokenFirebase)
+      setIsCustomer(true)
+
+      Notification.requestPermission().then((permission) => {
+        // If the user accepts, let's create a notification
+        console.log('notif: ', permission)
+        if (permission === 'granted') {
+          updateUserStatus('customer')
+          getTokenFromFirebase(updateTokenFirebase, userStatus)
+        }
+      })
 
       console.log('firebase token :', tokenFirebase)
 
-      updateToken(currentUser._id, tokenFirebase)
-
+      if (!_.isEmpty(deviceToken)) {
+        updateToken(currentUser._id, tokenFirebase)
+      }
       //👉🏻Listen and logs the push messages from the server.
       onMessageListener()
         .then((payload) => {
@@ -58,7 +72,6 @@ function Categories() {
         .catch((err) => console.log('failed: ', err))
 
       //....socket.io listeners
-      setIsCustomer(true)
     }
   }, [tokenFirebase])
 
