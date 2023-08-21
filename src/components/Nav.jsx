@@ -2,12 +2,21 @@ import React from 'react'
 import styled from 'styled-components'
 import utyLogo from '../assets/logo-uty.png'
 import MenuClient from './MenuClient'
+import { useNavigate } from 'react-router-dom'
 
 function Nav({ isProvider, isDeliver, isCustomer }) {
+  const navigate = useNavigate()
   return (
     <Container>
       <div className="page__title">
-        <img src={utyLogo} alt="" className="uty__logo" />{' '}
+        <img
+          src={utyLogo}
+          alt=""
+          className="uty__logo"
+          onClick={() => {
+            navigate('/')
+          }}
+        />{' '}
       </div>
       <div className="count__container">
         <MenuClient

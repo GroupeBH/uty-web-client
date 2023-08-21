@@ -78,7 +78,10 @@ function ModalConnect({ setIsOpen }) {
             <div className="login__page">
               <IoClose
                 className="close__icon"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  navigate('/SignParticular')
+                  setIsOpen(false)
+                }}
               />
               <div className="image__side">
                 <img src="" alt="image__login" />

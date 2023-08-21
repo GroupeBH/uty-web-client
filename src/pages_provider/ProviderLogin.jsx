@@ -79,7 +79,7 @@ function ProviderLogin({ setConnect }) {
               <IoClose
                 className="close__icon"
                 onClick={() => {
-                  // setConnect(false)
+                  navigate('/Provider-sign-up')
                   setConnect(false)
                 }}
               />
@@ -87,7 +87,7 @@ function ProviderLogin({ setConnect }) {
                 <img src="" alt="image__login" />
               </div>
               <form action="" onSubmit={(event) => handleSubmit(event)}>
-                <img src={utyLogo} alt="" />
+                <img src={utyLogo} alt="" onClick={() => navigate('/')} />
                 <h3>Se connecter à uty</h3>
                 <input
                   type="text"

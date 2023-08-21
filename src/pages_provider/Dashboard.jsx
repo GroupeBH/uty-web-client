@@ -32,7 +32,7 @@ function Dashboard() {
   let updateUserStatus = useStore((state) => state.updateUserStatus)
   const update = async (coords, user) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateCoords/${user}`, {
+      .patch(`https://uty-ti30.onrender.com/api/auth/updateCoords/${user}`, {
         coords: coords,
         tokenFirebase: tokenFirebase,
       })
@@ -44,9 +44,12 @@ function Dashboard() {
 
   const updateToken = async (user, token) => {
     await axios
-      .patch(`http://localhost:5200/api/auth/updateTokenFirebase/${user}`, {
-        tokenFirebase: token,
-      })
+      .patch(
+        `https://uty-ti30.onrender.com/api/auth/updateTokenFirebase/${user}`,
+        {
+          tokenFirebase: token,
+        }
+      )
       .then((response) => {
         console.log(response)
         // localStorage.setItem('currentProvider', JSON.stringify(response.data))

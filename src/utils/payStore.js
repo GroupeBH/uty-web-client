@@ -15,13 +15,14 @@ export const usePayStore = create((set) => ({
     set({ cardUrl: newCardUrl })
   },
 
-  updateTransaction: async (id) => {
+  updateTransaction: async (id, setLoading) => {
     try {
       await axios
         .get(`https://uty-ti30.onrender.com/api/payment/getTransaction/${id}`)
         .then((response) => {
           console.log(response.data)
           set({ transaction: response.data })
+          setLoading(false)
         })
     } catch (e) {
       console.log(e)

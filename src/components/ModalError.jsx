@@ -10,8 +10,8 @@ function ModalError({ setOpen }) {
           <div className="modal__body">
             <IoCloseCircleOutline />
             <p>
-              Désolé votre requete n a pas été envoyé veuillez vérifier votre
-              connexion et récommencer plutard
+              Désolé votre requete n&apos a pas été envoyé veuillez vérifier
+              votre connexion et récommencer plutard
             </p>
             <button onClick={() => setOpen(false)}>Ok</button>
           </div>
@@ -33,7 +33,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 100vh;
+    margin-left: -50vw;
     .centered {
       margin-right: 5vw;
       margin-left: 5vw;

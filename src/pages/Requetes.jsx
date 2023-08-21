@@ -59,7 +59,7 @@ function Requetes() {
         wanted: description,
       })
 
-      await axios.post('http://localhost:5200/api/order/addOrder', {
+      await axios.post('https://uty-ti30.onrender.com/api/order/addOrder', {
         description: description,
         image: url,
         sender: data._id,
