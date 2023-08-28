@@ -22,6 +22,7 @@ import DriverSignUp from './pages_driver/DriverSignUp'
 import Proposition from './pages_provider/Proposition'
 import BuyingModal from './components/BuyingModal'
 import Invoice from './pages/Invoice'
+import AnnonceForm from './pages/sellers/AnnonceForm'
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/Shipments/:id" element={<ShipDetails />} />
           <Route exact path="/Payment/:id" element={<BuyingModal />} />
           <Route exact path="/invoice/:id" element={<Invoice />} />
+          <Route exact path="/create-announce" element={<AnnonceForm />} />
         </Routes>
       </BrowserRouter>
     </>
