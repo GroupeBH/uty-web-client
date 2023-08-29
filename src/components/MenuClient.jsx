@@ -79,6 +79,19 @@ export default function BasicMenu({ isCustomer, isProvider, isDeliver }) {
             </p>
           </MenuItem>
         )}
+        {isProvider && (
+          <MenuItem onClick={() => navigate('/create-announce')}>
+            <p
+              style={{
+                fontSize: '130%',
+                fontWeight: 'bold',
+                marginBottom: '-1.5vh',
+              }}
+            >
+              Créer une annonce
+            </p>
+          </MenuItem>
+        )}
         {isDeliver !== null && isDeliver !== false ? (
           <MenuItem onClick={() => navigate('/Shipments')}>
             <p
@@ -88,7 +101,7 @@ export default function BasicMenu({ isCustomer, isProvider, isDeliver }) {
                 marginBottom: '-1.5vh',
               }}
             >
-              My courses
+              Mes courses
             </p>
           </MenuItem>
         ) : null}
