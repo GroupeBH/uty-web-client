@@ -23,6 +23,7 @@ import Proposition from './pages_provider/Proposition'
 import BuyingModal from './components/BuyingModal'
 import Invoice from './pages/Invoice'
 import AnnonceForm from './pages/sellers/AnnonceForm'
+import Announces from './pages/sellers/Announces'
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/Payment/:id" element={<BuyingModal />} />
           <Route exact path="/invoice/:id" element={<Invoice />} />
           <Route exact path="/create-announce" element={<AnnonceForm />} />
+          <Route exact path="/announcements/:id" element={<Announces />} />
         </Routes>
       </BrowserRouter>
     </>

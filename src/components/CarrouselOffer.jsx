@@ -5,7 +5,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 // import utyLogo from '../assets/logo-uty.png'
 
 function CarrousselOffer({ selectedOffer }) {
-  console.log(selectedOffer)
   return (
     <div>
       <Carousel autoPlay infiniteLoop showThumbs={false}>
