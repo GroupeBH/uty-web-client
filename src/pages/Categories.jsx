@@ -102,7 +102,7 @@ function Categories() {
               {categories.map((categorie) => {
                 return (
                   <div className="card" key={categorie._id}>
-                    <StyledLink to={'/Requetes/' + categorie.name}>
+                    <StyledLink to={'/announcements/' + categorie.name}>
                       <div className="card__icon">
                         <img src={categorie.icon} alt="categorie-icon" />
                       </div>
