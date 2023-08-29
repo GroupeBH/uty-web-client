@@ -54,7 +54,7 @@ function AnnonceForm() {
     const data = await JSON.parse(localStorage.getItem('currentProvider'))
     console.log(selectedCategory)
     try {
-      await axios.post('http://localhost:5200/api/annonce/addAnnonce', {
+      await axios.post('https://uty-ti30.onrender.com/api/annonce/addAnnonce', {
         description: description,
         image: url,
         minprice: minprice,
@@ -144,7 +144,10 @@ function AnnonceForm() {
 
             <div className="category">
               <label htmlFor="">Catégorie du produit ou service : </label>
-              <select onChange={handleSelectChange}>
+              <select
+                className="category__select"
+                onChange={handleSelectChange}
+              >
                 {categories.map((category) => (
                   <option key={category.id} value={category.name}>
                     {category.name}
@@ -179,56 +182,122 @@ function AnnonceForm() {
 }
 
 const Container = styled.div`
+  width: 100vw;
   .request__form {
     padding-top: 1vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: white;
     .return {
       font-size: 250%;
       font-weight: bold;
       margin-bottom: 2.5vh;
+      align-self: flex-start;
     }
     h3 {
       font-weight: semi-bold;
       text-align: center;
     }
     .form__side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background-color: white;
+      width: 100%;
       .input__side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 1vh 2vw;
         gap: 2.5vh 1vw;
+        width: 100%;
+        //description style
         .description {
           display: flex;
           flex-direction: column;
+          gap: 2.5vh 1vw;
+          width: 90%;
           .input__label {
             margin-bottom: 1vh;
           }
           .request__input {
-            width: 90vw;
+            width: 100%;
             height: 18.5vh;
             border-radius: 0.5rem;
             border: none;
             box-shadow: 0px 0px 2.5px #5b5e5e;
             box-sizing: border-box;
-            margin-right: -5vw;
             resize: none;
             padding: 1vh 1vw;
           }
         }
+        //category select
+        .category {
+          display: flex;
+          flex-direction: column;
+          align-self: center;
+          width: 90%;
+          gap: 2vh 1vw;
+          .category__select {
+            height: 10vh;
+            border: 1px solid #ccc;
+            border-radius: 0.15rem;
+            overflow: hidden;
+            background-color: #fff;
+            background: #fff;
+            position: relative;
+          }
+          .category__select select {
+            padding: 5px 8px;
+            width: 130%;
+            border: none;
+            box-shadow: none;
+            background-color: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+          }
+          .category__select:after {
+            top: 50%;
+            left: 85%;
+            border: solid transparent;
+            content: ' ';
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(0, 0, 0, 0);
+            border-top-color: #000000;
+            border-width: 5px;
+            margin-top: -2px;
+            z-index: 100;
+          }
+          .category__select select:focus {
+            outline: none;
+          }
+        }
+
+        //prices inputs
         .price__inputs {
           display: flex;
           justify-content: space-between;
-          width: 100%;
+          width: 90%;
           .price {
             display: flex;
             flex-direction: column;
             gap: 2vh 1vw;
+            width: 45%;
             .input__price {
               display: flex;
               border-radius: 0.15rem;
               box-shadow: 0px 0px 2.5px #5b5e5e;
-              height: 3vh;
-              width: 50%;
+              height: 5vh;
+              width: 100%;
               padding: 1vh 1vw;
               font-size: 120%;
               .amount {
@@ -237,15 +306,17 @@ const Container = styled.div`
                   border: none;
                 }
               }
+              .amount input:focus {
+                outline: 0;
+              }
               .devise {
-                width: 25%;
                 height: 6.5vh;
               }
             }
           }
         }
         .image__side {
-          align-self: flex-start;
+          width: 90%;
           .product_image {
             img {
               height: 10vh;
@@ -293,6 +364,188 @@ const Container = styled.div`
         border-radius: 0.5rem;
         margin-bottom: 7vh;
         width: 92.5vw;
+      }
+    }
+  }
+
+  @media all and (min-width: 992px) {
+    background-color: #6476782b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-bottom: 10vh;
+    padding-top: 10vh;
+    .request__form {
+      width: 50vw;
+      padding: 5vh 5vw;
+      border-radius: 1rem;
+      .return {
+        font-size: 250%;
+        font-weight: bold;
+      }
+      h3 {
+        font-weight: semi-bold;
+        text-align: center;
+      }
+      .form__side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .input__side {
+          display: flex;
+          flex-direction: column;
+          padding: 1vh 2vw;
+          gap: 2.5vh 1vw;
+          width: 100%;
+          //description style
+          .description {
+            display: flex;
+            flex-direction: column;
+            .input__label {
+              margin-bottom: 1vh;
+            }
+            .request__input {
+              width: 100%;
+              height: 18.5vh;
+              border-radius: 0.5rem;
+              border: none;
+              box-shadow: 0px 0px 2.5px #5b5e5e;
+              box-sizing: border-box;
+              margin-right: -5vw;
+              resize: none;
+              padding: 1vh 1vw;
+            }
+          }
+          //category select
+          .category {
+            display: flex;
+            flex-direction: column;
+            gap: 2vh 1vw;
+            .category__select {
+              width: 100%;
+              height: 10vh;
+              border: 1px solid #ccc;
+              border-radius: 0.15rem;
+              overflow: hidden;
+              background-color: #fff;
+              background: #fff;
+              position: relative;
+            }
+            .category__select select {
+              padding: 5px 8px;
+              width: 130%;
+              border: none;
+              box-shadow: none;
+              background-color: transparent;
+              background-image: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+            }
+            .category__select:after {
+              top: 50%;
+              left: 85%;
+              border: solid transparent;
+              content: ' ';
+              height: 0;
+              width: 0;
+              position: absolute;
+              pointer-events: none;
+              border-color: rgba(0, 0, 0, 0);
+              border-top-color: #000000;
+              border-width: 5px;
+              margin-top: -2px;
+              z-index: 100;
+            }
+            .category__select select:focus {
+              outline: none;
+            }
+          }
+
+          //prices inputs
+          .price__inputs {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .price {
+              display: flex;
+              flex-direction: column;
+              gap: 2vh 1vw;
+              width: 100%;
+              .input__price {
+                display: flex;
+                border-radius: 0.15rem;
+                box-shadow: 0px 0px 2.5px #5b5e5e;
+                height: 5vh;
+                width: 88%;
+                padding: 1vh 1vw;
+                font-size: 120%;
+                .amount {
+                  width: 75%;
+                  input {
+                    border: none;
+                  }
+                }
+                .devise {
+                  height: 6.5vh;
+                }
+              }
+            }
+          }
+          .image__side {
+            align-self: flex-start;
+            width: 100%;
+            .product_image {
+              img {
+                height: 10vh;
+                width: 20%;
+              }
+            }
+            .image__upload {
+              position: relative;
+              .file {
+                opacity: 0;
+                position: absolute;
+                align-self: center;
+              }
+              label {
+                background-color: orange;
+                border-radius: 0.5rem;
+                height: 7.5vh;
+                color: white;
+                font-weight: bold;
+                font-size: 105%;
+                padding-left: 1vw;
+                padding-right: 1vw;
+                width: 40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 0.2s ease-out;
+                .add__product {
+                  font-size: 250%;
+                }
+              }
+            }
+          }
+        }
+
+        button {
+          margin-top: 5vh;
+          height: 10vh;
+          background-color: #020664;
+          color: white;
+          font-size: 125%;
+          font-weight: bold;
+          border: none;
+          border-radius: 0.5rem;
+          margin-bottom: 7vh;
+          width: 100%;
+        }
       }
     }
   }
