@@ -6,7 +6,7 @@ import ModalConnect from './ModalConnect'
 import decoback from '../assets/decoback.jpg'
 import HomeBody from '../components/HomeBody'
 import MenuHome from '../components/MenuHome'
-import Medias from '../components/Medias'
+import Footer from '../components/layout/Footer'
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,13 +27,7 @@ function Home() {
           </div>
         </div>
         <div className="footer">
-          <div>
-            <Medias />
-          </div>
-          <div className="copyright">
-            <span>Solution by B-holding sarl</span>
-          </div>
-          <div></div>
+          <Footer />
         </div>
       </div>
       {isOpen && <ModalConnect setIsOpen={setIsOpen} />}

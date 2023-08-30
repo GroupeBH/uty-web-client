@@ -72,11 +72,22 @@ const Container = styled.div`
   .medias {
     display: flex;
     justify-content: space-between;
-    width: 35vw;
+    a {
+      text-decoration: none;
+      svg {
+        color: white;
+      }
+    }
   }
   @media all and (765px <= width < 992px) {
     .medias {
       width: 85vw;
+      a {
+        text-decoration: none;
+        svg {
+          color: white;
+        }
+      }
     }
   }
 `
